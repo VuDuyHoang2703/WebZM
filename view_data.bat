@@ -20,6 +20,9 @@ if %errorlevel% neq 0 (
 
 echo Dang khoi dong may chu web va mo trinh duyet...
 echo.
+echo * Luu y: Neu trinh duyet con nho anh cu trong bo nho dem (cache),
+echo   hay nhan to hop phim [Ctrl + F5] hoac [Ctrl + Shift + R] de tai lai moi 100%% tu o cung!
+echo.
 
 python server.py
 
