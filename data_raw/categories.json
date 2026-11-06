@@ -1,0 +1,130 @@
+[
+  {
+    "id": 1,
+    "title": "Education",
+    "icon": "https://oss.zmrobo.com/stemtown/upload/product_type/icon/1.png",
+    "childrenList": [
+      {
+        "id": 3,
+        "parent_type_id": 1,
+        "title": "kit"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "title": "Competition",
+    "icon": "https://oss.zmrobo.com/stemtown/upload/product_type/icon/4.png",
+    "childrenList": [
+      {
+        "id": 10,
+        "parent_type_id": 2,
+        "title": "kit"
+      },
+      {
+        "id": 12,
+        "parent_type_id": 2,
+        "title": "motor and driver"
+      },
+      {
+        "id": 18,
+        "parent_type_id": 2,
+        "title": "other"
+      }
+    ]
+  },
+  {
+    "id": 32,
+    "title": "Electronic",
+    "icon": "https://oss.zmrobo.com/stemtown/upload/product_type/icon/2.png",
+    "childrenList": [
+      {
+        "id": 33,
+        "parent_type_id": 32,
+        "title": "RCU"
+      },
+      {
+        "id": 34,
+        "parent_type_id": 32,
+        "title": "Handle"
+      },
+      {
+        "id": 35,
+        "parent_type_id": 32,
+        "title": "Actuator"
+      },
+      {
+        "id": 36,
+        "parent_type_id": 32,
+        "title": "Sensor"
+      },
+      {
+        "id": 37,
+        "parent_type_id": 32,
+        "title": "Cable"
+      }
+    ]
+  },
+  {
+    "id": 20,
+    "title": "Plastic",
+    "icon": "https://oss.zmrobo.com/stemtown/upload/product_type/icon/3.png",
+    "childrenList": [
+      {
+        "id": 21,
+        "parent_type_id": 20,
+        "title": "Wheel"
+      },
+      {
+        "id": 22,
+        "parent_type_id": 20,
+        "title": "Beam"
+      },
+      {
+        "id": 23,
+        "parent_type_id": 20,
+        "title": "Angular Beam"
+      },
+      {
+        "id": 24,
+        "parent_type_id": 20,
+        "title": "Peg"
+      },
+      {
+        "id": 25,
+        "parent_type_id": 20,
+        "title": "Axle"
+      },
+      {
+        "id": 26,
+        "parent_type_id": 20,
+        "title": "Gear"
+      },
+      {
+        "id": 27,
+        "parent_type_id": 20,
+        "title": "Frame"
+      },
+      {
+        "id": 28,
+        "parent_type_id": 20,
+        "title": "Plate"
+      },
+      {
+        "id": 29,
+        "parent_type_id": 20,
+        "title": "Angular Block"
+      },
+      {
+        "id": 30,
+        "parent_type_id": 20,
+        "title": "Cross Block"
+      },
+      {
+        "id": 31,
+        "parent_type_id": 20,
+        "title": "Others"
+      }
+    ]
+  }
+]

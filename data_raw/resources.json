@@ -1,0 +1,964 @@
+[
+  {
+    "summary": {
+      "id": 52,
+      "title": "ZMROBO-3.0",
+      "recommend": 0,
+      "top": "11",
+      "type": "Software",
+      "update_time": "2023-12-25 15:16:47"
+    },
+    "detail": {
+      "id": 52,
+      "title": "ZMROBO-3.0",
+      "system": null,
+      "version": null,
+      "size": "150MB",
+      "url1": "https://oss.zmrobo.com/scratch3/ZMROBO3_3.2.50_win.exe",
+      "url2": null,
+      "recommend": 0,
+      "status": 1,
+      "top": "11",
+      "download_total": 2714,
+      "viewers": 4653,
+      "content": "<p>&nbsp;</p>\n<p><img src=\"https://oss.zmrobo.com/stemtown/static/products/img/ZMROBO-3.0.jpg\" alt=\"\" width=\"750\" /></p>\n<div><strong>&nbsp;</strong></div>\n<h3>&nbsp;</h3>\n<div id=\"fanyiContenteditable\" class=\"result color_text_1\">\n<h3><strong>log</strong></h3>\n<p><strong>&nbsp;</strong></p>\n<strong style=\"font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 13px;\">20231219</strong></div>\n<div class=\"result color_text_1\">1,Update iot module.</div>\n<div class=\"result color_text_1\">&nbsp;</div>\n<div class=\"result color_text_1\"><strong style=\"font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 13px;\">&nbsp;</strong></div>\n<div class=\"result color_text_1\">\n<p><strong>20231013</strong></p>\n<p>1, repair part of the sensor building block c code error</p>\n<p>2, E6, M6 tutorial added \"five photoelectric patrol\"</p>\n<p>3. Fix entering the tutorial without selecting the first item by default</p>\n<p>4. Fix the python editor setting function loss problem</p>\n<p><strong>&nbsp;</strong></p>\n<p><strong>20230914</strong></p>\n<p>1. Fix bugs</p>\n<p>2.Add IOT extenstion</p>\n<p class=\"_tgt transPara grammarSection\"><strong>20230306</strong></p>\n<p class=\"_tgt transPara grammarSection\"><span class=\"transSent\" data-group=\"2-0\">1. Fix firmware update bugs</span></p>\n<p class=\"_tgt transPara grammarSection\"><span class=\"transSent\" data-group=\"3-0\">2. New iot expansion</span></p>\n<p class=\"_tgt transPara grammarSection\">&nbsp;</p>\n<p class=\"_tgt transPara grammarSection\"><strong>20221129</strong></p>\n<p class=\"_tgt transPara grammarSection\"><span class=\"transSent\" data-group=\"9-0\">Fixed software detection update error</span></p>\n<p class=\"_tgt transPara grammarSection\">&nbsp;</p>\n<p class=\"_tgt transPara grammarSection\"><strong>20221021</strong></p>\n<p class=\"_tgt transPara grammarSection\"><span class=\"transSent\" data-group=\"13-0\">1. Repair some extended interactive functions</span></p>\n<p class=\"_tgt transPara grammarSection\"><span class=\"transSent\" data-group=\"14-0\">2. Add new translated text</span></p>\n<p class=\"_tgt transPara grammarSection\"><span class=\"transSent\" data-group=\"15-0\">3. Fixed the python editor displaying multiple repeated prompts</span></p>\n<p class=\"_tgt transPara grammarSection\">&nbsp;</p>\n<p class=\"_tgt transPara grammarSection\"><span class=\"transSent\" data-group=\"2-0\">&nbsp;</span></p>\n</div>",
+      "update_time": "2023-12-25 15:16:47"
+    }
+  },
+  {
+    "summary": {
+      "id": 29,
+      "title": "Robot Controller v1.7.0.1",
+      "recommend": 0,
+      "top": "11",
+      "type": "Software",
+      "update_time": "2023-12-25 15:16:47"
+    },
+    "detail": {
+      "id": 29,
+      "title": "Robot Controller v1.7.0.1",
+      "system": null,
+      "version": null,
+      "size": "30 MB",
+      "url1": "http://d.robotplayer.com/VPNBaidu/VPNBaidu/APP/avatar.apk",
+      "url2": "https://pan.baidu.com/s/1xejJOmwNgEoC5ezvZmWaZA",
+      "recommend": 0,
+      "status": 1,
+      "top": "11",
+      "download_total": 2206,
+      "viewers": 3072,
+      "content": "<p style=\"text-align: left;\">&nbsp;<img style=\"text-align: center;\" src=\"https://oss.zmrobo.com/stemtown/static/products/avatar/avatar1.jpg\" alt=\"\" width=\"600\" /></p>\n<div>&nbsp;</div>\n<h3 style=\"text-align: center;\"><strong>Robot Controller</strong></h3>\n<p style=\"text-align: center;\">Version:&nbsp; 1.7.0.1</p>\n<p style=\"text-align: left;\">&nbsp;</p>\n<p style=\"text-align: left;\">&nbsp; &nbsp; The robot controller, developed by&nbsp;JoinMax Digital Technology Co., Ltd, can use mobile phones to control network devices. After installing the software, you only need to connect to the designated network through the mobile WIFI function, click the connect button at the bottom right, and enter the pairing code to connect successfully. When there are multiple networks or mobile phone hotspots are used, you can enter the specified network IP for directional pairing.<br /><br /></p>\n<p style=\"text-align: left;\">Update log：</p>\n<p style=\"text-align: left;\">20181018</p>\n<p style=\"text-align: left;\">Fix the bug of black screen after opening the App on Android 6.0 and above</p>\n<p style=\"text-align: left;\">Added Portuguese support</p>\n<p style=\"text-align: left;\">Several important bugs have been fixed</p>\n<p style=\"text-align: left;\">English support added</p>\n<p style=\"text-align: left;\">Modified sound effect settings</p>\n<p style=\"text-align: left;\">&nbsp;</p>\n<p style=\"text-align: left;\">&nbsp;&nbsp;</p>\n<p style=\"text-align: center;\">&nbsp;&nbsp;</p>\n<p style=\"text-align: center;\"><img src=\"https://oss.zmrobo.com/stemtown/static/products/avatar/avatar2.jpg\" alt=\"\" width=\"600\" /></p>\n<p style=\"text-align: center;\">&nbsp;</p>\n<p style=\"text-align: center;\">Apple iOS</p>\n<p style=\"text-align: center;\"><a href=\"https://itunes.apple.com/us/app/ji-qi-ren-kong-zhi-qi/id1113947970?l=zh&amp;ls=1&amp;mt=8\" target=\"_blank\">Download URL</a></p>\n<p style=\"text-align: center;\">Scan the QR code to download&nbsp;</p>\n<p style=\"text-align: center;\"><img src=\"data:image/png;base64,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\" alt=\"\" /></p>\n<p style=\"text-align: center;\">&nbsp;</p>\n<p style=\"text-align: center;\">&nbsp;</p>\n<p style=\"text-align: center;\">&nbsp;</p>\n<p style=\"text-align: center;\">Google Android</p>\n<p style=\"text-align: center;\"><a style=\"color: #005580; text-decoration-line: underline; outline: 0px;\" href=\"http://d.robotplayer.com/VPNBaidu/VPNBaidu/APP/avatar.apk\" target=\"_blank\">Download URL</a></p>\n<p style=\"text-align: center;\">Scan the QR code to download</p>\n<p style=\"text-align: center;\">&nbsp;<img src=\"data:image/png;base64,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\" alt=\"\" /></p>\n<p style=\"text-align: center;\">&nbsp;</p>\n<p style=\"text-align: left;\">&nbsp;</p>\n<p style=\"text-align: left;\">&nbsp;</p>\n<p style=\"text-align: left;\">&nbsp;</p>",
+      "update_time": "2023-12-25 15:16:47"
+    }
+  },
+  {
+    "summary": {
+      "id": 20,
+      "title": "ZMROBO-2.0.exe",
+      "recommend": 0,
+      "top": "11",
+      "type": "Software",
+      "update_time": "2023-12-25 15:16:47"
+    },
+    "detail": {
+      "id": 20,
+      "title": "ZMROBO-2.0.exe",
+      "system": null,
+      "version": null,
+      "size": "90 MB",
+      "url1": "https://oss.zmrobo.com/scratch2/ZMROBO-2.0.exe",
+      "url2": null,
+      "recommend": 0,
+      "status": 1,
+      "top": "11",
+      "download_total": 6842,
+      "viewers": 15225,
+      "content": "<p>&nbsp;</p>\n<p><img src=\"https://oss.zmrobo.com/stemtown/static/products/img/ZMROBO-2.0.jpg\" alt=\"\" width=\"750\" /></p>\n<p>Based on MIT,Joinmax software adds microelectronics such as controller and sensors. It's fun and easy to learn programming and microelectronics via the graphical programs.</p>\n<p>&nbsp;</p>\n<h3 style=\"text-align: center;\">&nbsp;</h3>\n<div id=\"fanyiContenteditable\" class=\"result color_text_1\" style=\"box-sizing: border-box; margin: 0px; padding: 0px; zoom: var(--main-zoom-scale); clear: both; position: relative; color: #2a2b2e; outline: none; font-weight: 400; font-size: 14px; line-height: 21px; white-space: pre-line; font-family: 'PingFang SC', 'Segoe UI', Arial, 'Microsoft YaHei', 微软雅黑, 宋体, 'Malgun Gothic', sans-serif; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: #ffffff; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;\">\n<h3 style=\"text-align: center;\"><strong>log</strong></h3>\n<p style=\"color: #2a2b2e; font-family: 'PingFang SC', 'Segoe UI', Arial, 'Microsoft YaHei', 微软雅黑, 宋体, 'Malgun Gothic', sans-serif; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; text-transform: none; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: pre-line;\"><strong>20231108</strong></p>\n<p><span style=\"font-size: 14px;\">Fixed python variable global use error ,&nbsp; Add the IQ2-Robot RCU</span></p>\n<p><span style=\"font-size: 14px;\">&nbsp;</span></p>\n<p style=\"color: #333333; white-space: normal;\"><strong>20211217&nbsp;</strong></p>\n<p style=\"color: #333333; white-space: normal;\"><span style=\"font-family: Arial; font-size: 14px;\">Repaired bugs of&nbsp; M6RCU&nbsp;and E3RCU</span><span style=\"font-family: Arial; font-size: var(--main-font-size); color: #2a2b2e; white-space: pre-line;\">&nbsp;</span></p>\n<p class=\"_tgt transPara grammarSection\" style=\"box-sizing: border-box; margin: 0px; padding: 0px; line-height: 21px; font-style: normal; font-weight: 400; font-size: var(--main-font-size);\">&nbsp;</p>\n<p class=\"_tgt transPara grammarSection\" style=\"box-sizing: border-box; margin: 0px; padding: 0px; line-height: 21px; font-style: normal; font-weight: 400; font-size: var(--main-font-size);\"><span class=\"transSent\" style=\"box-sizing: border-box;\" data-group=\"2-0\"><span style=\"box-sizing: border-box;\">&nbsp;</span></span></p>\n</div>",
+      "update_time": "2023-12-25 15:16:47"
+    }
+  },
+  {
+    "summary": {
+      "id": 19,
+      "title": "RoboExp",
+      "recommend": 0,
+      "top": "11",
+      "type": "Software",
+      "update_time": "2023-12-25 15:16:47"
+    },
+    "detail": {
+      "id": 19,
+      "title": "RoboExp",
+      "system": null,
+      "version": null,
+      "size": "90 MB",
+      "url1": "https://oss.zmrobo.com/stemtown/software/roboexp/RoboEXP_V6.0.6.exe",
+      "url2": null,
+      "recommend": 0,
+      "status": 1,
+      "top": "11",
+      "download_total": 7231,
+      "viewers": 12410,
+      "content": "<p><img src=\"https://oss.zmrobo.com/stemtown/static/products/img/RoboEXP.jpg\" alt=\"\" width=\"750\" /></p>\n<p>&nbsp;</p>\n<h3 style=\"text-align: center;\">&nbsp;</h3>\n<div id=\"fanyiContenteditable\" class=\"result color_text_1\" style=\"box-sizing: border-box; margin: 0px; padding: 0px; zoom: var(--main-zoom-scale); clear: both; position: relative; color: #2a2b2e; outline: none; font-weight: 400; font-size: 14px; line-height: 21px; white-space: pre-line; font-family: 'PingFang SC', 'Segoe UI', Arial, 'Microsoft YaHei', 微软雅黑, 宋体, 'Malgun Gothic', sans-serif; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: #ffffff; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;\">\n<h3 style=\"text-align: center;\"><strong>log</strong></h3>\n<p><strong>20230331</strong></p>\n<p>1.Optimized English version.</p>\n<p class=\"_tgt transPara grammarSection\" style=\"box-sizing: border-box; margin: 0px; padding: 0px; line-height: 21px; font-style: normal; font-weight: 400; font-size: var(--main-font-size);\"><strong style=\"color: #333333; font-size: 13px; white-space: normal;\">20221024</strong></p>\n<p class=\"_tgt transPara grammarSection\" style=\"box-sizing: border-box; margin: 0px; padding: 0px; line-height: 21px; font-style: normal; font-weight: 400; font-size: var(--main-font-size);\"><span style=\"font-size: var(--main-font-size);\">1.Optimize the Python program download size limit.</span></p>\n<p class=\"_tgt transPara grammarSection\" style=\"box-sizing: border-box; margin: 0px; padding: 0px; line-height: 21px; font-style: normal; font-weight: 400; font-size: var(--main-font-size);\"><span class=\"transSent\" style=\"box-sizing: border-box;\" data-group=\"2-0\">2.Add AI vision module for&nbsp;</span>A1-rcu.</p>\n<p style=\"color: #333333; white-space: normal;\"><span style=\"font-size: var(--main-font-size); color: #2a2b2e; white-space: pre-line;\">&nbsp;</span></p>\n<p class=\"_tgt transPara grammarSection\" style=\"box-sizing: border-box; margin: 0px; padding: 0px; line-height: 21px; font-style: normal; font-weight: 400; font-size: var(--main-font-size);\"><span class=\"transSent\" style=\"box-sizing: border-box;\" data-group=\"2-0\">&nbsp;</span></p>\n</div>\n<p>&nbsp;</p>",
+      "update_time": "2023-12-25 15:16:47"
+    }
+  },
+  {
+    "summary": {
+      "id": 18,
+      "title": "RoboSim",
+      "recommend": 0,
+      "top": "11",
+      "type": "Software",
+      "update_time": "2023-12-25 15:16:47"
+    },
+    "detail": {
+      "id": 18,
+      "title": "RoboSim",
+      "system": null,
+      "version": null,
+      "size": "100 MB",
+      "url1": "https://oss.zmrobo.com/robosim/app/RoboSim_2.1.2.92_win.exe",
+      "url2": null,
+      "recommend": 0,
+      "status": 1,
+      "top": "11",
+      "download_total": 2999,
+      "viewers": 5361,
+      "content": "<p>RoboSim_2.1.2.92_win.exe</p>\n<p>more <a href=\"https://robosim.stemtown.com\" target=\"_blank\">https://robosim.stemtown.com</a></p>",
+      "update_time": "2023-12-25 15:16:47"
+    }
+  },
+  {
+    "summary": {
+      "id": 17,
+      "title": "Cabin-2.6.3",
+      "recommend": 0,
+      "top": "11",
+      "type": "Software",
+      "update_time": "2023-12-25 15:16:47"
+    },
+    "detail": {
+      "id": 17,
+      "title": "Cabin-2.6.3",
+      "system": null,
+      "version": null,
+      "size": "70 MB",
+      "url1": "https://oss.zmrobo.com/cabin/cabin.apk",
+      "url2": null,
+      "recommend": 0,
+      "status": 1,
+      "top": "11",
+      "download_total": 3101,
+      "viewers": 4543,
+      "content": "<p>Cabin = ( cabin + Blockly )</p>\n<p><img src=\"https://oss.zmrobo.com/zmrobo/static/products/cabin/cabin_2.jpg\" alt=\"\" width=\"750\" height=\"420\" /></p>\n<p><img src=\"https://oss.zmrobo.com/zmrobo/static/products/cabin/cabin_3.jpg\" alt=\"\" width=\"750\" height=\"420\" /></p>\n<p><img src=\"https://oss.zmrobo.com/zmrobo/static/products/cabin/cabin_4.jpg\" alt=\"\" width=\"750\" height=\"420\" /></p>\n<p><img src=\"https://oss.zmrobo.com/zmrobo/static/products/cabin/cabin_6.jpg\" alt=\"\" width=\"750\" height=\"420\" /></p>\n<p><img src=\"https://oss.zmrobo.com/zmrobo/static/products/cabin/cabin_8.jpg\" alt=\"\" width=\"750\" height=\"420\" /></p>\n<p>-</p>",
+      "update_time": "2023-12-25 15:16:47"
+    }
+  },
+  {
+    "summary": {
+      "id": 61,
+      "title": "E7RCU U Disk Upgrade Firmware",
+      "recommend": null,
+      "top": "0",
+      "type": "Update",
+      "update_time": "2026-04-15 20:16:43"
+    },
+    "detail": {
+      "id": 61,
+      "title": "E7RCU U Disk Upgrade Firmware",
+      "system": "",
+      "version": "V1.1.8",
+      "size": "2MB",
+      "url1": "https://oss.zmrobo.com/stemtown/software/e7/E7RCU U Disk Upgrade Firmware V1.1.8.zip",
+      "url2": "",
+      "recommend": null,
+      "status": 1,
+      "top": "0",
+      "download_total": 79,
+      "viewers": 191,
+      "content": "<p>2026-04-15</p><p style=\"text-wrap-mode: wrap;\">V1.1.8</p><p><br/></p>",
+      "update_time": "2026-04-15 20:16:43"
+    }
+  },
+  {
+    "summary": {
+      "id": 60,
+      "title": "WiseChild2 SmartPen Upgrade guide (JMP-BE-9528)",
+      "recommend": null,
+      "top": "0",
+      "type": "Update",
+      "update_time": "2026-10-30 17:08:58"
+    },
+    "detail": {
+      "id": 60,
+      "title": "WiseChild2 SmartPen Upgrade guide (JMP-BE-9528)",
+      "system": "",
+      "version": "",
+      "size": "1M",
+      "url1": "https://oss.zmrobo.com/stemtown/product/WiseChild/WiseChild2 SmartPen Upgrade guide20261030.rar",
+      "url2": "",
+      "recommend": null,
+      "status": 1,
+      "top": "0",
+      "download_total": 54,
+      "viewers": 146,
+      "content": "<p>20261030</p><p>20251112</p>",
+      "update_time": "2026-10-30 17:08:58"
+    }
+  },
+  {
+    "summary": {
+      "id": 59,
+      "title": "Waste Sorting Robot - Case Guide.rar",
+      "recommend": null,
+      "top": "0",
+      "type": "Program",
+      "update_time": "2025-06-30 11:17:12"
+    },
+    "detail": {
+      "id": 59,
+      "title": "Waste Sorting Robot - Case Guide.rar",
+      "system": "",
+      "version": "",
+      "size": "1MB",
+      "url1": "https://oss.zmrobo.com/stemtown/static/products/JMC-NY-2451/d/Waste Sorting Robot - Case Guide.rar",
+      "url2": "",
+      "recommend": null,
+      "status": 1,
+      "top": "0",
+      "download_total": 245,
+      "viewers": 403,
+      "content": "<p>20250630</p>Waste Sorting Robot - Case Guide.rar",
+      "update_time": "2025-06-30 11:17:12"
+    }
+  },
+  {
+    "summary": {
+      "id": 58,
+      "title": "Building Manual - Waste Sorting Robot (with BE9522 Motor).pdf",
+      "recommend": null,
+      "top": "0",
+      "type": "Manual",
+      "update_time": "2025-06-30 11:29:25"
+    },
+    "detail": {
+      "id": 58,
+      "title": "Building Manual - Waste Sorting Robot (with BE9522 Motor).pdf",
+      "system": "",
+      "version": "",
+      "size": "13MB",
+      "url1": "https://oss.zmrobo.com/stemtown/static/products/JMC-NY-2451/d/Building Manual - Waste Sorting Robot (with BE9522 Motor).pdf",
+      "url2": "",
+      "recommend": null,
+      "status": 1,
+      "top": "0",
+      "download_total": 743,
+      "viewers": 1039,
+      "content": "<p>20250630</p><p>Building Manual - Waste Sorting Robot (with BE9522 Motor).pdf</p>",
+      "update_time": "2025-06-30 11:29:25"
+    }
+  },
+  {
+    "summary": {
+      "id": 57,
+      "title": "Precautions and Program for AI Storm - Rubik's Cube Solving Robot Set.rar",
+      "recommend": null,
+      "top": "0",
+      "type": "Program",
+      "update_time": "2025-06-30 11:14:56"
+    },
+    "detail": {
+      "id": 57,
+      "title": "Precautions and Program for AI Storm - Rubik's Cube Solving Robot Set.rar",
+      "system": "",
+      "version": "",
+      "size": "25MB",
+      "url1": "https://oss.zmrobo.com/stemtown/static/products/JMC-NY-2451/d/Precautions and Program for AI Storm - Rubik's Cube Solving Robot Set.rar",
+      "url2": "",
+      "recommend": null,
+      "status": 1,
+      "top": "0",
+      "download_total": 159,
+      "viewers": 292,
+      "content": "<p>20250630</p><p>Precautions and Program for AI Storm - Rubik&#39;s Cube Solving Robot Set.rar</p>",
+      "update_time": "2025-06-30 11:14:56"
+    }
+  },
+  {
+    "summary": {
+      "id": 56,
+      "title": "Simple building manual for Rubik's Cube Solving Robot.pdf",
+      "recommend": null,
+      "top": "0",
+      "type": "Manual",
+      "update_time": "2025-06-30 11:29:09"
+    },
+    "detail": {
+      "id": 56,
+      "title": "Simple building manual for Rubik's Cube Solving Robot.pdf",
+      "system": "",
+      "version": "",
+      "size": "21MB",
+      "url1": "https://oss.zmrobo.com/stemtown/static/products/JMC-NY-2451/d/Simple building manual for Rubik's Cube Solving Robot.pdf",
+      "url2": "",
+      "recommend": null,
+      "status": 1,
+      "top": "0",
+      "download_total": 392,
+      "viewers": 520,
+      "content": "<p>20250629</p><p>Simple building manual for Rubik&#39;s Cube Solving Robot.pdf</p>",
+      "update_time": "2025-06-30 11:29:09"
+    }
+  },
+  {
+    "summary": {
+      "id": 55,
+      "title": "C6RCU U Disk Upgrade Firmware",
+      "recommend": null,
+      "top": "0",
+      "type": "Update",
+      "update_time": "2026-04-15 20:13:25"
+    },
+    "detail": {
+      "id": 55,
+      "title": "C6RCU U Disk Upgrade Firmware",
+      "system": "",
+      "version": "2.1.9",
+      "size": "2MB",
+      "url1": "https://oss.zmrobo.com/stemtown/software/c6/C6RCU U Disk Upgrade Firmware V2.1.9.zip",
+      "url2": "",
+      "recommend": null,
+      "status": 1,
+      "top": "0",
+      "download_total": 138,
+      "viewers": 269,
+      "content": "<p style=\"text-wrap-mode: wrap;\">2026-04-15</p><p style=\"text-wrap-mode: wrap;\">V2.1.9</p><p style=\"text-wrap-mode: wrap;\"><br/></p><p style=\"text-wrap-mode: wrap;\">2025-11-07</p><p style=\"text-wrap-mode: wrap;\">V2.1.6</p><p style=\"text-wrap-mode: wrap;\"><br/></p><p>2024-12-03</p><p>V2.0.6</p>",
+      "update_time": "2026-04-15 20:13:25"
+    }
+  },
+  {
+    "summary": {
+      "id": 48,
+      "title": "M6RCU U Disk Upgrade Firmware",
+      "recommend": null,
+      "top": "0",
+      "type": "Update",
+      "update_time": "2026-04-17 17:16:23"
+    },
+    "detail": {
+      "id": 48,
+      "title": "M6RCU U Disk Upgrade Firmware",
+      "system": "",
+      "version": "2.1.3",
+      "size": "1M",
+      "url1": "https://oss.zmrobo.com/stemtown/software/m6/M6RCU U Disk Upgrade Firmware V2.1.3.zip",
+      "url2": "",
+      "recommend": null,
+      "status": 1,
+      "top": "0",
+      "download_total": 865,
+      "viewers": 1105,
+      "content": "<p>2026-04-15</p><p>V2.1.3</p><p><br style=\"text-wrap-mode: wrap;\"/></p><p>2026-04-15</p><p>V2.1.1</p><p><br/></p><p>2025-11-07</p><p>&nbsp;V2.0.9</p><p><br style=\"text-wrap-mode: wrap;\"/></p><p>2024-12-03</p><p>&nbsp;V2.0.3</p><p><br/></p><p>2023-12-25</p><p>&nbsp;V1.2.2</p>",
+      "update_time": "2026-04-17 17:16:23"
+    }
+  },
+  {
+    "summary": {
+      "id": 47,
+      "title": "E6RCU U Disk Upgrade Firmware",
+      "recommend": null,
+      "top": "0",
+      "type": "Update",
+      "update_time": "2026-04-17 17:15:40"
+    },
+    "detail": {
+      "id": 47,
+      "title": "E6RCU U Disk Upgrade Firmware",
+      "system": "",
+      "version": "2.1.5",
+      "size": "1M",
+      "url1": "https://oss.zmrobo.com/stemtown/software/e6/E6RCU U Disk Upgrade Firmware V2.1.5.zip",
+      "url2": "",
+      "recommend": null,
+      "status": 1,
+      "top": "0",
+      "download_total": 887,
+      "viewers": 1333,
+      "content": "<p style=\"text-wrap-mode: wrap;\">2026-04-17</p><p style=\"text-wrap-mode: wrap;\">V2.1.5</p><p style=\"text-wrap-mode: wrap;\"><br/></p><p style=\"text-wrap-mode: wrap;\">2026-04-15<br/></p><p style=\"text-wrap-mode: wrap;\">V2.1.4</p><p style=\"text-wrap-mode: wrap;\"><br/></p><p style=\"text-wrap-mode: wrap;\">2025-11-07</p><p style=\"text-wrap-mode: wrap;\">V2.1.0</p><p><br/></p><p>2024-12-03</p><p>V2.0.3</p><p><br/></p><p>2023-12-25</p><p>&nbsp;V1.3.2</p>",
+      "update_time": "2026-04-17 17:15:40"
+    }
+  },
+  {
+    "summary": {
+      "id": 34,
+      "title": "WiseChild2 SmartPen Firmware Update file (JMP-BE-9528)",
+      "recommend": null,
+      "top": "0",
+      "type": "Update",
+      "update_time": "2025-12-12 19:30:01"
+    },
+    "detail": {
+      "id": 34,
+      "title": "WiseChild2 SmartPen Firmware Update file (JMP-BE-9528)",
+      "system": "",
+      "version": "",
+      "size": "90M",
+      "url1": "https://oss.zmrobo.com/stemtown/product/WiseChild/SmartPen_Upgrade20220225.rar",
+      "url2": "",
+      "recommend": null,
+      "status": 1,
+      "top": "0",
+      "download_total": 691,
+      "viewers": 1086,
+      "content": "<p>20220225</p><p>SmartPen_Upgrade20220225.rar</p><p><br/></p><p>20210803</p><p>WiseChild2 SmartPenUpdateV20210803.zip</p>",
+      "update_time": "2025-12-12 19:30:01"
+    }
+  },
+  {
+    "summary": {
+      "id": 33,
+      "title": "WiseChild2 SmartMotor Firmware Update (JMP-BE-9528)",
+      "recommend": null,
+      "top": "0",
+      "type": "Update",
+      "update_time": "2025-12-12 19:30:34"
+    },
+    "detail": {
+      "id": 33,
+      "title": "WiseChild2 SmartMotor Firmware Update (JMP-BE-9528)",
+      "system": "",
+      "version": " 2.0.1",
+      "size": "2M",
+      "url1": "https://oss.zmrobo.com/stemtown/software/cabin/app-release-V2.0.1.apk",
+      "url2": "",
+      "recommend": null,
+      "status": 1,
+      "top": "0",
+      "download_total": 672,
+      "viewers": 1098,
+      "content": "<div style=\"backgroud-color: #FFFFFF;\"><h3 style=\"text-indent: 0.0000pt; padding: 0pt 0pt 0pt 0pt; mso-pagination: widow-orphan; line-height: 20.2500pt; background: #f5f5f5; margin: 0.0000pt;\"><span style=\"font-family: 微软雅黑;\"><span style=\"font-size: 12.6667px;\">◆&nbsp; &nbsp;Browse with Android mobile phone / tablet and， click the download button at the bottom of the page ，download &quot;WiseChildII -SmartMotor Firmware Upgrade. APK&quot; to the mobile phone directly.</span></span></h3><h3 style=\"text-indent: 0.0000pt; padding: 0pt 0pt 0pt 0pt; mso-pagination: widow-orphan; line-height: 20.2500pt; background: #f5f5f5; margin: 0.0000pt;\"><span style=\"font-family: 微软雅黑;\"><span style=\"font-size: 12.6667px;\">&nbsp;</span></span></h3><h3 style=\"text-indent: 0.0000pt; padding: 0pt 0pt 0pt 0pt; mso-pagination: widow-orphan; line-height: 20.2500pt; background: #f5f5f5; margin: 0.0000pt;\"><span style=\"font-family: 微软雅黑;\"><span style=\"font-size: 12.6667px;\">◆&nbsp; &nbsp;After finish downloading, install the app to Android phone / tablet. If there is permission request in the installation process, allow it, otherwise it may affect in using. Confirm that the Bluetooth and GPS positioning functions of the mobile phone / tablet are on, as below:</span></span></h3><h3 style=\"text-indent: 0.0000pt; padding: 0pt 0pt 0pt 0pt; mso-pagination: widow-orphan; line-height: 20.2500pt; background: #f5f5f5; margin: 0.0000pt;\"><span style=\"font-family: 微软雅黑;\"><span style=\"font-size: 12.6667px;\">&nbsp;</span></span><img style=\"font-size: 12.6667px; font-family: 微软雅黑; text-indent: 0pt;\" src=\"https://oss.zmrobo.com/stemtown/static/products/JMC-NY-2101/MotorUpdate_1.jpg\" alt=\"\" width=\"377\"/></h3><p>&nbsp;</p><h3 style=\"text-indent: 0.0000pt; padding: 0pt 0pt 0pt 0pt; mso-pagination: widow-orphan; line-height: 20.2500pt; background: #f5f5f5; margin: 0.0000pt;\"><span style=\"font-family: 微软雅黑;\"><span style=\"font-size: 12.6667px;\">&nbsp;</span></span></h3><h3 style=\"text-indent: 0.0000pt; padding: 0pt 0pt 0pt 0pt; mso-pagination: widow-orphan; line-height: 20.2500pt; background: #f5f5f5; margin: 0.0000pt;\"><span style=\"font-family: 微软雅黑;\"><span style=\"font-size: 12.6667px;\">◆&nbsp; Start the app program as below. Turn on the smart motor and get close to the mobile phone (within 0.3m is better). Click the &quot;Scan&quot; button, and the app program will display the scanned smart motor in the device list.</span></span></h3><h3 style=\"text-indent: 0.0000pt; padding: 0pt 0pt 0pt 0pt; mso-pagination: widow-orphan; line-height: 20.2500pt; background: #f5f5f5; margin: 0.0000pt;\">&nbsp;</h3><h3 style=\"text-indent: 0.0000pt; padding: 0pt 0pt 0pt 0pt; mso-pagination: widow-orphan; line-height: 20.2500pt; background: #f5f5f5; margin: 0.0000pt;\"><img style=\"font-size: 12.6667px; font-family: 微软雅黑; text-indent: 0pt;\" src=\"https://oss.zmrobo.com/stemtown/static/products/JMC-NY-2101/MotorUpdate_2.jpg\" alt=\"\" width=\"435\"/></h3><h3 style=\"text-indent: 0.0000pt; padding: 0pt 0pt 0pt 0pt; mso-pagination: widow-orphan; line-height: 20.2500pt; background: #f5f5f5; margin: 0.0000pt;\"><span style=\"font-family: 微软雅黑;\"><span style=\"font-size: 12.6667px;\">&nbsp;</span></span></h3><h3 style=\"text-indent: 0.0000pt; padding: 0pt 0pt 0pt 0pt; mso-pagination: widow-orphan; line-height: 20.2500pt; background: #f5f5f5; margin: 0.0000pt;\"><span style=\"font-family: 微软雅黑;\"><span style=\"font-size: 12.6667px;\">&nbsp;</span></span></h3><h3 style=\"text-indent: 0.0000pt; padding: 0pt 0pt 0pt 0pt; mso-pagination: widow-orphan; line-height: 20.2500pt; background: #f5f5f5; margin: 0.0000pt;\"><span style=\"font-family: 微软雅黑;\"><span style=\"font-size: 12.6667px;\">&nbsp;</span></span></h3><h3 style=\"text-indent: 0.0000pt; padding: 0pt 0pt 0pt 0pt; mso-pagination: widow-orphan; line-height: 20.2500pt; background: #f5f5f5; margin: 0.0000pt;\"><span style=\"font-family: 微软雅黑;\"><span style=\"font-size: 12.6667px;\">◆ Select the device in the list ,click the &quot;connect&quot; button, successful connection display as below. The app program will automatically detect the smart motor firmware version. When it is the Latest version, it will pop &quot;The device does not need to be upgraded&quot;.</span></span></h3><h3 style=\"text-indent: 0.0000pt; padding: 0pt 0pt 0pt 0pt; mso-pagination: widow-orphan; line-height: 20.2500pt; background: #f5f5f5; margin: 0.0000pt;\"><span style=\"font-family: 微软雅黑;\"><span style=\"font-size: 12.6667px;\">&nbsp;</span></span></h3><h3 style=\"text-indent: 0.0000pt; padding: 0pt 0pt 0pt 0pt; mso-pagination: widow-orphan; line-height: 20.2500pt; background: #f5f5f5; margin: 0.0000pt;\"><span style=\"font-family: 微软雅黑;\"><span style=\"font-size: 12.6667px;\">&nbsp;</span></span></h3><h3 style=\"text-indent: 0.0000pt; padding: 0pt 0pt 0pt 0pt; mso-pagination: widow-orphan; line-height: 20.2500pt; background: #f5f5f5; margin: 0.0000pt;\"><span style=\"font-family: 微软雅黑;\"><span style=\"font-size: 12.6667px;\">&nbsp;</span></span><img style=\"font-size: 12.6667px; font-family: 微软雅黑; text-indent: 0pt;\" src=\"https://oss.zmrobo.com/stemtown/static/products/JMC-NY-2101/MotorUpdate_3.jpg\" alt=\"\" width=\"504\"/></h3><h3 style=\"text-indent: 0.0000pt; padding: 0pt 0pt 0pt 0pt; mso-pagination: widow-orphan; line-height: 20.2500pt; background: #f5f5f5; margin: 0.0000pt;\"><span style=\"font-family: 微软雅黑;\"><span style=\"font-size: 12.6667px;\">&nbsp;</span></span></h3><h3 style=\"text-indent: 0.0000pt; padding: 0pt 0pt 0pt 0pt; mso-pagination: widow-orphan; line-height: 20.2500pt; background: #f5f5f5; margin: 0.0000pt;\"><span style=\"font-family: 微软雅黑;\"><span style=\"font-size: 12.6667px;\">◆ If the current device firmware version is low, the button below will change to &quot;start firmware upgrade&quot;. Click to start upgrade, please wait for the upgrade to complete.</span></span></h3><h3 style=\"text-indent: 0.0000pt; padding: 0pt 0pt 0pt 0pt; mso-pagination: widow-orphan; line-height: 20.2500pt; background: #f5f5f5; margin: 0.0000pt;\"><span style=\"font-family: 微软雅黑;\"><span style=\"font-size: 12.6667px;\">&nbsp;</span></span></h3><h3 style=\"text-indent: 0.0000pt; padding: 0pt 0pt 0pt 0pt; mso-pagination: widow-orphan; line-height: 20.2500pt; background: #f5f5f5; margin: 0.0000pt;\"><span style=\"font-family: 微软雅黑;\"><span style=\"font-size: 12.6667px;\">&nbsp;</span></span></h3><h3 style=\"text-indent: 0.0000pt; padding: 0pt 0pt 0pt 0pt; mso-pagination: widow-orphan; line-height: 20.2500pt; background: #f5f5f5; margin: 0.0000pt;\"><span style=\"font-family: 微软雅黑;\"><span style=\"font-size: 12.6667px;\">&nbsp;</span></span><img style=\"font-size: 12.6667px; font-family: 微软雅黑; text-indent: 0pt;\" src=\"https://oss.zmrobo.com/stemtown/static/products/JMC-NY-2101/MotorUpdate_4.jpg\" alt=\"\" width=\"300\"/></h3><p>&nbsp;</p><p>&nbsp;</p><h3 style=\"text-indent: 0.0000pt; padding: 0pt 0pt 0pt 0pt; mso-pagination: widow-orphan; line-height: 20.2500pt; background: #f5f5f5; margin: 0.0000pt;\"><img style=\"font-size: 12.6667px; font-family: 微软雅黑; text-indent: 0pt;\" src=\"https://oss.zmrobo.com/stemtown/static/products/JMC-NY-2101/MotorUpdate_5.jpg\" alt=\"\" width=\"300\"/></h3><p>&nbsp;</p><p>&nbsp;</p><h3 style=\"text-indent: 0.0000pt; padding: 0pt 0pt 0pt 0pt; mso-pagination: widow-orphan; line-height: 20.2500pt; background: #f5f5f5; margin: 0.0000pt;\"><img style=\"font-size: 12.6667px; font-family: 微软雅黑; text-indent: 0pt;\" src=\"https://oss.zmrobo.com/stemtown/static/products/JMC-NY-2101/MotorUpdate_6.jpg\" alt=\"\" width=\"300\"/></h3><h3 style=\"text-indent: 0.0000pt; padding: 0pt 0pt 0pt 0pt; mso-pagination: widow-orphan; line-height: 20.2500pt; background: #f5f5f5; margin: 0.0000pt;\"><span style=\"font-family: 微软雅黑;\"><span style=\"font-size: 12.6667px;\">If the upgrade is interrupted or stopped unexpectedly, try to restart the smart motor.&nbsp;</span></span></h3><h3 style=\"text-indent: 0.0000pt; padding: 0pt 0pt 0pt 0pt; mso-pagination: widow-orphan; line-height: 20.2500pt; background: #f5f5f5; margin: 0.0000pt;\"><span style=\"font-family: 微软雅黑;\"><span style=\"font-size: 12.6667px;\">The motor automatically enters the wireless upgrade mode after restart (the motor lights purple, and the voice &quot;wireless upgrade mode&quot;), upgrade again according to the above upgrade method.</span></span></h3><h3 style=\"text-indent: 0.0000pt; padding: 0pt 0pt 0pt 0pt; mso-pagination: widow-orphan; line-height: 20.2500pt; background: #f5f5f5; margin: 0.0000pt;\"><span style=\"font-family: 微软雅黑;\"><span style=\"font-size: 12.6667px;\">The motor can not be turn on normally. Smart motor turned off, and long press&nbsp; the &quot;built-in working mode&quot; button, and gently short press the switch button, until the smart motor lights up purple, the voice &quot;wireless upgrade mode&quot; , release the &quot;build - in working mode&quot; button. Then upgrade again according to the methods as in the previous steps.&nbsp;</span></span></h3><p class=\"MsoNormal\">&nbsp;</p></div>",
+      "update_time": "2025-12-12 19:30:34"
+    }
+  },
+  {
+    "summary": {
+      "id": 51,
+      "title": "ZMROBO-3.0",
+      "recommend": 0,
+      "top": null,
+      "type": "Software",
+      "update_time": "2023-12-25 15:16:47"
+    },
+    "detail": {
+      "id": 51,
+      "title": "ZMROBO-3.0",
+      "system": null,
+      "version": null,
+      "size": null,
+      "url1": "https://oss.zmrobo.com/scratch3/ZMROBO3_3.2.48_win.exe",
+      "url2": null,
+      "recommend": 0,
+      "status": 1,
+      "top": null,
+      "download_total": 489,
+      "viewers": 850,
+      "content": "<p>&nbsp;</p>\n<p><img src=\"https://oss.zmrobo.com/stemtown/static/products/img/ZMROBO-3.0.jpg\" alt=\"\" width=\"750\" /></p>\n<div><strong>&nbsp;</strong></div>\n<h3>&nbsp;</h3>\n<div id=\"fanyiContenteditable\" class=\"result color_text_1\">\n<h3><strong>log</strong></h3>\n<p><strong>20230914</strong></p>\n<p>1. Fix bugs</p>\n<p>2.Add IOT extenstion</p>\n<p class=\"_tgt transPara grammarSection\"><strong><span class=\"transSent\" data-group=\"0-0\">20230306</span></strong></p>\n<p class=\"_tgt transPara grammarSection\"><span class=\"transSent\" data-group=\"2-0\">1. Fix firmware update bugs</span></p>\n<p class=\"_tgt transPara grammarSection\"><span class=\"transSent\" data-group=\"3-0\">2. New iot expansion</span></p>\n<p class=\"_tgt transPara grammarSection\">&nbsp;</p>\n<p class=\"_tgt transPara grammarSection\"><strong><span class=\"transSent\" data-group=\"7-0\">20221129</span></strong></p>\n<p class=\"_tgt transPara grammarSection\"><span class=\"transSent\" data-group=\"9-0\">Fixed software detection update error</span></p>\n<p class=\"_tgt transPara grammarSection\">&nbsp;</p>\n<p class=\"_tgt transPara grammarSection\"><strong><span class=\"transSent\" data-group=\"11-0\">20221021</span></strong></p>\n<p class=\"_tgt transPara grammarSection\"><span class=\"transSent\" data-group=\"13-0\">1. Repair some extended interactive functions</span></p>\n<p class=\"_tgt transPara grammarSection\"><span class=\"transSent\" data-group=\"14-0\">2. Add new translated text</span></p>\n<p class=\"_tgt transPara grammarSection\"><span class=\"transSent\" data-group=\"15-0\">3. Fixed the python editor displaying multiple repeated prompts</span></p>\n<p class=\"_tgt transPara grammarSection\">&nbsp;</p>\n<p class=\"_tgt transPara grammarSection\"><span class=\"transSent\" data-group=\"2-0\">&nbsp;</span></p>\n</div>",
+      "update_time": "2023-12-25 15:16:47"
+    }
+  },
+  {
+    "summary": {
+      "id": 49,
+      "title": "2023Catalog.pdf",
+      "recommend": 0,
+      "top": null,
+      "type": "Manual",
+      "update_time": "2023-12-25 15:16:47"
+    },
+    "detail": {
+      "id": 49,
+      "title": "2023Catalog.pdf",
+      "system": null,
+      "version": null,
+      "size": "20M",
+      "url1": "https://oss.zmrobo.com/stemtown/d/catalog/ZMROBO%20Catalog2023-V2.0.pdf",
+      "url2": null,
+      "recommend": 0,
+      "status": 1,
+      "top": null,
+      "download_total": 1062,
+      "viewers": 1714,
+      "content": "<p>log:</p>\n<p>&nbsp;</p>\n<p>20230922</p>\n<p>v2.0</p>\n<p>&nbsp;</p>\n<p>20230218</p>\n<p>v1.0</p>",
+      "update_time": "2023-12-25 15:16:47"
+    }
+  },
+  {
+    "summary": {
+      "id": 44,
+      "title": "2104 other program &#38; building",
+      "recommend": 0,
+      "top": null,
+      "type": "Manual",
+      "update_time": "2023-12-25 15:16:06"
+    },
+    "detail": {
+      "id": 44,
+      "title": "2104 other program &#38; building",
+      "system": null,
+      "version": null,
+      "size": null,
+      "url1": "https://oss.zmrobo.com/stemtown/d/2104/2104%20other%20four%20program%20and%20building%20manual.zip",
+      "url2": null,
+      "recommend": 0,
+      "status": 1,
+      "top": null,
+      "download_total": 964,
+      "viewers": 1289,
+      "content": "<p>2104 other four program and building manual</p>",
+      "update_time": "2023-12-25 15:16:06"
+    }
+  },
+  {
+    "summary": {
+      "id": 42,
+      "title": "Four-wheel Drive Car",
+      "recommend": 0,
+      "top": null,
+      "type": "Manual",
+      "update_time": "2023-12-25 15:16:06"
+    },
+    "detail": {
+      "id": 42,
+      "title": "Four-wheel Drive Car",
+      "system": null,
+      "version": null,
+      "size": null,
+      "url1": "https://oss.zmrobo.com/stemtown/d/2104/10%20Four-wheel%20Drive%20Car%20program%20and%20building%20manual.zip",
+      "url2": null,
+      "recommend": 0,
+      "status": 1,
+      "top": null,
+      "download_total": 947,
+      "viewers": 1485,
+      "content": "<p>10 Four-wheel Drive Car program and building manual.zip</p>",
+      "update_time": "2023-12-25 15:16:06"
+    }
+  },
+  {
+    "summary": {
+      "id": 41,
+      "title": "Hexapod Robot",
+      "recommend": 0,
+      "top": null,
+      "type": "Manual",
+      "update_time": "2023-12-25 15:16:06"
+    },
+    "detail": {
+      "id": 41,
+      "title": "Hexapod Robot",
+      "system": null,
+      "version": null,
+      "size": null,
+      "url1": "https://oss.zmrobo.com/stemtown/d/2104/06%20Hexapod%20Robot%20program%20and%20building%20manual.zip",
+      "url2": null,
+      "recommend": 0,
+      "status": 1,
+      "top": null,
+      "download_total": 653,
+      "viewers": 871,
+      "content": "<p>06 Hexapod Robot program and building manual.zip</p>",
+      "update_time": "2023-12-25 15:16:06"
+    }
+  },
+  {
+    "summary": {
+      "id": 40,
+      "title": "Anti-track Robot",
+      "recommend": 0,
+      "top": null,
+      "type": "Manual",
+      "update_time": "2023-12-25 15:16:06"
+    },
+    "detail": {
+      "id": 40,
+      "title": "Anti-track Robot",
+      "system": null,
+      "version": null,
+      "size": null,
+      "url1": "https://oss.zmrobo.com/stemtown/d/2104/04%20Anti-track%20Robot%20programand%20building%20manual.zip",
+      "url2": null,
+      "recommend": 0,
+      "status": 1,
+      "top": null,
+      "download_total": 653,
+      "viewers": 857,
+      "content": "<p>04 Anti-track Robot programand building manual.zip</p>",
+      "update_time": "2023-12-25 15:16:06"
+    }
+  },
+  {
+    "summary": {
+      "id": 39,
+      "title": "Tank",
+      "recommend": 0,
+      "top": null,
+      "type": "Manual",
+      "update_time": "2023-12-25 15:16:05"
+    },
+    "detail": {
+      "id": 39,
+      "title": "Tank",
+      "system": null,
+      "version": null,
+      "size": null,
+      "url1": "https://oss.zmrobo.com/stemtown/d/2104/03%20Tank%20Program%20and%20building%20manual.zip",
+      "url2": null,
+      "recommend": 0,
+      "status": 1,
+      "top": null,
+      "download_total": 715,
+      "viewers": 861,
+      "content": "<p>03 Tank Program and building manual.zip</p>",
+      "update_time": "2023-12-25 15:16:05"
+    }
+  },
+  {
+    "summary": {
+      "id": 38,
+      "title": "Handling Robot",
+      "recommend": 0,
+      "top": null,
+      "type": "Manual",
+      "update_time": "2023-12-25 15:16:05"
+    },
+    "detail": {
+      "id": 38,
+      "title": "Handling Robot",
+      "system": null,
+      "version": null,
+      "size": null,
+      "url1": "https://oss.zmrobo.com/stemtown/d/2104/02%20Handling%20Robot%20program%20and%20building%20manual.zip",
+      "url2": null,
+      "recommend": 0,
+      "status": 1,
+      "top": null,
+      "download_total": 636,
+      "viewers": 768,
+      "content": "<p>02 Handling Robot program and building manual.zip</p>",
+      "update_time": "2023-12-25 15:16:05"
+    }
+  },
+  {
+    "summary": {
+      "id": 37,
+      "title": "Rubik s Cube Robot",
+      "recommend": 0,
+      "top": null,
+      "type": "Manual",
+      "update_time": "2023-12-25 15:16:05"
+    },
+    "detail": {
+      "id": 37,
+      "title": "Rubik s Cube Robot",
+      "system": null,
+      "version": null,
+      "size": null,
+      "url1": "https://oss.zmrobo.com/stemtown/product/2104/01%20Rubiks%20Cube%20Robot%20program%20and%20building%20manual.zip",
+      "url2": null,
+      "recommend": 0,
+      "status": 1,
+      "top": null,
+      "download_total": 842,
+      "viewers": 962,
+      "content": "<p>01 Rubik's Cube Robot program and building manual.zip</p>",
+      "update_time": "2023-12-25 15:16:05"
+    }
+  },
+  {
+    "summary": {
+      "id": 36,
+      "title": "Zmrobo(Joinmax)Catalog21",
+      "recommend": 0,
+      "top": null,
+      "type": "Manual",
+      "update_time": "2023-12-25 15:16:05"
+    },
+    "detail": {
+      "id": 36,
+      "title": "Zmrobo(Joinmax)Catalog21",
+      "system": null,
+      "version": null,
+      "size": "25M",
+      "url1": "https://oss.zmrobo.com/stemtown/d/catalog/ZMROBO(JoinMax)Catalog2021.pdf",
+      "url2": null,
+      "recommend": 0,
+      "status": 1,
+      "top": null,
+      "download_total": 1551,
+      "viewers": 3414,
+      "content": "<p>Zmrobo(Joinmax)Catalog21.pdf</p>",
+      "update_time": "2023-12-25 15:16:05"
+    }
+  },
+  {
+    "summary": {
+      "id": 35,
+      "title": "WiseChildSmartMotorAudioUpdate",
+      "recommend": 0,
+      "top": null,
+      "type": "Update",
+      "update_time": "2023-12-25 15:16:05"
+    },
+    "detail": {
+      "id": 35,
+      "title": "WiseChildSmartMotorAudioUpdate",
+      "system": null,
+      "version": null,
+      "size": "15M",
+      "url1": "https://oss.zmrobo.com/stemtown/product/WiseChild/WiseChildSmartMotorUpdateAudioFile20210816.zip",
+      "url2": null,
+      "recommend": 0,
+      "status": 1,
+      "top": null,
+      "download_total": 659,
+      "viewers": 1128,
+      "content": "<p>WiseChild Smart Motor Audio Update&nbsp;</p>",
+      "update_time": "2023-12-25 15:16:05"
+    }
+  },
+  {
+    "summary": {
+      "id": 27,
+      "title": "ZMROBO-3.0",
+      "recommend": 0,
+      "top": null,
+      "type": "Software",
+      "update_time": "2023-12-25 15:16:47"
+    },
+    "detail": {
+      "id": 27,
+      "title": "ZMROBO-3.0",
+      "system": null,
+      "version": null,
+      "size": "150MB",
+      "url1": "https://oss.zmrobo.com/scratch3/ZMROBO3_3.2.43_win.exe",
+      "url2": null,
+      "recommend": 0,
+      "status": 1,
+      "top": null,
+      "download_total": 4935,
+      "viewers": 8466,
+      "content": "<p>&nbsp;</p>\n<p><img src=\"https://oss.zmrobo.com/stemtown/static/products/img/ZMROBO-3.0.jpg\" alt=\"\" width=\"750\" /></p>\n<div><strong>&nbsp;</strong></div>\n<h3 style=\"text-align: center;\">&nbsp;</h3>\n<div id=\"fanyiContenteditable\" class=\"result color_text_1\" style=\"box-sizing: border-box; margin: 0px; padding: 0px; zoom: var(--main-zoom-scale); clear: both; position: relative; color: #2a2b2e; outline: none; font-weight: 400; font-size: 14px; line-height: 21px; white-space: pre-line; font-family: 'PingFang SC', 'Segoe UI', Arial, 'Microsoft YaHei', 微软雅黑, 宋体, 'Malgun Gothic', sans-serif; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: #ffffff; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;\">\n<h3 style=\"text-align: center;\"><strong>log</strong></h3>\n<p class=\"_tgt transPara grammarSection\" style=\"box-sizing: border-box; margin-bottom: 0px; padding: 0px; line-height: 21px; font-size: 14px; font-family: 'PingFang SC', 'Segoe UI', Arial, 'Microsoft YaHei', 微软雅黑, 宋体, 'Malgun Gothic', sans-serif;\"><strong><span class=\"transSent\" style=\"box-sizing: border-box;\" data-group=\"0-0\">20230306</span></strong></p>\n<p class=\"_tgt transPara grammarSection\" style=\"box-sizing: border-box; margin-bottom: 0px; padding: 0px; line-height: 21px; font-size: 14px; font-family: 'PingFang SC', 'Segoe UI', Arial, 'Microsoft YaHei', 微软雅黑, 宋体, 'Malgun Gothic', sans-serif;\"><span class=\"transSent\" style=\"box-sizing: border-box;\" data-group=\"2-0\">1. Fix firmware update bugs </span></p>\n<p class=\"_tgt transPara grammarSection\" style=\"box-sizing: border-box; margin-bottom: 0px; padding: 0px; line-height: 21px; font-size: 14px; font-family: 'PingFang SC', 'Segoe UI', Arial, 'Microsoft YaHei', 微软雅黑, 宋体, 'Malgun Gothic', sans-serif;\"><span class=\"transSent\" style=\"box-sizing: border-box;\" data-group=\"3-0\">2. New iot expansion </span></p>\n<p class=\"_tgt transPara grammarSection\" style=\"box-sizing: border-box; margin-bottom: 0px; padding: 0px; line-height: 21px; font-size: 14px; font-family: 'PingFang SC', 'Segoe UI', Arial, 'Microsoft YaHei', 微软雅黑, 宋体, 'Malgun Gothic', sans-serif;\">&nbsp;</p>\n<p class=\"_tgt transPara grammarSection\" style=\"box-sizing: border-box; margin-bottom: 0px; padding: 0px; line-height: 21px; font-size: 14px; font-family: 'PingFang SC', 'Segoe UI', Arial, 'Microsoft YaHei', 微软雅黑, 宋体, 'Malgun Gothic', sans-serif;\"><strong><span class=\"transSent\" style=\"box-sizing: border-box;\" data-group=\"7-0\">20221129</span></strong></p>\n<p class=\"_tgt transPara grammarSection\" style=\"box-sizing: border-box; margin-bottom: 0px; padding: 0px; line-height: 21px; font-size: 14px; font-family: 'PingFang SC', 'Segoe UI', Arial, 'Microsoft YaHei', 微软雅黑, 宋体, 'Malgun Gothic', sans-serif;\"><span class=\"transSent\" style=\"box-sizing: border-box;\" data-group=\"9-0\">Fixed software detection update error </span></p>\n<p class=\"_tgt transPara grammarSection\" style=\"box-sizing: border-box; margin-bottom: 0px; padding: 0px; line-height: 21px; font-size: 14px; font-family: 'PingFang SC', 'Segoe UI', Arial, 'Microsoft YaHei', 微软雅黑, 宋体, 'Malgun Gothic', sans-serif;\">&nbsp;</p>\n<p class=\"_tgt transPara grammarSection\" style=\"box-sizing: border-box; margin-bottom: 0px; padding: 0px; line-height: 21px; font-size: 14px; font-family: 'PingFang SC', 'Segoe UI', Arial, 'Microsoft YaHei', 微软雅黑, 宋体, 'Malgun Gothic', sans-serif;\"><strong><span class=\"transSent\" style=\"box-sizing: border-box;\" data-group=\"11-0\">20221021</span></strong></p>\n<p class=\"_tgt transPara grammarSection\" style=\"box-sizing: border-box; margin-bottom: 0px; padding: 0px; line-height: 21px; font-size: 14px; font-family: 'PingFang SC', 'Segoe UI', Arial, 'Microsoft YaHei', 微软雅黑, 宋体, 'Malgun Gothic', sans-serif;\"><span class=\"transSent\" style=\"box-sizing: border-box;\" data-group=\"13-0\">1. Repair some extended interactive functions </span></p>\n<p class=\"_tgt transPara grammarSection\" style=\"box-sizing: border-box; margin-bottom: 0px; padding: 0px; line-height: 21px; font-size: 14px; font-family: 'PingFang SC', 'Segoe UI', Arial, 'Microsoft YaHei', 微软雅黑, 宋体, 'Malgun Gothic', sans-serif;\"><span class=\"transSent\" style=\"box-sizing: border-box;\" data-group=\"14-0\">2. Add new translated text </span></p>\n<p class=\"_tgt transPara grammarSection\" style=\"box-sizing: border-box; margin-bottom: 0px; padding: 0px; line-height: 21px; font-size: 14px; font-family: 'PingFang SC', 'Segoe UI', Arial, 'Microsoft YaHei', 微软雅黑, 宋体, 'Malgun Gothic', sans-serif;\"><span class=\"transSent\" style=\"box-sizing: border-box;\" data-group=\"15-0\">3. Fixed the python editor displaying multiple repeated prompts</span></p>\n<p class=\"_tgt transPara grammarSection\" style=\"box-sizing: border-box; margin: 0px; padding: 0px; line-height: 21px; font-style: normal; font-weight: 400; font-size: var(--main-font-size);\">&nbsp;</p>\n<p class=\"_tgt transPara grammarSection\" style=\"box-sizing: border-box; margin: 0px; padding: 0px; line-height: 21px; font-style: normal; font-weight: 400; font-size: var(--main-font-size);\"><span class=\"transSent\" style=\"box-sizing: border-box;\" data-group=\"2-0\">&nbsp;</span></p>\n</div>",
+      "update_time": "2023-12-25 15:16:47"
+    }
+  },
+  {
+    "summary": {
+      "id": 25,
+      "title": "E6_Manual",
+      "recommend": 0,
+      "top": null,
+      "type": "Manual",
+      "update_time": "2023-12-25 18:52:07"
+    },
+    "detail": {
+      "id": 25,
+      "title": "E6_Manual",
+      "system": null,
+      "version": null,
+      "size": "13.4",
+      "url1": "https://oss.zmrobo.com/stemtown/static/products/JMC-NY-2108/doc/E6_Manual_190703.pdf",
+      "url2": null,
+      "recommend": 0,
+      "status": 1,
+      "top": null,
+      "download_total": 5316,
+      "viewers": 3483,
+      "content": "<p>E6_Manual_190703.pdf</p>",
+      "update_time": "2023-12-25 18:52:07"
+    }
+  },
+  {
+    "summary": {
+      "id": 24,
+      "title": "JoinmaxCatalog19",
+      "recommend": 0,
+      "top": null,
+      "type": "Manual",
+      "update_time": "2023-12-25 15:16:05"
+    },
+    "detail": {
+      "id": 24,
+      "title": "JoinmaxCatalog19",
+      "system": null,
+      "version": null,
+      "size": "6MB",
+      "url1": "http://www.stemtown.com/products/category/2019/JoinmaxCatalog19.pdf",
+      "url2": null,
+      "recommend": 0,
+      "status": 1,
+      "top": null,
+      "download_total": 2584,
+      "viewers": 3489,
+      "content": "<p style=\"text-align: left;\">JoinmaxCatalog19.pdf</p>",
+      "update_time": "2023-12-25 15:16:05"
+    }
+  },
+  {
+    "summary": {
+      "id": 23,
+      "title": "E3RCU DISK FIRMWARE UPGRADE",
+      "recommend": 0,
+      "top": null,
+      "type": "Software",
+      "update_time": "2023-12-25 18:52:31"
+    },
+    "detail": {
+      "id": 23,
+      "title": "E3RCU DISK FIRMWARE UPGRADE",
+      "system": null,
+      "version": null,
+      "size": "1 M",
+      "url1": "http://www.stemtown.com/software/E3RCU-UpdateV1.9.2.zip",
+      "url2": "http://d.robotplayer.com/VPNBaidu/VPNBaidu/E3/E3RCU-UpdateV1.9.2.zip",
+      "recommend": 0,
+      "status": 1,
+      "top": null,
+      "download_total": 3504,
+      "viewers": 3418,
+      "content": "<p>Data Name: E3RCU Disk Firmware Upgrade <br />For RCU: BE-5137, BE-5138</p>",
+      "update_time": "2023-12-25 18:52:31"
+    }
+  },
+  {
+    "summary": {
+      "id": 22,
+      "title": "JoinmaxCatalog17",
+      "recommend": 0,
+      "top": null,
+      "type": "Manual",
+      "update_time": "2023-12-25 15:16:04"
+    },
+    "detail": {
+      "id": 22,
+      "title": "JoinmaxCatalog17",
+      "system": null,
+      "version": null,
+      "size": "6MB",
+      "url1": "http://www.stemtown.com/products/category/2017/JoinmaxCatalog17.pdf",
+      "url2": null,
+      "recommend": 0,
+      "status": 1,
+      "top": null,
+      "download_total": 1959,
+      "viewers": 2596,
+      "content": "<p>JoinmaxCatalog17.pdf</p>",
+      "update_time": "2023-12-25 15:16:04"
+    }
+  },
+  {
+    "summary": {
+      "id": 21,
+      "title": "JoinmaxCatalog15",
+      "recommend": 0,
+      "top": null,
+      "type": "Manual",
+      "update_time": "2023-12-25 15:16:04"
+    },
+    "detail": {
+      "id": 21,
+      "title": "JoinmaxCatalog15",
+      "system": null,
+      "version": null,
+      "size": "6 MB",
+      "url1": "http://www.stemtown.com/products/category/2015/JoinmaxCatalog15.pdf",
+      "url2": null,
+      "recommend": 0,
+      "status": 1,
+      "top": null,
+      "download_total": 2180,
+      "viewers": 2549,
+      "content": "<p>JoinmaxCatalog15.pdf</p>",
+      "update_time": "2023-12-25 15:16:04"
+    }
+  },
+  {
+    "summary": {
+      "id": 16,
+      "title": "Scratch2-JMD-v7.12.08.exe",
+      "recommend": 0,
+      "top": null,
+      "type": "Software",
+      "update_time": "2023-12-25 15:16:47"
+    },
+    "detail": {
+      "id": 16,
+      "title": "Scratch2-JMD-v7.12.08.exe",
+      "system": null,
+      "version": null,
+      "size": "89M",
+      "url1": "http://www.mediafire.com/file/5w415m90r3b9u7n/Scratch2-JMD-v7.12.08.exe",
+      "url2": "http://wx.robotexp.com/nicola/Scratch2-JMD-v7.12.08.exe",
+      "recommend": 0,
+      "status": 1,
+      "top": null,
+      "download_total": 5867,
+      "viewers": 14206,
+      "content": "<p>Based on MIT Scratch, Joinmax Scratch adds microelectronics such as controller and sensors. It's fun and easy to learn programming and microelectronics via the graphical programs.</p>\n<p><img src=\"http://www.roboexp.com/products/img/ScratchForJoinmax.png\" alt=\"\" /></p>",
+      "update_time": "2023-12-25 15:16:47"
+    }
+  },
+  {
+    "summary": {
+      "id": 15,
+      "title": "Robot Express program software V5.2",
+      "recommend": 0,
+      "top": null,
+      "type": "Update",
+      "update_time": "2023-12-25 15:16:04"
+    },
+    "detail": {
+      "id": 15,
+      "title": "Robot Express program software V5.2",
+      "system": null,
+      "version": null,
+      "size": "--M",
+      "url1": "https://www.dropbox.com/s/th1d40uq7n5067c/RoboExp.zip?dl=0",
+      "url2": null,
+      "recommend": 0,
+      "status": 1,
+      "top": null,
+      "download_total": 3055,
+      "viewers": 4462,
+      "content": "<p><br/></p>\n<p>Robot Express program software V5.2 &nbsp;&nbsp;&nbsp;\n[<a href=\"https://www.dropbox.com/s/th1d40uq7n5067c/RoboExp.zip?dl=0 \">download</a>]\n</p>\n<p><br/></p>",
+      "update_time": "2023-12-25 15:16:04"
+    }
+  },
+  {
+    "summary": {
+      "id": 1,
+      "title": "JoinMax X2 RCU manual",
+      "recommend": 0,
+      "top": null,
+      "type": "Manual",
+      "update_time": "2023-12-25 17:38:09"
+    },
+    "detail": {
+      "id": 1,
+      "title": "JoinMax X2 RCU manual",
+      "system": null,
+      "version": null,
+      "size": "1.16M",
+      "url1": "http://www.stemtown.com/support/downloads/JoinMax_X2_RCU_BE-5132V1.0.pdf",
+      "url2": null,
+      "recommend": 0,
+      "status": 1,
+      "top": null,
+      "download_total": 4552,
+      "viewers": 7778,
+      "content": "<p>Manual of X2 RCU. <br />Ⅰ INTRODUCTION<br />Ⅱ ORGANS<br />Ⅲ Quick Start<br />Ⅳ USAGE DETAILS<br />Ⅴ System Upgrade<br />Care and Maintenance</p>",
+      "update_time": "2023-12-25 17:38:09"
+    }
+  }
+]

@@ -1,0 +1,154 @@
+[
+  {
+    "id": 1,
+    "title": "Giáo dục",
+    "icon": "https://oss.zmrobo.com/stemtown/upload/product_type/icon/1.png",
+    "childrenList": [
+      {
+        "id": 3,
+        "parent_type_id": 1,
+        "title": "Bộ Kit",
+        "title_en": "kit"
+      }
+    ],
+    "title_en": "Education"
+  },
+  {
+    "id": 2,
+    "title": "Thi đấu",
+    "icon": "https://oss.zmrobo.com/stemtown/upload/product_type/icon/4.png",
+    "childrenList": [
+      {
+        "id": 10,
+        "parent_type_id": 2,
+        "title": "Bộ Kit",
+        "title_en": "kit"
+      },
+      {
+        "id": 12,
+        "parent_type_id": 2,
+        "title": "Động cơ & Mạch điều khiển",
+        "title_en": "motor and driver"
+      },
+      {
+        "id": 18,
+        "parent_type_id": 2,
+        "title": "Khác",
+        "title_en": "other"
+      }
+    ],
+    "title_en": "Competition"
+  },
+  {
+    "id": 32,
+    "title": "Linh kiện điện tử",
+    "icon": "https://oss.zmrobo.com/stemtown/upload/product_type/icon/2.png",
+    "childrenList": [
+      {
+        "id": 33,
+        "parent_type_id": 32,
+        "title": "Bộ điều khiển trung tâm (RCU)",
+        "title_en": "RCU"
+      },
+      {
+        "id": 34,
+        "parent_type_id": 32,
+        "title": "Tay cầm điều khiển",
+        "title_en": "Handle"
+      },
+      {
+        "id": 35,
+        "parent_type_id": 32,
+        "title": "Động cơ & Cơ cấu chấp hành",
+        "title_en": "Actuator"
+      },
+      {
+        "id": 36,
+        "parent_type_id": 32,
+        "title": "Cảm biến",
+        "title_en": "Sensor"
+      },
+      {
+        "id": 37,
+        "parent_type_id": 32,
+        "title": "Dây cáp kết nối",
+        "title_en": "Cable"
+      }
+    ],
+    "title_en": "Electronic"
+  },
+  {
+    "id": 20,
+    "title": "Linh kiện cơ khí nhựa",
+    "icon": "https://oss.zmrobo.com/stemtown/upload/product_type/icon/3.png",
+    "childrenList": [
+      {
+        "id": 21,
+        "parent_type_id": 20,
+        "title": "Bánh xe & Bánh đa hướng",
+        "title_en": "Wheel"
+      },
+      {
+        "id": 22,
+        "parent_type_id": 20,
+        "title": "Thanh dầm (Beam)",
+        "title_en": "Beam"
+      },
+      {
+        "id": 23,
+        "parent_type_id": 20,
+        "title": "Thanh dầm chữ L (Angular Beam)",
+        "title_en": "Angular Beam"
+      },
+      {
+        "id": 24,
+        "parent_type_id": 20,
+        "title": "Chốt cắm (Peg)",
+        "title_en": "Peg"
+      },
+      {
+        "id": 25,
+        "parent_type_id": 20,
+        "title": "Trục quay (Axle)",
+        "title_en": "Axle"
+      },
+      {
+        "id": 26,
+        "parent_type_id": 20,
+        "title": "Bánh răng & Băng xích (Gear)",
+        "title_en": "Gear"
+      },
+      {
+        "id": 27,
+        "parent_type_id": 20,
+        "title": "Khung dầm chữ nhật (Frame)",
+        "title_en": "Frame"
+      },
+      {
+        "id": 28,
+        "parent_type_id": 20,
+        "title": "Tấm ghép (Plate)",
+        "title_en": "Plate"
+      },
+      {
+        "id": 29,
+        "parent_type_id": 20,
+        "title": "Khối góc (Angular Block)",
+        "title_en": "Angular Block"
+      },
+      {
+        "id": 30,
+        "parent_type_id": 20,
+        "title": "Khối chữ thập (Cross Block)",
+        "title_en": "Cross Block"
+      },
+      {
+        "id": 31,
+        "parent_type_id": 20,
+        "title": "Khác",
+        "title_en": "Others"
+      }
+    ],
+    "title_en": "Plastic"
+  }
+]

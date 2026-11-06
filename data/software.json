@@ -1,0 +1,541 @@
+[
+  {
+    "summary": {
+      "id": 5,
+      "type": "APP",
+      "name": "RoboMaker",
+      "icon": "https://oss.zmrobo.com/stemtown/upload/software/icon/rm_miniprogram_logo.png",
+      "os": "Windows"
+    },
+    "detail": {
+      "softwareInfo": {
+        "name": "RoboMaker",
+        "icon": "https://oss.zmrobo.com/stemtown/upload/software/icon/rm_miniprogram_logo.png",
+        "is_html": 0,
+        "html": null,
+        "manual": null,
+        "intro": "\"Hệ thống giáo dục robot trí tuệ nhân tạo ROBOMAKER\" cố gắng giảm bớt khó khăn trong việc tiếp cận và sử dụng sản phẩm thông qua các phương pháp thiết kế phần cứng và phần mềm theo mô-đun và tích hợp cao, đồng thời tập trung vào việc trau dồi khả năng thực hành, khả năng phối hợp giác quan và khả năng tư duy logic của người dùng.",
+        "size": "-",
+        "language": "Chinese",
+        "kit": "RoboMaker",
+        "age": "6+",
+        "viewers": 2272,
+        "update_time": "2026-05-15 17:03:11"
+      },
+      "downloadList": [
+        {
+          "id": 7,
+          "type": "Windows",
+          "url": "https://oss.zmrobo.com/zmrobo/software/robomaker/RoboMaker1.1.0.zip",
+          "qr": null
+        }
+      ],
+      "historyList": [
+        {
+          "id": 68,
+          "version": null,
+          "content": "Đã sửa lỗi",
+          "create_time": "2020-03-12 00:00:00"
+        },
+        {
+          "id": 67,
+          "version": null,
+          "content": "Đã phát hành",
+          "create_time": "2020-01-16 00:00:00"
+        }
+      ],
+      "moduleList": []
+    }
+  },
+  {
+    "summary": {
+      "id": 8,
+      "type": "Software",
+      "name": "RoboCode",
+      "icon": "https://oss.zmrobo.com/stemtown/upload/software/icon/robocode4_logo.png",
+      "os": "PC/Mobile"
+    },
+    "detail": {
+      "softwareInfo": {
+        "name": "RoboCode",
+        "icon": "https://oss.zmrobo.com/stemtown/upload/software/icon/robocode4_logo.png",
+        "is_html": 1,
+        "html": "<div class=\"container\">\r\n\t<style>\r\n\t\thtml,body{\r\n\t\t\tmargin:0;\r\n\t\t\tpadding:0;\r\n\t\t}\r\n\t\t.slice_box{\r\n\t\t\tposition: relative;\r\n\t\t\tmargin-top:-4px;\r\n\t\t\ttext-align:center;\r\n\t\t\twidth:100%;\r\n\t\t\tmin-width:1230px;\r\n\t\t}\r\n\t\t.icon_2{\r\n\t\t\tdisplay:inline-block;\r\n\t\t\tmargin:10px;\r\n\t\t\twidth:150px;\r\n\t\t\t/*border:1px solid #CCCCCC;*/\r\n\t\t}\r\n\t\t.icon_2 img{\r\n\t\t\twidth:120px;\r\n\t\t\tmargin-bottom:16px;\r\n\t\t}\r\n\r\n\t\t.icon_2_font1{\r\n\t\t\tcolor:#1D1D1F;\r\n\t\t\tfont-weight:700;\r\n\t\t\tfont-size:19px;\r\n\t\t\tmargin-bottom:7px;\r\n\t\t}\r\n\t\t.gray_font{\r\n\t\t\tcolor:#86868B;\r\n\t\t\tfont-size:13px;\r\n\t\t}\r\n\t\t.gradient_tittle {\r\n\t\t\tfont-size:46px;\r\n\t\t\tfont-weight:700;\r\n\t\t \tbackground: linear-gradient(to right,#F20000, #FE7202,#F94CA4,#FC45E5,#7F58E7); /*设置渐变的方向从左到右 颜色从ff0000到ffff00*/\r\n\t\t \t-webkit-background-clip: text;/*将设置的背景颜色限制在文字中*/\r\n\t\t \t-webkit-text-fill-color: transparent;/*给文字设置成透明*/\r\n\t\t}\r\n\t\t.icon_2:hover{\r\n\t\t\tcursor:pointer;\r\n\t\t}\r\n\t\t.tab_box{\r\n\t\t\tmargin-top:48px;\r\n\t\t\t/*border-bottom:1px solid #CCCCCC;*/\r\n\t\t}\r\n\t\t.tab_3_L{\r\n\t\t\tdisplay:inline-block;\r\n\t\t\t/*border:1px solid #aaa;*/\r\n\t\t\twidth:400px;\r\n\t\t}\r\n\t\t.tab_3_L:hover{\r\n\t\t\tcursor: pointer;\r\n\t\t}\r\n\t\t.tab_3_L img{\r\n\t\t\twidth:100px;\r\n\t\t\tz-index:9;\r\n\t\t}\r\n\t\t.tab_text{\r\n\t\t\tcolor:#86868B;\r\n\t\t\tfont-size:23px;\r\n\t\t\tmargin-top:4px;\r\n\t\t\tmargin-bottom:5px;\r\n\t\t}\r\n\t\t.img_active_line{\r\n\t\t\tmargin-top: 16px;\r\n\t\t\theight:4px;\r\n\t\t}\r\n\t\t.pic_out_box img{\r\n\t\t\twidth:1230px;\r\n\t\t}\r\n\t\t.content_box{\r\n\t\t\tmargin-top:40px;\r\n\t\t}\r\n\r\n\t\t/**/\r\n\t\t.tab2_box{\r\n\t\t\tposition:relative;\r\n\t\t\tmargin-top: 60px;\r\n\t\t\t/*border-bottom:4px solid #CCCCCC;*/\r\n\t\t}\r\n\t\t.tab2_3_L{\r\n\t\t\tvertical-align:middle ;\r\n\t\t\tdisplay:inline-block;\r\n\t\t\t/*border:1px solid #aaa;*/\r\n\t\t\twidth:360px;\r\n\t\t}\r\n\t\t.tab2_3_L img{\r\n\t\t\twidth:360px;\r\n\t\t}\r\n\t\t.tab2_3_L:hover{\r\n\t\t\tcursor: pointer;\r\n\t\t}\r\n\t\t.tab2_text{\r\n\t\t\tcolor:#86868B;\r\n\t\t\tfont-size:23px;\r\n\t\t\tborder:transparent;\r\n\t\t\tbackground-color:#F5F5F7;\r\n\t\t\tborder-radius:10px;\r\n\t\t\theight:92px;\r\n\t\t\twidth:360px;\r\n\t\t}\r\n\t\t.tab2_text_in_div{\r\n\t\t\tpadding-top:31px;\r\n\t\t}\r\n\t\t.content2_img{\r\n\t\t\twidth:100%;\r\n\t\t}\r\n\t\t.field_4{\r\n\t\t\tdisplay:inline-block;\r\n\t\t\tvertical-align:top;\r\n\t\t\twidth:550px;\r\n\t\t\theight:568px;\r\n\t\t\t/*border:0.2vw solid #000;*/\r\n\t\t}\r\n\t\t.field_4 img{\r\n\t\t\twidth:550px;\r\n\t\t}\r\n\t\t.bottom_text_box{\r\n\t\t\tpadding:0 1px;\r\n\t\t}\r\n\t\t.text_up{\r\n\t\t\tmargin-top:35px;\r\n\t\t\tcolor:#1D1D1F;\r\n\t\t\tfont-size:24px;\r\n\t\t\ttext-align:left;\r\n\t\t\t/*font-weight:700;*/\r\n\t\t}\r\n\t\t.text_down{\r\n\t\t\tline-height:28px;\r\n\t\t\tletter-spacing:1px;\r\n\t\t\tmargin-top:13px;\r\n\t\t\tcolor:#86868B;\r\n\t\t\tfont-size:20px;\r\n\t\t\ttext-align:left\r\n\t\t}\r\n\t\t.hover{\r\n\t\t\tdisplay:none;\r\n\t\t}\r\n\t\t.linux_tip_item{\r\n\t\t\tpadding:9px;\r\n\t\t}\r\n\t\t.linux_tip_item a{\r\n\t\t\ttext-decoration:none;\r\n\t\t\tcolor:#0066CC;\r\n\t\t}\r\n\t\t.linux_tip_item a:hover{\r\n\t\t\ttext-decoration:none;\r\n\t\t\tcolor:#0066CC;\r\n\t\t}\r\n\t\t.linux_tip_item a:visited{\r\n\t\t\tcolor:#0066CC;\r\n\t\t}\r\n\t\t.linux_tip_item:hover{\r\n\t\t\tbackground-color:#F3F7FB;\r\n\t\t}\r\n\r\n\r\n\t</style>\r\n\r\n\r\n\t<!--   -->\r\n\t<div class=\"slice_box\" style=\"height:620px;background-color:#F3F7FB;\">\r\n\t\t<div>\r\n\t\t\t<img src=\"https://oss.zmrobo.com/stemtown/software/robocode/images/1-1.png\" style=\"width:811px;height:330px;\">\r\n\t\t</div>\r\n\r\n\t\t<div style=\"font-size:23px;margin:50px auto;width:1200px;\">\r\n\t\t\t<div class=\"icon_2\" onmouseenter=\"this.querySelector('img').src='https://oss.zmrobo.com/stemtown/software/robocode/images/icon-download-hover.png';this.querySelector('.orign').style.display='none';this.querySelector('.hover').style.display='block';\" onmouseleave=\"this.querySelector('img').src='https://oss.zmrobo.com/stemtown/software/robocode/images/1-2.png';this.querySelector('.orign').style.display='block';this.querySelector('.hover').style.display='none';\" onclick=\"var xhr = new XMLHttpRequest();xhr.open('GET', 'https://www.zmrobo.com/api/software/getDownloadUrlById?id=13&type=url', true);xhr.onload=function() { if (xhr.status === 200) {var responseData = xhr.responseText;console.log(responseData);window.open(responseData,'_blank')} else {console.error('Request fail');}};xhr.onerror = function() {console.error('Request fail');};xhr.send();var xhr2 = new XMLHttpRequest();xhr2.open('GET', 'https://www.zmrobo.com/api/software/downloadCount?id=13',true);xhr2.send();\">\r\n\t\t\t\t<img src=\"https://oss.zmrobo.com/stemtown/software/robocode/images/1-2.png\">\r\n\t\t\t\t<div class=\"orign\">\r\n\t\t\t\t\t<div class=\"icon_2_font1\">Windows</div>\r\n\t\t\t\t\t<div class=\"gray_font\">Win7 or Win10+</div>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class=\"hover\">\r\n\t\t\t\t\t<div class=\"icon_2_font1\">&nbsp;</div>\r\n\t\t\t\t\t<div class=\"gray_font\">Click & Download</div>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\r\n\t\t\t<div class=\"icon_2\" onmouseenter=\"this.querySelector('img').src='https://oss.zmrobo.com/stemtown/software/robocode/images/icon-download-hover.png';this.querySelector('.orign').style.display='none';this.querySelector('.hover').style.display='block';\" onmouseleave=\"this.querySelector('img').src='https://oss.zmrobo.com/stemtown/software/robocode/images/1-3.png';this.querySelector('.orign').style.display='block';this.querySelector('.hover').style.display='none';\" onclick=\"var xhr = new XMLHttpRequest();xhr.open('GET', 'https://www.zmrobo.com/api/software/getDownloadUrlById?id=14&type=url', true);xhr.onload=function() { if (xhr.status === 200) {var responseData = xhr.responseText;console.log(responseData);window.open(responseData,'_blank')} else {console.error('Request fail');}};xhr.onerror = function() {console.error('Request fail');};xhr.send();var xhr2 = new XMLHttpRequest();xhr2.open('GET', 'https://www.zmrobo.com/api/software/downloadCount?id=14',true);xhr2.send();\">\r\n\t\t\t\t<img src=\"https://oss.zmrobo.com/stemtown/software/robocode/images/1-3.png\">\r\n\t\t\t\t<div class=\"orign\">\r\n\t\t\t\t\t<div class=\"icon_2_font1\">macOS</div>\r\n\t\t\t\t\t<div class=\"gray_font\">macOS 10.1+</div>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class=\"hover\">\r\n\t\t\t\t\t<div class=\"icon_2_font1\">&nbsp;</div>\r\n\t\t\t\t\t<div class=\"gray_font\">Click & Download</div>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\r\n\t\t\t<div class=\"icon_2\" onmouseenter=\"this.querySelector('.linux_tip_box').style.display='block';\" onmouseleave=\"this.querySelector('img').src='https://oss.zmrobo.com/stemtown/software/robocode/images/1-4.png';this.querySelector('.linux_tip_box').style.display='none';\" style=\"position:relative;\">\r\n\t\t\t\t<img src=\"https://oss.zmrobo.com/stemtown/software/robocode/images/1-4.png\">\r\n\t\t\t\t<div class=\"orign\">\r\n\t\t\t\t\t<div class=\"icon_2_font1\">Linux</div>\r\n\t\t\t\t\t<div class=\"gray_font\">UOS, KylinOS</div>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class=\"linux_tip_box\" style=\"display:none;position:absolute;top:41%;left:-5%;width:180px;height:98px;border:transparent;letter-spacing:0.3px;font-size:13px;color:#0066CC;background-color:#fff;border-radius:2px;box-shadow:1px 3px 5px #c8c8c8;\">\r\n\t\t\t\t\t<div class=\"linux_tip_item\" style=\"margin-top:12px;\"><a onclick=\"var xhr = new XMLHttpRequest();xhr.open('GET', 'https://www.zmrobo.com/api/software/getDownloadUrlById?id=15&type=url', true);xhr.onload=function() { if (xhr.status === 200) {var responseData = xhr.responseText;console.log(responseData);window.open(responseData,'_blank')} else {console.error('Request fail');}};xhr.onerror = function() {console.error('Request fail');};xhr.send();var xhr2 = new XMLHttpRequest();xhr2.open('GET', 'https://www.zmrobo.com/api/software/downloadCount?id=15',true);xhr2.send();\" target=\"_blank\">Intel, AMD x86 version</a></div>\r\n\t\t\t\t\t<div class=\"linux_tip_item\"><a onclick=\"var xhr = new XMLHttpRequest();xhr.open('GET', 'https://www.zmrobo.com/api/software/getDownloadUrlById?id=16&type=url', true);xhr.onload=function() { if (xhr.status === 200) {var responseData = xhr.responseText;console.log(responseData);window.open(responseData,'_blank')} else {console.error('Request fail');}};xhr.onerror = function() {console.error('Request fail');};xhr.send();var xhr2 = new XMLHttpRequest();xhr2.open('GET', 'https://www.zmrobo.com/api/software/downloadCount?id=16',true);xhr2.send();\" target=\"_blank\">LoongArch64 version</a></div>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\r\n\t\t\t<div class=\"icon_2\" onmouseenter=\"var _this =this;var xhr = new XMLHttpRequest();xhr.open('GET', 'https://www.zmrobo.com/api/software/getDownloadUrlById?id=17&type=qr', true);xhr.onload=function() { if (xhr.status === 200) {var responseData = xhr.responseText;console.log(responseData);_this.querySelector('img').src=responseData;_this.querySelector('.orign').style.display='none';_this.querySelector('.hover').style.display='block';} else {console.error('请求失败');}};xhr.onerror = function() {console.error('请求出错');};xhr.send();\" onmouseleave=\"this.querySelector('img').src='https://oss.zmrobo.com/zmrobo/software/robocode/images/1-6.png';this.querySelector('.orign').style.display='block';this.querySelector('.hover').style.display='none';\">\r\n\t\t\t    <img src=\"https://oss.zmrobo.com/zmrobo/software/robocode/images/1-6.png\">\r\n\t\t\t    <div class=\"orign\">\r\n\t\t\t        <div class=\"icon_2_font1\">Android</div>\r\n\t\t\t        <div class=\"gray_font\">Android 10.0+</div>\r\n\t\t\t    </div>\r\n\t\t\t    <div class=\"hover\" style=\"display:none;\">\r\n\t\t\t        <div class=\"icon_2_font1\" style=\"font-size:15px;\">Scan to download</div>\r\n\t\t\t        <div class=\"gray_font\" style=\"margin-top:6px;\">\r\n\t\t\t            <a href=\"https://oss.zmrobo.com/zmrobo/software/robocode/RoboCode.apk\" \r\n\t\t\t               target=\"_blank\"\r\n\t\t\t               onclick=\"var xhr2 = new XMLHttpRequest();xhr2.open('GET', 'https://www.zmrobo.com/api/software/downloadCount?id=17',true);xhr2.send();\" \r\n\t\t\t               style=\"color:#0066CC;cursor:pointer;font-size:13px;text-decoration:underline;\">Download APK directly</a>\r\n\t\t\t        </div>\r\n\t\t\t    </div>\r\n\t\t\t</div>\r\n\r\n\t\t\t<div class=\"icon_2\" onmouseenter=\"var _this=this;var xhr=new XMLHttpRequest();xhr.open('GET','https://www.zmrobo.com/api/software/getDownloadUrlById?id=18&type=qr',true);xhr.onload=function(){if(xhr.status===200){var r=xhr.responseText;_this.querySelector('img').src=r;_this.querySelector('.orign').style.display='none';_this.querySelector('.hover').style.display='block';}};xhr.send();\" onmouseleave=\"this.querySelector('img').src='https://oss.zmrobo.com/zmrobo/software/robocode/images/1-7.png';this.querySelector('.orign').style.display='block';this.querySelector('.hover').style.display='none';\">\r\n\t\t\t    <img src=\"https://oss.zmrobo.com/zmrobo/software/robocode/images/1-7.png\">\r\n\t\t\t    <div class=\"orign\">\r\n\t\t\t        <div class=\"icon_2_font1\">iOS</div>\r\n\t\t\t\t\t<div class=\"gray_font\">iOS 15.0 +</div>\r\n\t\t\t    </div>\r\n\t\t\t    <div class=\"hover\" style=\"display:none;position:relative;\">\r\n\t\t\t        <div class=\"icon_2_font1\" style=\"font-size:15px;\">Scan to download</div>\r\n\t\t\t        <div class=\"gray_font\" style=\"margin-top:6px;\">\r\n\t\t\t            <span onclick=\"var x=new XMLHttpRequest();x.open('GET','https://www.zmrobo.com/api/software/downloadCount?id=18',true);x.send();if(/MicroMessenger/i.test(navigator.userAgent)){document.getElementById('wxTip18').style.display='block';}else{window.open('https://apps.apple.com/cn/app/robocode/id6474164175');}\" style=\"color:#0066CC;cursor:pointer;font-size:13px;text-decoration:underline;\">Go to App Store</span>\r\n\t\t\t        </div>\r\n\t\t\t        <!-- 微信内提示层 -->\r\n\t\t\t        <div id=\"wxTip18\" style=\"display:none;position:absolute;top:110%;left:50%;transform:translateX(-50%);background:#fff;border:1px solid #ddd;padding:10px 15px;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,0.15);width:180px;z-index:99;text-align:center;\">\r\n\t\t\t            <div style=\"font-size:12px;color:#333;line-height:1.6;\">WeChat cannot redirect to App Store directly.<br>Please tap the \"...\" button in the top-right corner<br>and choose \"Open in Safari\".</div>\r\n\t\t\t            <div style=\"margin-top:6px;font-size:12px;color:#0066CC;cursor:pointer;\" onclick=\"document.getElementById('wxTip18').style.display='none'\">Got it</div>\r\n\t\t\t        </div>\r\n\t\t\t    </div>\r\n\t\t\t</div>\r\n\r\n\t\t</div>\r\n\t</div>\r\n\t\r\n\t<!--   -->\r\n\t<div class=\"slice_box\" style=\"height:700px;background-color:#F3F7FB;text-align:center;padding-top:20px;\">\r\n\t\t<img src=\"https://oss.zmrobo.com/stemtown/software/robocode/images/2-1.png\" style=\"width:1200px;\">\r\n\t</div>\r\n\r\n\t<!--   -->\r\n\t<div class=\"slice_box\" style=\"height:1200px;background-color:#fff;padding-top:100px;\">\r\n\t\t<div style=\"font-size:23px;color:#1D1D1F;\">Programming paves the way for smart growth.</div>\r\n\t\t<div style=\"margin-top:16px;text-align:center;\"><span class=\"gradient_tittle\">Programming Software Designed for Ages 3 to 18</span></div>\r\n\r\n\t\t<div class=\"tab_box\" style=\"width:1230px;margin:60px auto;\">\r\n\t\t\t<div target=\"tab_1_L\" class=\"tab_3_L\" onmouseenter=\"this.querySelector('.tab_text').style.color='#1D1D1F'\" onmouseleave=\"if(this.querySelector('.tab_text').style.color='1'){this.querySelector('.tab_text').style.color='#1D1D1F';}else{this.querySelector('.tab_text').style.color='#86868B';}\" onclick=\"var tab_all = document.getElementsByClassName('tab_3_L');for (var i = 0; i < tab_all.length; i++) {tab_all[i].querySelector('.img_active_line').style.opacity='0';tab_all[i].querySelector('.tab_text').style.color='#86868B'}this.querySelector('.img_active_line').style.opacity='1';var this_target = this.getAttribute('target');var img_all = document.getElementsByClassName('content_img');for (var i = 0; i < img_all.length; i++) {img_all[i].style.display='none';}document.getElementById(this_target).style.display='inline'\">\r\n\t\t\t\t<img src=\"https://oss.zmrobo.com/stemtown/software/robocode/images/3-1.png\">\r\n\t\t\t\t<div class=\"tab_text\" style=\"color:#1D1D1F;\">Animation\r\n\t\t\t\t\t<img class=\"img_active_line\" src=\"https://oss.zmrobo.com/stemtown/software/robocode/images/active_line.png\" style=\"width:100%;opacity:1;\">\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t\t<div target=\"tab_2_L\" class=\"tab_3_L\" onmouseenter=\"this.querySelector('.tab_text').style.color='#1D1D1F'\" onmouseleave=\"if(this.querySelector('.tab_text').style.color='1'){this.querySelector('.tab_text').style.color='#1D1D1F';}else{this.querySelector('.tab_text').style.color='#86868B';}\" onclick=\"var tab_all = document.getElementsByClassName('tab_3_L');for (var i = 0; i < tab_all.length; i++) {tab_all[i].querySelector('.img_active_line').style.opacity='0';tab_all[i].querySelector('.tab_text').style.color='#86868B'}this.querySelector('.img_active_line').style.opacity='1';var this_target = this.getAttribute('target');var img_all = document.getElementsByClassName('content_img');for (var i = 0; i < img_all.length; i++) {img_all[i].style.display='none';}document.getElementById(this_target).style.display='inline'\">\r\n\t\t\t\t<img src=\"https://oss.zmrobo.com/stemtown/software/robocode/images/3-2.png\">\r\n\t\t\t\t<div class=\"tab_text\">Hardware\r\n\t\t\t\t\t<img class=\"img_active_line\" src=\"https://oss.zmrobo.com/stemtown/software/robocode/images/active_line.png\" style=\"width:100%;opacity:0;\">\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t\t<div target=\"tab_3_L\" class=\"tab_3_L\" onmouseenter=\"this.querySelector('.tab_text').style.color='#1D1D1F'\" onmouseleave=\"if(this.querySelector('.tab_text').style.color='1'){this.querySelector('.tab_text').style.color='#1D1D1F';}else{this.querySelector('.tab_text').style.color='#86868B';}\" onclick=\"var tab_all = document.getElementsByClassName('tab_3_L');for (var i = 0; i < tab_all.length; i++) {tab_all[i].querySelector('.img_active_line').style.opacity='0';tab_all[i].querySelector('.tab_text').style.color='#86868B'}this.querySelector('.img_active_line').style.opacity='1';var this_target = this.getAttribute('target');var img_all = document.getElementsByClassName('content_img');for (var i = 0; i < img_all.length; i++) {img_all[i].style.display='none';}document.getElementById(this_target).style.display='inline'\">\r\n\t\t\t\t<img src=\"https://oss.zmrobo.com/stemtown/software/robocode/images/3-3.png\">\r\n\t\t\t\t<div class=\"tab_text\">Code\r\n\t\t\t\t\t<img class=\"img_active_line\" src=\"https://oss.zmrobo.com/stemtown/software/robocode/images/active_line.png\" style=\"width:100%;opacity:0;\">\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\r\n\t\t\t<!--   -->\r\n\t\t\t<div class=\"hr_box\" style=\"border-top:4px solid #cccccc;margin:-17px auto;z-index:-9;width:1200px;\"></div>\r\n\r\n\t\t\t<div class=\"content_box\">\r\n\t\t\t\t<div class=\"pic_out_box\">\r\n\t\t\t\t\t<img id=\"tab_1_L\" class=\"content_img\" src=\"https://oss.zmrobo.com/stemtown/software/robocode/images/3-4.png\">\r\n\t\t\t\t\t<img id=\"tab_2_L\" class=\"content_img\" src=\"https://oss.zmrobo.com/stemtown/software/robocode/images/3-5.png\" style=\"display:none;\">\r\n\t\t\t\t\t<img id=\"tab_3_L\" class=\"content_img\" src=\"https://oss.zmrobo.com/stemtown/software/robocode/images/3-6.png\" style=\"display:none;\">\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t</div>\r\n\r\n\t<!--   -->\r\n\t<div class=\"slice_box\"  style=\"height:1300px;background-color:#F3FCFE;padding-top:150px;\">\r\n\t\t<div style=\"font-size:23px;font-weight:700;color:#1D1D1F;\">Let’s explore the future of intelligence!</div>\r\n\t\t<div style=\"margin-top:17px;text-align:center;\"><span class=\"gradient_tittle\">RoboCode Integrates AI and IoT to</span></div>\r\n\t\t<div style=\"margin-top:4px;text-align:center;\"><span class=\"gradient_tittle\">Enhance STEAM Education</span></div>\r\n\r\n\t\t<div class=\"tab2_box\" style=\"width:1230px;margin:100px auto;\">\r\n\t\t\t<div target=\"tab2_1_L\" class=\"tab2_3_L\" onmouseenter=\"this.querySelector('.tab2_text').style.color='#1D1D1F'\" onmouseleave=\"this.querySelector('.tab2_text').style.color='#86868B'\" onclick=\"var tab_all = document.getElementsByClassName('tab2_3_L');for (var i = 0; i < tab_all.length; i++) {tab_all[i].querySelector('.clicked_img_tab').style.display='none';tab_all[i].querySelector('.tab2_text').style.display='block';}this.querySelector('.tab2_text').style.display='none';this.querySelector('.clicked_img_tab').style.display='';var this_target = this.getAttribute('target');var img_all = document.getElementsByClassName('content2_img');for (var i = 0; i < img_all.length; i++) {img_all[i].style.display='none';}document.getElementById(this_target).style.display=''\" style=\"margin-right:60px;\">\r\n\t\t\t\t<img class=\"clicked_img_tab\" src=\"https://oss.zmrobo.com/stemtown/software/robocode/images/4-1.png\">\r\n\t\t\t\t<div class=\"tab2_text\" style=\"display:none;\"><div class=\"tab2_text_in_div\">Artificial Intelligence</div></div>\r\n\t\t\t</div>\r\n\t\t\t<div target=\"tab2_2_L\" class=\"tab2_3_L\" onmouseenter=\"this.querySelector('.tab2_text').style.color='#1D1D1F'\" onmouseleave=\"this.querySelector('.tab2_text').style.color='#86868B'\" onclick=\"var tab_all = document.getElementsByClassName('tab2_3_L');for (var i = 0; i < tab_all.length; i++) {tab_all[i].querySelector('.clicked_img_tab').style.display='none';tab_all[i].querySelector('.tab2_text').style.display='block';}this.querySelector('.tab2_text').style.display='none';this.querySelector('.clicked_img_tab').style.display='';var this_target = this.getAttribute('target');var img_all = document.getElementsByClassName('content2_img');for (var i = 0; i < img_all.length; i++) {img_all[i].style.display='none';}document.getElementById(this_target).style.display=''\" style=\"margin-right:60px;\">\r\n\t\t\t\t<img class=\"clicked_img_tab\" src=\"https://oss.zmrobo.com/stemtown/software/robocode/images/4-2.png\" style=\"display:none;\">\r\n\t\t\t\t<div class=\"tab2_text\"><div class=\"tab2_text_in_div\">Internet of Things (IoT)</div></div>\r\n\t\t\t</div>\r\n\t\t\t<div target=\"tab2_3_L\" class=\"tab2_3_L\" onmouseenter=\"this.querySelector('.tab2_text').style.color='#1D1D1F'\" onmouseleave=\"this.querySelector('.tab2_text').style.color='#86868B'\" onclick=\"var tab_all = document.getElementsByClassName('tab2_3_L');for (var i = 0; i < tab_all.length; i++) {tab_all[i].querySelector('.clicked_img_tab').style.display='none';tab_all[i].querySelector('.tab2_text').style.display='block';}this.querySelector('.tab2_text').style.display='none';this.querySelector('.clicked_img_tab').style.display='';var this_target = this.getAttribute('target');var img_all = document.getElementsByClassName('content2_img');for (var i = 0; i < img_all.length; i++) {img_all[i].style.display='none';}document.getElementById(this_target).style.display=''\">\r\n\t\t\t\t<img class=\"clicked_img_tab\" src=\"https://oss.zmrobo.com/stemtown/software/robocode/images/4-3.png\" style=\"display:none;\">\r\n\t\t\t\t<div class=\"tab2_text\"><div class=\"tab2_text_in_div\">STEAM Education</div></div>\r\n\t\t\t</div>\r\n\r\n\t\t\t<div class=\"content_box\">\r\n\t\t\t\t<div class=\"pic_out_box\">\r\n\t\t\t\t\t<div id=\"tab2_1_L\" class=\"content2_img\" style=\"background-image: url('https://oss.zmrobo.com/stemtown/software/robocode/images/4-4-bg.png');width:1230px;height:706px;\">\r\n\t\t\t\t\t\t<div style=\"padding-top:150px;\">\r\n\t\t\t\t\t\t\t<div style=\"display: inline-block;margin:10px;\">\r\n\t\t\t\t\t\t\t\t<div><img src=\"https://oss.zmrobo.com/stemtown/software/robocode/images/4-4-1.png\" style=\"width:350px;\"></div>\r\n\t\t\t\t\t\t\t\t<div style=\"font-size:20px;\">\r\n\t\t\t\t\t\t\t\t\t<div style=\"color:#1D1D1F;\">Visual Recognition</div>\r\n\t\t\t\t\t\t\t\t\t<div style=\"color:#1C7EF3;\">(Human, actions)</div>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t<div style=\"display: inline-block;margin:10px;\">\r\n\t\t\t\t\t\t\t\t<div><img src=\"https://oss.zmrobo.com/stemtown/software/robocode/images/4-4-2.png\" style=\"width:350px;\"></div>\r\n\t\t\t\t\t\t\t\t<div style=\"font-size:20px;\">\r\n\t\t\t\t\t\t\t\t\t<div style=\"color:#1D1D1F;\">Machine Learning</div>\r\n\t\t\t\t\t\t\t\t\t<div style=\"color:#1C7EF3;\">(Data classification, decision making)</div>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t<div style=\"display: inline-block;margin:10px;\">\r\n\t\t\t\t\t\t\t\t<div><img src=\"https://oss.zmrobo.com/stemtown/software/robocode/images/4-4-3.png\" style=\"width:350px;\"></div>\r\n\t\t\t\t\t\t\t\t<div style=\"font-size:20px;\">\r\n\t\t\t\t\t\t\t\t\t<div style=\"color:#1D1D1F;\">Natural Language Processing</div>\r\n\t\t\t\t\t\t\t\t\t<div style=\"color:#1C7EF3;\">(Speech and text recognition)</div>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>\r\n\r\n\t\t\t\t\t<div id=\"tab2_2_L\" class=\"content2_img\" style=\"background-image: url('https://oss.zmrobo.com/stemtown/software/robocode/images/4-5-bg.png');width:1230px;height:706px;display:none;\">\r\n\t\t\t\t\t\t<div style=\"padding-top:150px;\">\r\n\t\t\t\t\t\t\t<div style=\"display: inline-block;margin:10px;\">\r\n\t\t\t\t\t\t\t\t<div><img src=\"https://oss.zmrobo.com/stemtown/software/robocode/images/4-5-1.png\" style=\"width:350px;\"></div>\r\n\t\t\t\t\t\t\t\t<div style=\"font-size:20px;\">\r\n\t\t\t\t\t\t\t\t\t<div style=\"color:#1D1D1F;\">Data visualization and</div>\r\n\t\t\t\t\t\t\t\t\t<div style=\"color:#1D1D1F;\">decision support</div>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t<div style=\"display: inline-block;margin:10px;\">\r\n\t\t\t\t\t\t\t\t<div><img src=\"https://oss.zmrobo.com/stemtown/software/robocode/images/4-5-2.png\" style=\"width:350px;\"></div>\r\n\t\t\t\t\t\t\t\t<div style=\"font-size:20px;\">\r\n\t\t\t\t\t\t\t\t\t<div style=\"color:#1D1D1F;\">Integrated application of</div>\r\n\t\t\t\t\t\t\t\t\t<div style=\"color:#1D1D1F;\">AI and IoT</div>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t<div style=\"display: inline-block;margin:10px;\">\r\n\t\t\t\t\t\t\t\t<div><img src=\"https://oss.zmrobo.com/stemtown/software/robocode/images/4-5-3.png\" style=\"width:350px;\"></div>\r\n\t\t\t\t\t\t\t\t<div style=\"font-size:20px;\">\r\n\t\t\t\t\t\t\t\t\t<div style=\"color:#1D1D1F;\">Data Management and Sharing</div>\r\n\t\t\t\t\t\t\t\t\t<div style=\"color:#1D1D1F;\">in Cloud Services</div>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>\r\n\r\n\t\t\t\t\t<div id=\"tab2_3_L\" class=\"content2_img\" style=\"background-image: url('https://oss.zmrobo.com/stemtown/software/robocode/images/4-6-bg.png');width:1230px;height:706px;display:none;\">\r\n\t\t\t\t\t\t<div style=\"padding-top:150px;\">\r\n\t\t\t\t\t\t\t<div style=\"display: inline-block;margin:10px;\">\r\n\t\t\t\t\t\t\t\t<div><img src=\"https://oss.zmrobo.com/stemtown/software/robocode/images/4-6-1.png\" style=\"width:350px;\"></div>\r\n\t\t\t\t\t\t\t\t<div style=\"font-size:20px;\">\r\n\t\t\t\t\t\t\t\t\t<div style=\"color:#1D1D1F;\">Cultivate innovative thinking</div>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t<div style=\"display: inline-block;margin:10px;\">\r\n\t\t\t\t\t\t\t\t<div><img src=\"https://oss.zmrobo.com/stemtown/software/robocode/images/4-6-2.png\" style=\"width:350px;\"></div>\r\n\t\t\t\t\t\t\t\t<div style=\"font-size:20px;\">\r\n\t\t\t\t\t\t\t\t\t<div style=\"color:#1D1D1F;\">Interdisciplinary integration</div>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t<div style=\"display: inline-block;margin:10px;\">\r\n\t\t\t\t\t\t\t\t<div><img src=\"https://oss.zmrobo.com/stemtown/software/robocode/images/4-6-3.png\" style=\"width:350px;\"></div>\r\n\t\t\t\t\t\t\t\t<div style=\"font-size:20px;\">\r\n\t\t\t\t\t\t\t\t\t<div style=\"color:#1D1D1F;\">Improve comprehensive ability</div>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t</div>\r\n\r\n\t<!--   -->\r\n\t<div class=\"slice_box\"  style=\"height:1700px;background-color:#F3F7FB;padding-top:150px;\">\r\n\t\t<div style=\"text-align:center;\"><span class=\"gradient_tittle\">Application Scenarios</span></div>\r\n\t\t<div style=\"margin-top:13px;font-size:23px;font-weight:700;color:#1D1D1F;\">RoboCode works with all ZMROBO hardware products.</div>\r\n\r\n\t\t<div style=\"margin:40px auto;width:1220px;\">\r\n\t\t\t<div style=\"margin-top:100px;\">\r\n\t\t\t\t<div class=\"field_4\">\r\n\t\t\t\t\t<img src=\"https://oss.zmrobo.com/stemtown/software/robocode/images/5-1.png\">\r\n\t\t\t\t\t<div class=\"bottom_text_box\">\r\n\t\t\t\t\t\t<div class=\"text_up\">Professional Competitions</div>\r\n\t\t\t\t\t\t<div class=\"text_down\">RoboCode software can be used in international, national, and domestic professional robot competitions, helping children achieve their dreams.</div>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class=\"field_4\" style=\"margin-left:100px;\">\r\n\t\t\t\t\t<img src=\"https://oss.zmrobo.com/stemtown/software/robocode/images/5-2.png\">\r\n\t\t\t\t\t<div class=\"bottom_text_box\">\r\n\t\t\t\t\t\t<div class=\"text_up\">STEAM Education</div>\r\n\t\t\t\t\t\t<div class=\"text_down\">RoboCode brings fun and interactivity to after-school programs, and science and IT classes.</div>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t\t<div style=\"margin-top:100px;\">\r\n\t\t\t\t<div class=\"field_4\">\r\n\t\t\t\t\t<img src=\"https://oss.zmrobo.com/stemtown/software/robocode/images/5-3.png\">\r\n\t\t\t\t\t<div class=\"bottom_text_box\">\r\n\t\t\t\t\t\t<div class=\"text_up\">Science and Technology Popularization</div>\r\n\t\t\t\t\t\t<div class=\"text_down\">Ideal for extracurricular activities and family teaching, RoboCode inspires students'  interest  in  science  and programming while enriching their learning experiences.</div>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class=\"field_4\" style=\"margin-left:100px;\">\r\n\t\t\t\t\t<img src=\"https://oss.zmrobo.com/stemtown/software/robocode/images/5-4_EN.png\">\r\n\t\t\t\t\t<div class=\"bottom_text_box\">\r\n\t\t\t\t\t\t<div class=\"text_up\">Artificial Intelligence Lab</div>\r\n\t\t\t\t\t\t<div class=\"text_down\">Children can use RoboCode to learn, explore, and create in AI and programming, boosting their wisdom, practical skills, and creativity.</div>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\r\n\t\t<div style=\"position:absolute;right:0;bottom:0;\">\r\n\t\t\t<img src=\"https://oss.zmrobo.com/stemtown/software/robocode/images/5-5.png\" style=\"width:330px;\">\r\n\t\t</div>\r\n\r\n\t</div>\r\n\r\n\r\n</div>\r\n",
+        "manual": null,
+        "intro": "RoboCode là phần mềm lập trình khối dành cho người mới bắt đầu. Nó chứa hàng trăm mô-đun lập trình và có thể thực hiện các loại lập trình robot khác nhau.",
+        "size": "100MB",
+        "language": "Chinese, English",
+        "kit": "Alpha Series Programming Robot Set",
+        "age": "6+",
+        "viewers": 44471,
+        "update_time": "2026-08-17 17:36:37"
+      },
+      "downloadList": [
+        {
+          "id": 15,
+          "type": "Windows",
+          "url": "https://oss.zmrobo.com/robocode/win/RoboCode_1.0.70_win.exe",
+          "qr": null
+        },
+        {
+          "id": 16,
+          "type": "macOS",
+          "url": "https://oss.zmrobo.com/robocode/mac/RoboCode_1.0.73_darwin_x64.dmg",
+          "qr": null
+        },
+        {
+          "id": 17,
+          "type": "Linux:Intel, AMD x86",
+          "url": "https://oss.zmrobo.com/robocode/linux/amd64/RoboCode_1.0.73_linux_amd64.deb",
+          "qr": null
+        },
+        {
+          "id": 18,
+          "type": "Linux:LoongArch64",
+          "url": "https://oss.zmrobo.com/robocode/linux/loongarch64/RoboCode_1.0.73_linux_loongarch64.deb",
+          "qr": null
+        },
+        {
+          "id": 19,
+          "type": "Android",
+          "url": null,
+          "qr": "https://oss.zmrobo.com/zmrobo/software/robocode/images/2/qr_android6.png"
+        },
+        {
+          "id": 20,
+          "type": "iOS",
+          "url": null,
+          "qr": "https://oss.zmrobo.com/zmrobo/software/robocode/images/2/qr_ios.png"
+        }
+      ],
+      "historyList": [],
+      "moduleList": []
+    }
+  },
+  {
+    "summary": {
+      "id": 10,
+      "type": "APP",
+      "name": "WiseBot",
+      "icon": "https://oss.zmrobo.com/stemtown/upload/software/icon/wisebot_logo.png",
+      "os": "Android"
+    },
+    "detail": {
+      "softwareInfo": {
+        "name": "WiseBot",
+        "icon": "https://oss.zmrobo.com/stemtown/upload/software/icon/wisebot_logo.png",
+        "is_html": 0,
+        "html": "",
+        "manual": null,
+        "intro": "WiseBot là một công cụ học tập thú vị được thiết kế đặc biệt dành cho trẻ em từ 3 đến 6 tuổi. Ứng dụng này kết hợp lập trình đồ họa lấy cảm hứng từ ScratchJr, cho phép trẻ học logic mã hóa thông qua giao diện kéo và thả dựa trên khối. Nó cung cấp nhiều chế độ điều khiển từ xa, bao gồm Lái xe và Nhạc sĩ, cho phép trẻ em điều khiển robot một cách tự do. Kết nối Bluetooth đảm bảo ghép nối nhanh, tương tác đơn giản và hiệu suất đáng tin cậy. Với giao diện phong cách hoạt hình tươi sáng phù hợp với sở thích thị giác của trẻ nhỏ, WiseBot khơi dậy trí tò mò và khuyến khích sự khám phá.",
+        "size": "80MB",
+        "language": "Chinese, English,Korean",
+        "kit": "WiseBot Robot Kit",
+        "age": "3-6",
+        "viewers": 1433,
+        "update_time": "2025-11-21 17:47:51"
+      },
+      "downloadList": [
+        {
+          "id": 21,
+          "type": "Android",
+          "url": "https://oss.zmrobo.com/zmrobo/software/wisebot/wisebot.apk",
+          "qr": null
+        }
+      ],
+      "historyList": [
+        {
+          "id": 91,
+          "version": "1.5.2",
+          "content": "Tăng số thang âm phím đàn piano",
+          "create_time": "2025-11-21 17:47:51"
+        },
+        {
+          "id": 89,
+          "version": "1.5.1",
+          "content": "Tối ưu hóa kết nối của thiết bị cũ",
+          "create_time": "2025-11-10 11:10:36"
+        },
+        {
+          "id": 86,
+          "version": "1.5",
+          "content": "Tối ưu hóa hiệu ứng giao diện và giải quyết các vấn đề về quyền.",
+          "create_time": "2025-10-17 17:05:45"
+        },
+        {
+          "id": 85,
+          "version": "1.3",
+          "content": "Thêm tiếng Hàn và tối ưu link.",
+          "create_time": "2025-09-08 10:58:29"
+        },
+        {
+          "id": 84,
+          "version": "1.1",
+          "content": "Đã sửa lỗi nhắc nhở bất thường trong khu vực lập trình. Đã thêm ảnh bìa dự án",
+          "create_time": "2025-07-18 09:53:41"
+        },
+        {
+          "id": 83,
+          "version": "1.0",
+          "content": "Bản phát hành đầu tiên",
+          "create_time": "2025-07-18 09:53:41"
+        }
+      ],
+      "moduleList": []
+    }
+  },
+  {
+    "summary": {
+      "id": 1,
+      "type": "Software",
+      "name": "ZMROBO-3.0",
+      "icon": "https://oss.zmrobo.com/stemtown/upload/software/icon/scratch3_logo.jpg",
+      "os": "Windows/Web"
+    },
+    "detail": {
+      "softwareInfo": {
+        "name": "ZMROBO-3.0",
+        "icon": "https://oss.zmrobo.com/stemtown/upload/software/icon/scratch3_logo.jpg",
+        "is_html": 0,
+        "html": "",
+        "manual": "https://www.yuque.com/zmrobo/robocode",
+        "intro": "ZMROBO 3.0 là phần mềm lập trình đồ họa dành cho người mới bắt đầu. Nó chứa hàng trăm mô-đun lập trình và có thể thực hiện các loại lập trình robot khác nhau.",
+        "size": "201MB",
+        "language": "Chinese, English",
+        "kit": "Intelligence Storm, RoboRun",
+        "age": "6+",
+        "viewers": 137668,
+        "update_time": "2025-01-15 11:29:51"
+      },
+      "downloadList": [
+        {
+          "id": 1,
+          "type": "Windows",
+          "url": "https://oss.zmrobo.com/scratch3/ZMROBO3_3.2.57_win.exe",
+          "qr": null
+        },
+        {
+          "id": 2,
+          "type": "Web",
+          "url": "https://www.zmrobo.net/scratch3/",
+          "qr": null
+        }
+      ],
+      "historyList": [
+        {
+          "id": 82,
+          "version": "3.2.57",
+          "content": "1. Sửa tham số chuỗi trong chuỗi hiển thị bằng cách sử dụng str. 2, Sửa win11 và một số file máy tính không tải được",
+          "create_time": "2025-01-15 11:29:52"
+        },
+        {
+          "id": 81,
+          "version": "3.2.56",
+          "content": "1. Thay đổi tiền tố biến thành chữ thường.",
+          "create_time": "2024-11-11 15:58:18"
+        },
+        {
+          "id": 80,
+          "version": "3.2.55",
+          "content": "1. Tối ưu hóa kết nối HRCU. 2. Sửa một số lỗi mã python và c trong bộ điều khiển HRCU, mô-đun biến và mô-đun phát lại.",
+          "create_time": "2024-11-06 14:42:53"
+        },
+        {
+          "id": 78,
+          "version": "3.2.53",
+          "content": "Dịch cố định",
+          "create_time": "2024-06-07 14:24:45"
+        },
+        {
+          "id": 75,
+          "version": "3.2.50",
+          "content": "Cập nhật thư viện mô-đun IOT.",
+          "create_time": "2023-12-19 15:50:18"
+        },
+        {
+          "id": 69,
+          "version": "3.2.49",
+          "content": "1. Đã sửa một số lỗi trong mã C của một số chi tiết lắp ghép cảm biến. 2. Đã thêm \"Dò line bám vạch kẻ đường với năm cảm biến quang điện\" trong hướng dẫn E6 và M6. 3. Đã sửa lỗi mục đầu tiên không được chọn theo mặc định khi vào hướng dẫn. 4. Đã khắc phục sự cố mất chức năng cài đặt trình soạn thảo Python.",
+          "create_time": "2023-10-13 11:22:06"
+        },
+        {
+          "id": 21,
+          "version": "3.2.48",
+          "content": "Đã thêm tiện ích mở rộng IoT.",
+          "create_time": "2023-09-14 00:00:00"
+        },
+        {
+          "id": 20,
+          "version": "3.2.47",
+          "content": "Cập nhật bản dịch của một số chi tiết lắp ghép.",
+          "create_time": "2023-09-01 00:00:00"
+        }
+      ],
+      "moduleList": []
+    }
+  },
+  {
+    "summary": {
+      "id": 2,
+      "type": "Software",
+      "name": "ZMROBO-2.0",
+      "icon": "https://oss.zmrobo.com/stemtown/upload/software/icon/scratch2_logo.jpg",
+      "os": "Windows"
+    },
+    "detail": {
+      "softwareInfo": {
+        "name": "ZMROBO-2.0",
+        "icon": "https://oss.zmrobo.com/stemtown/upload/software/icon/scratch2_logo.jpg",
+        "is_html": 0,
+        "html": "",
+        "manual": null,
+        "intro": "ZMROBO 2.0 là một phần mềm lập trình. Phần mềm bổ sung thêm bộ điều khiển robot và các module chức năng cảm biến, có thể chạy chương trình theo thời gian thực sau khi lập trình, từ đó điều khiển phần cứng bằng các lệnh chương trình.",
+        "size": "135MB",
+        "language": "Chinese, English",
+        "kit": "Intelligence Storm, RoboMaker, RoboRun",
+        "age": "6+",
+        "viewers": 29523,
+        "update_time": "2026-08-12 11:41:30"
+      },
+      "downloadList": [
+        {
+          "id": 3,
+          "type": "Windows",
+          "url": "https://oss.zmrobo.com/scratch2/ZMROBO-2.0.exe",
+          "qr": null
+        }
+      ],
+      "historyList": [
+        {
+          "id": 94,
+          "version": "26.08.11",
+          "content": "Mô-đun thêm Arcu: Baudrate nối tiếp lấy dữ liệu nối tiếp",
+          "create_time": "2026-08-12 11:41:30"
+        },
+        {
+          "id": 93,
+          "version": "26.04.30",
+          "content": "Thêm từng mô-đun servo kỹ thuật số vào E6/M6/M1",
+          "create_time": "2026-04-30 17:39:39"
+        },
+        {
+          "id": 87,
+          "version": "25.10.17",
+          "content": "Tối ưu hóa tốc độ biên dịch của A-RCU và thêm 3 mô-đun servo kỹ thuật số trong phần động cơ.",
+          "create_time": "2025-10-17 17:09:06"
+        },
+        {
+          "id": 79,
+          "version": "24.03.22",
+          "content": "Đã thêm giá trị màu/đường/ngưỡng của mô-đun theo dõi thông minh cho A-RCU, sửa lỗi biên dịch của cảm biến siêu âm đọc E2 và sửa tham số \"Bắt đầu chạy\" bị thiếu của hướng dẫn nhận dạng giọng nói của mô-đun tầm nhìn Ai",
+          "create_time": "2024-07-18 10:15:24"
+        },
+        {
+          "id": 74,
+          "version": "23.11.08",
+          "content": "1.Đã khắc phục sự cố lệnh run3 và run4 trong nhận dạng giọng nói mô-đun tầm nhìn AI AICamVoice giống nhau. 2. Đã sửa lỗi sử dụng toàn cầu của các biến Python; thêm bộ điều khiển IQ2-Robot",
+          "create_time": "2023-11-17 16:34:11"
+        },
+        {
+          "id": 36,
+          "version": "23.08.09",
+          "content": "Đã cập nhật hướng dẫn tham số của mô-đun AiCamVoice",
+          "create_time": "2023-08-09 00:00:00"
+        },
+        {
+          "id": 35,
+          "version": "23.08.07",
+          "content": "Đã sửa lỗi RCU A1/A2 không biên dịch cùng một mã lần thứ hai.",
+          "create_time": "2023-08-07 00:00:00"
+        }
+      ],
+      "moduleList": []
+    }
+  },
+  {
+    "summary": {
+      "id": 3,
+      "type": "Software",
+      "name": "RoboExp",
+      "icon": "https://oss.zmrobo.com/stemtown/upload/software/icon/roboexp_logo.jpg",
+      "os": "Windows"
+    },
+    "detail": {
+      "softwareInfo": {
+        "name": "RoboExp",
+        "icon": "https://oss.zmrobo.com/stemtown/upload/software/icon/roboexp_logo.jpg",
+        "is_html": 0,
+        "html": "",
+        "manual": "https://www.yuque.com/zmrobo/roboexp",
+        "intro": "\"Robot Express\" là phần mềm lập trình biểu đồ dòng chảy được phát triển độc lập bởi Zhongming Robot. Phiên bản mới nhất là Robot Express v6.0.8. Lưu ý: Phiên bản RoboExpv6.0, thư viện hỗ trợ đã được nâng cấp lên Microsoft.NET Framework 4.0; Phiên bản RoboExpV6.0 đã ngừng bảo trì và cập nhật các RCU như IQRobot, IQ2Robot, SuperRCU, BasicRCU, ERCU, XRCU, X1RCU và X2RCU. Nếu bạn cần sử dụng các loại RCU trên, vui lòng tải xuống phiên bản phần mềm Robot Express 5.5 hoặc thấp hơn.",
+        "size": "99MB",
+        "language": "Chinese, English",
+        "kit": "Intelligence Storm, RoboRun",
+        "age": "6+",
+        "viewers": 28319,
+        "update_time": "2026-04-15 20:29:32"
+      },
+      "downloadList": [
+        {
+          "id": 4,
+          "type": "Windows",
+          "url": "https://oss.zmrobo.com/roboexp/RoboEXP_v6.0.8_en_4.82.exe",
+          "qr": null
+        }
+      ],
+      "historyList": [
+        {
+          "id": 92,
+          "version": "6.0.8_4.82",
+          "content": "Cập nhật",
+          "create_time": "2026-04-15 20:29:33"
+        },
+        {
+          "id": 90,
+          "version": "6.0.8_4.76",
+          "content": "1. E7-RCU đã sửa đổi trình tự chế độ chức năng của mô-đun thị giác AI 2.0, bổ sung thêm chức năng phát nhạc và hiển thị hình ảnh. 2. Đã sửa lỗi biên dịch trong giao diện tiếng Anh.",
+          "create_time": "2025-11-20 19:43:25"
+        },
+        {
+          "id": 88,
+          "version": "6.0.7_4.75",
+          "content": "1. Thêm mô-đun lập trình liên quan đến E7RCU 2. Khắc phục các sự cố đã biết",
+          "create_time": "2025-11-07 12:40:38"
+        },
+        {
+          "id": 60,
+          "version": "6.0.6",
+          "content": "Các mô-đun động cơ servo và hộp số kỹ thuật số đã được thêm vào E3RCU, E6RCU và M6RCU.",
+          "create_time": "2022-02-14 00:00:00"
+        },
+        {
+          "id": 59,
+          "version": "6.0.6",
+          "content": "Mô-đun thị giác AI trong E3RCU, E6RCU và M6RCU đã bổ sung chức năng “Năm dòng tìm kiếm cảm biến quang điện” và khắc phục một số vấn đề bất thường trong menu chuột phải của phần mềm.",
+          "create_time": "2022-02-10 00:00:00"
+        },
+        {
+          "id": 58,
+          "version": "6.0.6",
+          "content": "E6RCU và M6RCU đã thêm mô-đun để quét mã QR chuỗi. Đã khắc phục sự cố trong đó mô-đun điều khiển quy trình di động báo lỗi sau khi biên dịch.",
+          "create_time": "2021-12-27 00:00:00"
+        }
+      ],
+      "moduleList": []
+    }
+  },
+  {
+    "summary": {
+      "id": 9,
+      "type": "APP",
+      "name": "Alpha Code",
+      "icon": "https://oss.zmrobo.com/stemtown/upload/software/icon/AlphaCode_logo.png",
+      "os": "Android/Windows"
+    },
+    "detail": {
+      "softwareInfo": {
+        "name": "Alpha Code",
+        "icon": "https://oss.zmrobo.com/stemtown/upload/software/icon/AlphaCode_logo.png",
+        "is_html": 0,
+        "html": "",
+        "manual": null,
+        "intro": "Alpha Code là một ứng dụng được phát triển bởi ZMROBO cho phép người dùng điều khiển và lập trình robot Alpha từ xa thông qua điện thoại thông minh hoặc máy tính bảng của họ. Ứng dụng cho phép người dùng nâng cao chức năng của robot thông qua lập trình đồ họa.",
+        "size": "140MB",
+        "language": "Chinese, English",
+        "kit": "Alpha X Set",
+        "age": "6+",
+        "viewers": 6407,
+        "update_time": "2024-07-09 19:00:22"
+      },
+      "downloadList": [
+        {
+          "id": 14,
+          "type": "Android",
+          "url": null,
+          "qr": "https://oss.zmrobo.com/stemtown/upload/software/qr/qr_alpha_code_android.png"
+        },
+        {
+          "id": 13,
+          "type": "Windows",
+          "url": "https://oss.zmrobo.com/stemtown/software/alphacode/AlphaCode.exe",
+          "qr": null
+        }
+      ],
+      "historyList": [
+        {
+          "id": 77,
+          "version": "1.1.6",
+          "content": "Cập nhật",
+          "create_time": "2024-05-20 15:37:45"
+        },
+        {
+          "id": 76,
+          "version": "1.1",
+          "content": "Đã phát hành",
+          "create_time": "2024-05-20 15:37:45"
+        }
+      ],
+      "moduleList": []
+    }
+  },
+  {
+    "summary": {
+      "id": 4,
+      "type": "APP",
+      "name": "Cabin",
+      "icon": "https://oss.zmrobo.com/stemtown/upload/software/icon/cabin_logo.jpg",
+      "os": "Android/iOS"
+    },
+    "detail": {
+      "softwareInfo": {
+        "name": "Cabin",
+        "icon": "https://oss.zmrobo.com/stemtown/upload/software/icon/cabin_logo.jpg",
+        "is_html": 0,
+        "html": null,
+        "manual": null,
+        "intro": "Cabin là một APP được phát triển bởi ZMROBO, tích hợp xây dựng, lập trình, điều khiển, AI, giảng dạy và các chức năng khác. Ứng dụng Cabin có thể được kết nối qua Bluetooth hoặc Wi-Fi và được sử dụng để điều khiển các bộ robot của ZMROBO, bao gồm Defender Wisekit, Engineering Set, RoboRun, RoboMaker, Intelligence Storm, WiseChild 2 và WiseKit 2. Chức năng chính: -Kết nối robot qua Bluetooth -Điều khiển từ xa bằng tay cầm tương tự -Kết nối camera qua Wi-Fi -Nhận dạng khuôn mặt, nhận dạng mã QR -Lập trình đồ họa, tải xuống chương trình -Được trang bị các khóa học giảng dạy và các trường hợp thi công -Được trang bị sơ đồ các bước thi công 3D để thể hiện quá trình thi công",
+        "size": "99MB",
+        "language": "Chinese, English",
+        "kit": "Intelligence Storm, RoboMaker",
+        "age": "6+",
+        "viewers": 13646,
+        "update_time": "2024-05-22 10:11:17"
+      },
+      "downloadList": [
+        {
+          "id": 5,
+          "type": "Android",
+          "url": null,
+          "qr": "https://oss.zmrobo.com/stemtown/upload/software/qr/qrandroid_cabin.png"
+        },
+        {
+          "id": 6,
+          "type": "iOS",
+          "url": "https://itunes.apple.com/us/app/cabin/id1337552075?l=zh&ls=1&mt=8",
+          "qr": "https://oss.zmrobo.com/stemtown/upload/software/qr/qrios_cabin.png"
+        }
+      ],
+      "historyList": [
+        {
+          "id": 72,
+          "version": "2.6.3",
+          "content": "[Mới] Ba mô-đun lập trình của Alpha Set.",
+          "create_time": "2023-11-02 14:06:31"
+        },
+        {
+          "id": 71,
+          "version": "2.6.1",
+          "content": "[Khắc phục] Cảm biến quang điện Lỗi mã Python trong lập trình.",
+          "create_time": "2023-11-02 14:06:31"
+        },
+        {
+          "id": 70,
+          "version": "2.6.0",
+          "content": "[Mới] Bộ Alpha. [Khắc phục] Gửi phản hồi không thành công.",
+          "create_time": "2023-11-02 14:06:31"
+        }
+      ],
+      "moduleList": []
+    }
+  }
+]

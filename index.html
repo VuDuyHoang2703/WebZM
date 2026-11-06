@@ -1,0 +1,1293 @@
+<!DOCTYPE html>
+<html lang="vi" class="w-full">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ZMRobo Data Viewer - Khám phá dữ liệu cào</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+    *,
+    ::before,
+    ::after {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      width: 100%;
+      min-height: 100vh;
+      margin: 0;
+      padding: 0;
+      background-color: #f8fafc;
+      color: #1e293b;
+    }
+
+    .custom-scroll::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+
+    .custom-scroll::-webkit-scrollbar-track {
+      background: #f1f5f9;
+      border-radius: 9999px;
+    }
+
+    .custom-scroll::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 9999px;
+    }
+
+    .custom-scroll::-webkit-scrollbar-thumb:hover {
+      background: #94a3b8;
+    }
+
+    /* Khung hiển thị nội dung chi tiết: Mở rộng chiều ngang toàn màn hình (chuẩn 1560px) */
+    .zm-content-wrapper {
+      width: 100%;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      background-color: #ffffff;
+      padding: 0;
+    }
+
+    .zm-content-wrapper.zm-dark-wrapper {
+      background-color: #000000;
+    }
+
+    .zm-content-inner {
+      width: 100%;
+      max-width: 1560px;
+      margin-left: auto !important;
+      margin-right: auto !important;
+      box-sizing: border-box;
+      position: relative;
+    }
+
+    /* Đảm bảo toàn bộ các khối container con mở rộng chuẩn theo layout gốc ZMRobo */
+    .zm-content-inner .container,
+    .zm-content-inner .slice_box {
+      width: 100% !important;
+      max-width: 1560px !important;
+      margin-left: auto !important;
+      margin-right: auto !important;
+      box-sizing: border-box;
+      position: relative !important;
+      overflow: visible !important;
+    }
+
+    .zm-content-inner .slice_inbox {
+      margin: 0 auto !important;
+      text-align: center !important;
+      position: relative !important;
+      overflow: visible !important;
+    }
+
+    /* KHẮC PHỤC TRIỆT ĐỂ LỖI TAILWIND PREFLIGHT: Tailwind đặt mọi thẻ <img>, <video> */
+    /* thành display:block (khiến mọi hình ảnh và icon bị dồn sang góc trái thay vì    */
+    /* căn giữa theo text-align:center của thẻ cha). Khôi phục chuẩn inline-block!    */
+    .zm-content-inner img,
+    .zm-content-inner svg,
+    .zm-content-inner video,
+    .zm-content-inner canvas {
+      display: inline-block;
+      vertical-align: middle;
+    }
+
+    /* ========================================================================== */
+    /* 1. KHẮC PHỤC TRIỆT ĐỂ LỖI "MỖI CHỮ 1 DÒNG" VÀ TRÀN KHUNG TRÊN AI CAM ICON */
+    /* ========================================================================== */
+    /* Mở rộng chiều ngang ô 90px, khoảng cách giữa các ô 45px                     */
+    /* Đảm bảo vừa vặn đúng 7 ô trên hàng 1 và 7 ô trên hàng 2 (7*90 + 6*45 = 900px < 1030px) */
+    /* Khối Rubik luôn nằm trọn vẹn ở cuối hàng 2, tuyệt đối không bị rớt xuống hàng 3 */
+    .zm-content-inner .color_icon_list {
+      display: inline-block !important;
+      width: 90px !important;
+      margin-top: 24px !important;
+      margin-left: 45px !important;
+      vertical-align: top !important;
+      text-align: center !important;
+      box-sizing: border-box !important;
+      white-space: normal !important;
+      word-break: keep-all !important;
+      /* Ngăn chặn tuyệt đối tình trạng mỗi chữ 1 dòng */
+    }
+
+    .zm-content-inner .color_icon_list[style*="margin-left:0"],
+    .zm-content-inner .color_icon_list[style*="margin-left: 0"] {
+      margin-left: 0 !important;
+    }
+
+    .zm-content-inner .color_icon_list img {
+      margin-bottom: 8px !important;
+      display: inline-block !important;
+    }
+
+    .zm-content-inner .color_icon_list div {
+      font-size: 13px !important;
+      line-height: 1.25 !important;
+      text-align: center !important;
+      white-space: normal !important;
+      word-break: keep-all !important;
+    }
+
+    /* Các icon tính năng trên thẻ chính */
+    .zm-content-inner .func_icon_list {
+      display: inline-block !important;
+      text-align: center !important;
+      box-sizing: border-box !important;
+      vertical-align: top !important;
+      margin-top: 20px !important;
+    }
+
+    .zm-content-inner .func_icon_list div {
+      text-align: center !important;
+      line-height: 1.25 !important;
+      font-size: 13px !important;
+      margin-top: 4px !important;
+    }
+
+    /* ========================================================================== */
+    /* 2. KHẮC PHỤC LỖI NỘI DUNG LÒI RA NGOÀI & BỊ CẮT NGANG TẠI CÁC THẺ CARD NỀN */
+    /* ========================================================================== */
+    /* Card AI CAM (3-bg-2.png): Chiều cao co giãn tối thiểu 700px bao trọn cả 2 hàng icon đẹp mắt */
+    .zm-content-inner div[style*="3-bg-2.png"] {
+      height: auto !important;
+      min-height: 700px !important;
+      padding-bottom: 50px !important;
+      background-size: 100% 100% !important;
+      overflow: visible !important;
+    }
+
+    /* Chuẩn hóa hiển thị tiêu đề gradient: Khoảng cách tự nhiên chuẩn (&nbsp;), không cộng dồn margin */
+    .zm-content-inner .gradient_tittle {
+      display: inline-block !important;
+    }
+    .zm-content-inner strong + strong,
+    .zm-content-inner span.gradient_tittle + span.gradient_tittle2 {
+      display: inline-block !important;
+    }
+
+    /* Card Cảm biến & Động cơ (3-bg-3.png): Co giãn tối thiểu 1520px bao trọn    */
+    /* cả 4 hàng cảm biến và Servo kỹ thuật số, chấm dứt hoàn toàn bị cắt ngang   */
+    .zm-content-inner div[style*="3-bg-3.png"] {
+      height: auto !important;
+      min-height: 1520px !important;
+      padding-bottom: 60px !important;
+      background-size: 100% 100% !important;
+      overflow: visible !important;
+    }
+
+    /* Đảm bảo slice tiếp theo (4-bg.png) bắt đầu sạch sẽ bên dưới thẻ trước      */
+    .zm-content-inner div[style*="4-bg.png"] {
+      position: relative !important;
+      overflow: visible !important;
+    }
+
+    /* ========================================================================== */
+    /* 3. CĂN CHỈNH KHỐI CẢM BIẾN & ĐỘNG CƠ CÂN ĐỐI, KHÔNG BỊ CẮT MÉP TRÁI       */
+    /* ========================================================================== */
+    .zm-content-inner .both_sensor_div {
+      margin-left: auto !important;
+      margin-right: auto !important;
+      text-align: center !important;
+      width: 100% !important;
+      box-sizing: border-box !important;
+    }
+
+    .zm-content-inner .field_4 {
+      width: 570px !important;
+      margin-top: 36px !important;
+      display: inline-block !important;
+      vertical-align: top !important;
+      text-align: left !important;
+      box-sizing: border-box !important;
+    }
+
+    .zm-content-inner .both_sensor_div .field_4:nth-child(even) {
+      margin-left: 16px !important;
+    }
+
+    .zm-content-inner .sensor_left_box {
+      display: inline-block !important;
+      vertical-align: top !important;
+    }
+
+    .zm-content-inner .sensor_left_box img {
+      width: 270px !important;
+      max-width: 270px !important;
+      object-fit: contain !important;
+      vertical-align: top !important;
+    }
+
+    .zm-content-inner .sensor_right_box {
+      display: inline-block !important;
+      vertical-align: top !important;
+      margin-top: 10px !important;
+      margin-left: 16px !important;
+      width: 260px !important;
+      box-sizing: border-box !important;
+      text-align: left !important;
+    }
+
+    .zm-content-inner .func_icon_div {
+      font-size: 16px !important;
+      text-align: left !important;
+      margin-top: 10px !important;
+      display: flex !important;
+      align-items: center !important;
+      gap: 10px !important;
+    }
+
+    .zm-content-inner .func_icon_div img {
+      flex-shrink: 0 !important;
+    }
+
+    .zm-content-inner .func_icon_div div {
+      font-size: 14px !important;
+      margin: 0 !important;
+      display: block !important;
+      text-align: left !important;
+      line-height: 1.3 !important;
+      white-space: normal !important;
+    }
+
+    /* Căn đều 2 bên CHỈ áp dụng cho đoạn văn văn bản giới thiệu, không ép lên icon hay layout */
+    .product-desc-text,
+    .zm-justified {
+      text-align: justify !important;
+      text-justify: inter-word !important;
+    }
+
+    /* Giữ nguyên căn giữa cho các tiêu đề hoặc icon đặc trưng */
+    .zm-content-inner h1,
+    .zm-content-inner h2,
+    .zm-content-inner h3,
+    .zm-content-inner h4,
+    .zm-content-inner .icon_2,
+    .zm-content-inner .icon_2_font1,
+    .zm-content-inner .icon_2 .gray_font,
+    .zm-content-inner .icon_8,
+    .zm-content-inner .quality_item,
+    .zm-content-inner .tookit_item,
+    .zm-content-inner .task_robo_item {
+      text-align: center !important;
+    }
+
+    /* Bỏ margin-left: 10px mặc định trên chữ của .icon_2 để chữ nằm thẳng trục giữa với icon phía trên */
+    .zm-content-inner .icon_2 .icon_2_font1,
+    .zm-content-inner .icon_2 .gray_font {
+      margin-left: 0 !important;
+    }
+
+    .zm-content-inner .icon_2 > img,
+    .zm-content-inner .icon_8 > img,
+    .zm-content-inner .func_icon_list > img,
+    .zm-content-inner .color_icon_list > img,
+    .zm-content-inner .quality_item > img,
+    .zm-content-inner .tookit_item > img,
+    .zm-content-inner .task_robo_item > img {
+      display: block !important;
+      margin-left: auto !important;
+      margin-right: auto !important;
+    }
+
+    /* ========================================================================== */
+    /* 4. KHẮC PHỤC TRIỆT ĐỂ LỖI CHỮ ĐÈ LÊN HÌNH & XÓA BỎ HOÀN TOÀN ĐỔ BÓNG XẤU */
+    /* ========================================================================== */
+    /* Tuyệt đối không dùng đổ bóng chữ làm chữ bị đen nhòe, lem nhem khó đọc */
+    .zm-content-inner * {
+      text-shadow: none !important;
+    }
+
+    /* Thẻ card có ảnh nền chụp thực tế (như mục Giáo dục STEM, Cuộc thi Robotics dòng Super AI) */
+    .zm-content-inner .gray_rect {
+      position: relative !important;
+      overflow: hidden !important;
+    }
+
+    .zm-content-inner .gray_rect > div[style*="position:absolute"] {
+      position: absolute !important;
+      left: 0 !important;
+      right: 0 !important;
+      bottom: 0 !important;
+      width: 100% !important;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.94) 0%, rgba(0, 0, 0, 0.75) 70%, transparent 100%) !important;
+      padding: 36px 24px 16px 24px !important;
+      border-radius: 0 0 20px 20px !important;
+      box-sizing: border-box !important;
+      text-shadow: none !important;
+    }
+
+    .zm-content-inner .gray_rect .row_text {
+      line-height: 1.4 !important;
+      margin-top: 8px !important;
+    }
+
+    .zm-content-inner .gray_rect .row_text p {
+      margin-bottom: 4px !important;
+      font-size: 15px !important;
+      line-height: 1.35 !important;
+    }
+
+    /* ========================================================================== */
+    /* 5. CĂN CHỈNH RIÊNG CHO CÁC THẺ GAMMA SERIES (5-2.png & 5-3.png):           */
+    /* ĐẨY HÌNH MINH HỌA XUỐNG ĐÁY, CHỮ NẰM GỌN TRÊN ĐỈNH — KHÔNG BAO GIỜ ĐÈ NHAU */
+    /* ========================================================================== */
+    .zm-content-inner div[style*="5-2.png"] {
+      height: 390px !important;
+      background-size: 100% auto !important;
+      background-position: center bottom !important;
+      background-repeat: no-repeat !important;
+      vertical-align: top !important;
+      position: relative !important;
+      box-sizing: border-box !important;
+    }
+
+    .zm-content-inner div[style*="5-2.png"] > div {
+      position: relative !important;
+      top: 0 !important;
+      left: 0 !important;
+      margin-top: 0 !important;
+      padding: 24px 22px 0 22px !important;
+      color: #B36416 !important;
+      text-shadow: none !important;
+    }
+
+    .zm-content-inner div[style*="5-2.png"] > div > div:first-child {
+      font-size: 24px !important;
+      font-weight: 800 !important;
+      color: #B36416 !important;
+      text-shadow: none !important;
+      line-height: 1.2 !important;
+    }
+
+    .zm-content-inner div[style*="5-2.png"] > div > div:last-child {
+      font-size: 14px !important;
+      line-height: 1.45 !important;
+      color: #5c3005 !important;
+      margin-top: 8px !important;
+      text-shadow: none !important;
+    }
+
+    .zm-content-inner div[style*="5-3.png"] {
+      height: 390px !important;
+      background-size: 100% auto !important;
+      background-position: center bottom !important;
+      background-repeat: no-repeat !important;
+      vertical-align: top !important;
+      position: relative !important;
+      box-sizing: border-box !important;
+    }
+
+    .zm-content-inner div[style*="5-3.png"] > div {
+      position: relative !important;
+      top: 0 !important;
+      left: 0 !important;
+      margin-top: 0 !important;
+      padding: 24px 30px 0 30px !important;
+      color: #8243B7 !important;
+      text-shadow: none !important;
+    }
+
+    .zm-content-inner div[style*="5-3.png"] > div > div:first-child {
+      font-size: 24px !important;
+      font-weight: 800 !important;
+      color: #8243B7 !important;
+      text-shadow: none !important;
+      line-height: 1.2 !important;
+    }
+
+    .zm-content-inner div[style*="5-3.png"] > div > div:last-child {
+      font-size: 14px !important;
+      line-height: 1.45 !important;
+      color: #431a68 !important;
+      margin-top: 8px !important;
+      text-shadow: none !important;
+    }
+
+    /* Khối thẻ thông số C7-RCU của Gamma Series: Co giãn linh hoạt, không đè icon */
+    .zm-content-inner .gray_box {
+      height: auto !important;
+      min-height: 213px !important;
+      padding-bottom: 16px !important;
+      overflow: visible !important;
+    }
+
+    .zm-content-inner .gray_box .b_title {
+      font-size: 20px !important;
+      line-height: 1.25 !important;
+      padding: 0 8px !important;
+    }
+
+    /* ========================================================================== */
+    /* 6. KHẮC PHỤC TRÀN CHỮ VÀ ĐÈ HÌNH TRÊN SẢN PHẨM 129 (AI STORM - RUBIK ROBOT) */
+    /* ========================================================================== */
+    .zm-content-inner div[style*="4-bg.png"],
+    .zm-content-inner div[style*="5-bg.png"] {
+      line-height: 1.6 !important;
+      font-size: 16px !important;
+    }
+
+    .zm-content-inner div[style*="4-bg.png"] > div,
+    .zm-content-inner div[style*="5-bg.png"] > div {
+      height: auto !important;
+      max-height: 380px !important;
+      line-height: 1.65 !important;
+      font-size: 16px !important;
+    }
+
+    /* ========================================================================== */
+    /* 7. CĂN GIỮA TOÀN BỘ HÌNH ẢNH & VIDEO TRONG BÀI VIẾT DẠNG POSTER CUỘN      */
+    /* (Đặc biệt các sản phẩm như Product 60, 69, 79, 62, 78, 77, 85, v.v.)     */
+    /* ========================================================================== */
+    .zm-content-inner p {
+      text-align: center;
+    }
+
+    .zm-content-inner p > img,
+    .zm-content-inner div > img[width],
+    .zm-content-inner p > video,
+    .zm-content-inner video {
+      display: block !important;
+      margin-left: auto !important;
+      margin-right: auto !important;
+      max-width: 100% !important;
+      height: auto !important;
+    }
+
+    /* Giữ khung video poster vừa vặn với kích thước poster 750px và căn giữa */
+    .zm-content-inner p > video,
+    .zm-content-inner video {
+      max-width: 750px !important;
+    }
+
+    /* ========================================================================== */
+    /* 8. CĂN GIỮA VÀ CHUẨN HÓA BẢNG BIỂU THÔNG SỐ (TABLE)                       */
+    /* ========================================================================== */
+    .zm-content-inner table {
+      margin-left: auto !important;
+      margin-right: auto !important;
+      margin-top: 20px !important;
+      margin-bottom: 24px !important;
+      border-collapse: collapse !important;
+      border: 1px solid #cbd5e1 !important;
+      background-color: #ffffff !important;
+      max-width: 100% !important;
+    }
+
+    .zm-content-inner table td,
+    .zm-content-inner table th {
+      border: 1px solid #cbd5e1 !important;
+      padding: 10px 16px !important;
+      text-align: center !important;
+      vertical-align: middle !important;
+    }
+
+    .zm-content-inner table thead,
+    .zm-content-inner table tr:first-child:not(:only-child) {
+      background-color: #f1f5f9 !important;
+      font-weight: 700 !important;
+    }
+
+    /* Đảm bảo toàn bộ div bọc chứa bảng biểu luôn căn giữa toàn bộ bảng */
+    .zm-content-inner div:has(> table) {
+      text-align: center !important;
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: center !important;
+      width: 100% !important;
+      overflow-x: auto !important;
+    }
+
+    /* Định dạng bảng cho sản phẩm nền tối (Dark Theme) */
+    .zm-dark-wrapper table {
+      background-color: #141414 !important;
+      border-color: #334155 !important;
+      color: #f8fafc !important;
+    }
+
+    .zm-dark-wrapper table td,
+    .zm-dark-wrapper table th {
+      border-color: #334155 !important;
+      color: #f8fafc !important;
+    }
+
+    .zm-dark-wrapper table thead,
+    .zm-dark-wrapper table tr:first-child:not(:only-child) {
+      background-color: #1e293b !important;
+      color: #ffffff !important;
+    }
+  </style>
+</head>
+
+<body class="min-h-screen flex flex-col w-full">
+
+  <!-- ======================================================== -->
+  <!-- 1. GIAO DIỆN CHÍNH (HEADER & CATALOG)                    -->
+  <!-- ======================================================== -->
+  <div id="main-catalog-view" class="w-full flex-1 flex flex-col">
+    <!-- Header -->
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-40 shadow-sm w-full">
+      <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+        <div class="flex flex-col sm:flex-row items-center justify-between py-2.5 sm:h-16 gap-2 sm:gap-4">
+          <!-- Logo & Title -->
+          <div class="flex items-center gap-3 w-full sm:w-auto justify-between sm:justify-start">
+            <div class="flex items-center gap-2.5">
+              <div
+                class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-500 flex items-center justify-center text-white shadow-md shadow-blue-500/20 flex-shrink-0">
+                <i class="fa-solid fa-robot text-lg sm:text-xl"></i>
+              </div>
+              <div>
+                <h1 class="font-extrabold text-base sm:text-lg text-slate-900 leading-none flex items-center gap-2">
+                  ZMRobo Data Viewer
+                  <span
+                    class="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-700">Offline
+                    DB</span>
+                </h1>
+                <p class="text-[11px] text-slate-500 mt-1">Dữ liệu cào từ zmrobo.net (Giao diện Tiếng Việt)</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Navigation Tabs -->
+          <nav
+            class="flex items-center space-x-1 sm:space-x-2 bg-slate-100 p-1 rounded-xl w-full sm:w-auto overflow-x-auto custom-scroll">
+            <button onclick="switchTab('products')" id="tab-btn-products"
+              class="tab-btn flex-shrink-0 flex items-center gap-1.5 sm:gap-2 px-3 py-1.5 sm:py-2 text-xs sm:text-sm font-semibold rounded-lg bg-white text-blue-600 shadow-sm transition">
+              <i class="fa-solid fa-boxes-stacked"></i> <span>Sản phẩm</span>
+              <span id="badge-products-count"
+                class="bg-blue-100 text-blue-700 text-[10px] px-1.5 py-0.5 rounded-full">...</span>
+            </button>
+            <button onclick="switchTab('software')" id="tab-btn-software"
+              class="tab-btn flex-shrink-0 flex items-center gap-1.5 sm:gap-2 px-3 py-1.5 sm:py-2 text-xs sm:text-sm font-medium rounded-lg text-slate-600 hover:text-slate-900 transition">
+              <i class="fa-solid fa-laptop-code"></i> <span>Phần mềm</span>
+              <span id="badge-software-count"
+                class="bg-slate-200 text-slate-700 text-[10px] px-1.5 py-0.5 rounded-full">...</span>
+            </button>
+            <button onclick="switchTab('resources')" id="tab-btn-resources"
+              class="tab-btn flex-shrink-0 flex items-center gap-1.5 sm:gap-2 px-3 py-1.5 sm:py-2 text-xs sm:text-sm font-medium rounded-lg text-slate-600 hover:text-slate-900 transition">
+              <i class="fa-solid fa-file-arrow-down"></i> <span>Tài liệu / Driver</span>
+              <span id="badge-resources-count"
+                class="bg-slate-200 text-slate-700 text-[10px] px-1.5 py-0.5 rounded-full">...</span>
+            </button>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Body Container -->
+    <main class="flex-1 max-w-7xl w-full mx-auto px-3 sm:px-6 lg:px-8 py-5 min-w-0">
+
+      <!-- 1. TAB PRODUCTS -->
+      <section id="tab-products" class="tab-content w-full min-w-0">
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-5 items-start w-full min-w-0">
+          <!-- Sidebar Filter -->
+          <aside
+            class="bg-white rounded-2xl p-4 sm:p-5 border border-slate-200 shadow-sm w-full min-w-0 lg:sticky lg:top-20">
+            <div class="flex items-center justify-between pb-3 border-b border-slate-100 mb-3">
+              <h2 class="font-bold text-slate-900 text-sm flex items-center gap-2">
+                <i class="fa-solid fa-filter text-blue-600"></i> Bộ lọc danh mục
+              </h2>
+              <button onclick="resetFilters()" class="text-xs text-blue-600 hover:underline font-medium">Đặt
+                lại</button>
+            </div>
+
+            <!-- Search box -->
+            <div class="relative mb-4">
+              <i class="fa-solid fa-magnifying-glass absolute left-3 top-2.5 text-slate-400 text-xs"></i>
+              <input type="text" id="product-search" placeholder="Tìm tên tiếng Việt, tiếng Anh hoặc mã..."
+                class="w-full pl-8 pr-3 py-1.5 text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition"
+                oninput="filterProducts()">
+            </div>
+
+            <!-- Categories Tree (BỎ DẤU CHẤM ĐẦU DÒNG) -->
+            <div class="space-y-2 max-h-[60vh] overflow-y-auto overflow-x-hidden custom-scroll pr-1"
+              id="category-tree-container">
+              <p class="text-xs text-slate-400">Đang tải danh mục...</p>
+            </div>
+          </aside>
+
+          <!-- Products Grid Area -->
+          <div class="lg:col-span-3 space-y-4 w-full min-w-0">
+            <!-- Control Bar -->
+            <div
+              class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 bg-white px-4 py-2.5 rounded-2xl border border-slate-200 shadow-sm">
+              <div class="text-xs sm:text-sm text-slate-600">
+                Hiển thị <span id="filtered-count" class="font-bold text-slate-900">0</span> / <span id="total-count"
+                  class="font-bold text-slate-900">0</span> sản phẩm
+              </div>
+              <div class="flex items-center gap-2 text-xs">
+                <span class="text-slate-400">Sắp xếp:</span>
+                <select id="product-sort" onchange="filterProducts()"
+                  class="bg-slate-50 border border-slate-200 rounded-lg px-2 py-1 focus:outline-none font-medium text-slate-700">
+                  <option value="id_desc">Mới nhất (ID giảm dần)</option>
+                  <option value="id_asc">Cũ nhất (ID tăng dần)</option>
+                  <option value="title_asc">Tên (A-Z)</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Product Cards Grid -->
+            <div id="products-grid"
+              class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-5 w-full min-w-0">
+              <!-- Cards rendered via JS -->
+            </div>
+
+            <!-- Pagination / Load more -->
+            <div id="load-more-container" class="text-center pt-4 pb-8 hidden">
+              <button onclick="loadMoreProducts()"
+                class="px-6 py-2.5 bg-white border border-slate-200 rounded-xl font-semibold text-xs sm:text-sm text-slate-700 hover:bg-slate-50 hover:border-slate-300 shadow-sm transition">
+                Xem thêm sản phẩm...
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2. TAB SOFTWARE -->
+      <section id="tab-software" class="tab-content hidden w-full min-w-0">
+        <div class="max-w-5xl mx-auto space-y-5 w-full min-w-0">
+          <div
+            class="bg-gradient-to-r from-blue-600 to-indigo-600 rounded-2xl p-5 text-white shadow-lg shadow-blue-500/10 flex items-center justify-between">
+            <div>
+              <h2 class="text-lg sm:text-xl font-bold">Phần mềm & Ứng dụng ZMRobo</h2>
+              <p class="text-blue-100 text-xs sm:text-sm mt-0.5">Phần mềm lập trình, điều khiển cho Windows, Mac, iPad,
+                Android</p>
+            </div>
+            <i class="fa-solid fa-code text-3xl sm:text-4xl text-blue-200/40"></i>
+          </div>
+          <div id="software-container" class="grid grid-cols-1 md:grid-cols-2 gap-4 w-full min-w-0">
+            <!-- Rendered via JS -->
+          </div>
+        </div>
+      </section>
+
+      <!-- 3. TAB RESOURCES -->
+      <section id="tab-resources" class="tab-content hidden w-full min-w-0">
+        <div class="max-w-5xl mx-auto space-y-4 w-full min-w-0">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div>
+              <h2 class="text-lg sm:text-xl font-bold text-slate-900">Trung tâm tài nguyên & Driver</h2>
+              <p class="text-xs sm:text-sm text-slate-500">Tải firmware, driver kết nối và tài liệu hướng dẫn</p>
+            </div>
+            <input type="text" id="resource-search" placeholder="Lọc tài nguyên..." oninput="filterResources()"
+              class="px-3 py-1.5 text-xs sm:text-sm bg-white border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 w-full sm:w-64 shadow-sm">
+          </div>
+          <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden w-full min-w-0">
+            <div class="divide-y divide-slate-100 w-full min-w-0" id="resources-list">
+              <!-- Rendered via JS -->
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- 2. GIAO DIỆN XEM CHI TIẾT SẢN PHẨM TOÀN TRANG (FULL-PAGE)-->
+  <!-- GIỐNG HỆT BẢN GỐC WWW.ZMROBO.NET/PRODUCTS/:ID             -->
+  <!-- ======================================================== -->
+  <div id="product-detail-view" class="hidden w-full min-h-screen bg-white flex flex-col z-50">
+    <!-- Sticky Top Navigation Bar -->
+    <div class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-sm">
+      <div class="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
+        <!-- Back Button & Breadcrumbs -->
+        <div class="flex items-center gap-3 sm:gap-4 min-w-0">
+          <button onclick="closeProductDetailView()"
+            class="px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-blue-600 hover:text-white text-slate-700 text-xs sm:text-sm font-semibold transition flex items-center gap-2 flex-shrink-0 shadow-sm">
+            <i class="fa-solid fa-arrow-left"></i> <span>Quay lại</span>
+          </button>
+          <div class="hidden sm:flex items-center gap-1.5 text-xs text-slate-400 min-w-0 truncate">
+            <span>Sản phẩm</span>
+            <i class="fa-solid fa-chevron-right text-[10px]"></i>
+            <span id="detail-nav-category" class="font-medium text-slate-600">Danh mục</span>
+            <i class="fa-solid fa-chevron-right text-[10px]"></i>
+            <span id="detail-nav-title" class="font-bold text-slate-900 truncate">Tên sản phẩm</span>
+          </div>
+        </div>
+
+        <!-- Action Buttons (Manual, Video, Code) -->
+        <div class="flex items-center gap-2 sm:gap-3 flex-shrink-0">
+          <span id="detail-nav-code"
+            class="text-xs font-mono font-bold bg-slate-100 text-slate-700 px-2.5 py-1 rounded-lg border border-slate-200">
+            CODE
+          </span>
+          <div id="detail-nav-actions" class="flex items-center gap-2">
+            <!-- Manual & Video buttons injected here -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Product Canvas Area (Hiển thị nguyên bản kích thước rộng 1200px không bị cắt viền) -->
+    <div id="product-detail-body" class="w-full flex-1 bg-white">
+      <!-- Full-page content rendered via JS -->
+    </div>
+
+    <!-- Footer of Product View -->
+    <footer class="bg-slate-50 border-t border-slate-200 py-6 text-center text-xs text-slate-500">
+      <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
+        <p>ZMRobo Educational Robot System &copy; Data Archive</p>
+        <button onclick="closeProductDetailView()"
+          class="text-blue-600 font-semibold hover:underline flex items-center gap-1">
+          <i class="fa-solid fa-arrow-up"></i> Về đầu trang danh sách sản phẩm
+        </button>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    // State
+    let categories = [];
+    let allProducts = [];
+    let filteredProducts = [];
+    let displayedCount = 0;
+    const PAGE_SIZE = 24;
+    let selectedParentId = null;
+    let selectedSubId = null;
+    let savedScrollPosition = 0;
+
+    let allSoftware = [];
+    let allResources = [];
+
+    // Init
+    window.addEventListener('DOMContentLoaded', async () => {
+      await loadAllData();
+      checkUrlHash();
+    });
+
+    window.addEventListener('hashchange', checkUrlHash);
+
+    function checkUrlHash() {
+      const hash = window.location.hash;
+      if (hash && hash.startsWith('#product-')) {
+        const pid = parseInt(hash.replace('#product-', ''), 10);
+        if (!isNaN(pid)) {
+          openProductDetailView(pid, false);
+        }
+      } else {
+        closeProductDetailView(false);
+      }
+    }
+
+    async function loadAllData() {
+      try {
+        const [resCat, resProd, resSoft, resRes] = await Promise.all([
+          fetch('data/categories.json').then(r => r.json()).catch(() => []),
+          fetch('data/products_full.json').then(r => r.json()).catch(() => []),
+          fetch('data/software.json').then(r => r.json()).catch(() => []),
+          fetch('data/resources.json').then(r => r.json()).catch(() => [])
+        ]);
+
+        categories = resCat;
+        allProducts = resProd;
+        allSoftware = resSoft;
+        allResources = resRes;
+
+        // Update counts
+        document.getElementById('badge-products-count').textContent = allProducts.length;
+        document.getElementById('badge-software-count').textContent = allSoftware.length;
+        document.getElementById('badge-resources-count').textContent = allResources.length;
+        document.getElementById('total-count').textContent = allProducts.length;
+
+        renderCategoryTree();
+        filterProducts();
+        renderSoftware();
+        renderResources();
+      } catch (e) {
+        console.error("Lỗi khi tải dữ liệu:", e);
+      }
+    }
+
+    // Tab Switching
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+      document.getElementById(`tab-${tabId}`).classList.remove('hidden');
+
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('bg-white', 'text-blue-600', 'shadow-sm');
+        btn.classList.add('text-slate-600');
+      });
+      const activeBtn = document.getElementById(`tab-btn-${tabId}`);
+      activeBtn.classList.remove('text-slate-600');
+      activeBtn.classList.add('bg-white', 'text-blue-600', 'shadow-sm');
+    }
+
+    // Categories Tree (BỎ DẤU CHẤM ĐẦU DÒNG HOÀN TOÀN)
+    function renderCategoryTree() {
+      const container = document.getElementById('category-tree-container');
+      container.innerHTML = `
+        <div class="cursor-pointer px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center justify-between ${selectedParentId === null && selectedSubId === null ? 'bg-blue-50 text-blue-700' : 'text-slate-600 hover:bg-slate-50'}"
+             onclick="selectCategory(null, null)">
+          <span class="truncate"><i class="fa-solid fa-list mr-1"></i> Tất cả sản phẩm</span>
+          <span class="text-[10px] px-1.5 py-0.5 rounded-full bg-slate-100 text-slate-500">${allProducts.length}</span>
+        </div>
+      `;
+
+      categories.forEach(cat => {
+        const catProducts = allProducts.filter(p => (p.summary.parent_type_id || p.detail?.productInfo?.parent_type_id) == cat.id);
+        const isParentActive = selectedParentId === cat.id && selectedSubId === null;
+
+        const catDiv = document.createElement('div');
+        catDiv.className = "border-t border-slate-100 pt-1.5 min-w-0";
+        catDiv.innerHTML = `
+          <div class="flex items-center justify-between cursor-pointer px-3 py-1 rounded-lg text-xs font-bold transition min-w-0 ${isParentActive ? 'bg-blue-50 text-blue-700' : 'text-slate-800 hover:bg-slate-50'}"
+               onclick="selectCategory(${cat.id}, null)">
+            <span class="truncate">${cat.title}</span>
+            <span class="text-[10px] px-1.5 py-0.5 rounded-full bg-slate-100 text-slate-500 ml-1.5">${catProducts.length}</span>
+          </div>
+          <div class="pl-3 mt-1 space-y-0.5 min-w-0">
+            ${(cat.childrenList || []).map(sub => {
+          const subCount = allProducts.filter(p => (p.summary.type_id || p.detail?.productInfo?.type_id) == sub.id).length;
+          const isSubActive = selectedSubId === sub.id;
+          return `
+                <div class="flex items-center justify-between cursor-pointer px-2.5 py-1 rounded-md text-[11px] transition min-w-0 ${isSubActive ? 'bg-blue-100/70 text-blue-800 font-bold' : 'text-slate-500 hover:text-slate-900 hover:bg-slate-50'}"
+                     onclick="selectCategory(${cat.id}, ${sub.id})">
+                  <span class="truncate mr-1">${sub.title}</span>
+                  <span class="text-[10px] text-slate-400 flex-shrink-0">${subCount}</span>
+                </div>
+              `;
+        }).join('')}
+          </div>
+        `;
+        container.appendChild(catDiv);
+      });
+    }
+
+    function selectCategory(parentId, subId) {
+      selectedParentId = parentId;
+      selectedSubId = subId;
+      renderCategoryTree();
+      filterProducts();
+    }
+
+    function resetFilters() {
+      selectedParentId = null;
+      selectedSubId = null;
+      document.getElementById('product-search').value = "";
+      renderCategoryTree();
+      filterProducts();
+    }
+
+    // Filter Products
+    function filterProducts() {
+      const query = document.getElementById('product-search').value.toLowerCase().trim();
+      const sort = document.getElementById('product-sort').value;
+
+      filteredProducts = allProducts.filter(p => {
+        const s = p.summary || {};
+        const d = p.detail?.productInfo || {};
+
+        // Category check
+        const parentId = s.parent_type_id || d.parent_type_id;
+        const subId = s.type_id || d.type_id;
+        if (selectedSubId !== null && subId != selectedSubId) return false;
+        if (selectedParentId !== null && selectedSubId === null && parentId != selectedParentId) return false;
+
+        // Search check
+        if (query) {
+          const title = (s.title || d.title || '').toLowerCase();
+          const titleEn = (s.title_en || d.title_en || '').toLowerCase();
+          const code = (s.code || d.code || '').toLowerCase();
+          if (!title.includes(query) && !titleEn.includes(query) && !code.includes(query)) return false;
+        }
+
+        return true;
+      });
+
+      // Sort
+      if (sort === 'id_desc') {
+        filteredProducts.sort((a, b) => (b.summary.id || 0) - (a.summary.id || 0));
+      } else if (sort === 'id_asc') {
+        filteredProducts.sort((a, b) => (a.summary.id || 0) - (b.summary.id || 0));
+      } else if (sort === 'title_asc') {
+        filteredProducts.sort((a, b) => (a.summary.title || '').localeCompare(b.summary.title || ''));
+      }
+
+      document.getElementById('filtered-count').textContent = filteredProducts.length;
+      displayedCount = 0;
+      document.getElementById('products-grid').innerHTML = "";
+      loadMoreProducts();
+    }
+
+    function loadMoreProducts() {
+      const grid = document.getElementById('products-grid');
+      const nextBatch = filteredProducts.slice(displayedCount, displayedCount + PAGE_SIZE);
+
+      nextBatch.forEach(p => {
+        const s = p.summary || {};
+        const d = p.detail?.productInfo || {};
+        const cover = s.cover || d.cover || 'https://via.placeholder.com/300x200?text=No+Image';
+        const title = s.title || d.title || 'Không có tên';
+        const titleEn = s.title_en || d.title_en || '';
+        const code = s.code || d.code || 'N/A';
+        const category = s.type || d.type || s.parent_type || 'Robot';
+
+        const card = document.createElement('div');
+        card.className = "bg-white rounded-2xl border border-slate-200 p-3.5 shadow-sm hover:shadow-md hover:border-blue-300 transition flex flex-col group min-w-0 overflow-hidden cursor-pointer";
+        card.onclick = () => openProductDetailView(s.id);
+        card.innerHTML = `
+          <div class="relative w-full h-44 rounded-xl bg-slate-50 overflow-hidden flex items-center justify-center p-2 mb-2.5 min-w-0">
+            <img src="${cover}" alt="${title}" class="max-h-full max-w-full object-contain group-hover:scale-105 transition duration-300" loading="lazy" onerror="this.src='https://via.placeholder.com/300x200?text=Image+Error'">
+            <span class="absolute top-2 left-2 text-[10px] font-mono font-bold bg-white/90 backdrop-blur-sm text-slate-700 px-2 py-0.5 rounded-md border border-slate-200 max-w-[80%] truncate">
+              ${code}
+            </span>
+          </div>
+          <div class="flex-1 flex flex-col min-w-0">
+            <div class="text-[10px] font-bold text-blue-600 mb-1 uppercase tracking-wider truncate">${category}</div>
+            <h3 class="font-bold text-slate-900 text-xs sm:text-sm line-clamp-2 leading-snug mb-1 group-hover:text-blue-600 transition" title="${title}">${title}</h3>
+            ${titleEn && titleEn !== title ? `<p class="text-[11px] text-slate-400 truncate mb-2">${titleEn}</p>` : '<div class="mb-2"></div>'}
+            <div class="mt-auto pt-2.5 border-t border-slate-100 flex items-center justify-between gap-2 min-w-0">
+              <span class="text-[11px] text-slate-400 font-mono">ID: ${s.id}</span>
+              <button class="text-xs font-semibold px-2.5 py-1.5 rounded-lg bg-blue-50 text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition flex items-center gap-1.5 flex-shrink-0">
+                <span>Xem chi tiết</span> <i class="fa-solid fa-arrow-right text-[10px]"></i>
+              </button>
+            </div>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+
+      displayedCount += nextBatch.length;
+
+      const loadMoreBtn = document.getElementById('load-more-container');
+      if (displayedCount < filteredProducts.length) {
+        loadMoreBtn.classList.remove('hidden');
+      } else {
+        loadMoreBtn.classList.add('hidden');
+      }
+    }
+
+    // ========================================================
+    // OPEN FULL-PAGE PRODUCT DETAIL VIEW (GIỐNG HỆT WEB GỐC)
+    // ========================================================
+    function openProductDetailView(pid, updateHash = true) {
+      const item = allProducts.find(p => p.summary.id === pid);
+      if (!item) return;
+
+      savedScrollPosition = window.scrollY;
+
+      const s = item.summary || {};
+      const d = item.detail?.productInfo || {};
+      const covers = item.detail?.coverList || [];
+      const softwares = item.detail?.softwareList || [];
+      const resources = item.detail?.resourceList || [];
+      const faqs = item.detail?.questionList || [];
+
+      // Update Nav
+      document.getElementById('detail-nav-category').textContent = `${s.parent_type || ''} / ${s.type || ''}`;
+      document.getElementById('detail-nav-title').textContent = s.title || d.title || '';
+      document.getElementById('detail-nav-code').textContent = s.code || d.code || 'N/A';
+
+      const actionsContainer = document.getElementById('detail-nav-actions');
+      actionsContainer.innerHTML = `
+        ${d.manual ? `
+          <a href="${d.manual}" target="_blank" class="px-3 py-1.5 rounded-xl bg-emerald-50 text-emerald-700 hover:bg-emerald-600 hover:text-white font-semibold text-xs transition flex items-center gap-1.5">
+            <i class="fa-solid fa-file-pdf"></i> <span class="hidden sm:inline">Tải sách hướng dẫn</span>
+          </a>
+        ` : ''}
+        ${d.video ? `
+          <a href="${d.video}" target="_blank" class="px-3 py-1.5 rounded-xl bg-purple-50 text-purple-700 hover:bg-purple-600 hover:text-white font-semibold text-xs transition flex items-center gap-1.5">
+            <i class="fa-solid fa-circle-play"></i> <span class="hidden sm:inline">Xem Video</span>
+          </a>
+        ` : ''}
+      `;
+
+      // Build Body
+      const body = document.getElementById('product-detail-body');
+
+      // Check if product has rich landing page slices (All Kits & featured products)
+      const hasRichContent = !!(d.content && d.content.includes('slice_box'));
+
+      let html = `
+        <!-- Top Banner / Main Overview -->
+        <div class="max-w-[1560px] mx-auto px-4 py-8">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+            <!-- Gallery / Hero Cover -->
+            <div class="flex flex-col items-center">
+              <div class="w-full h-80 sm:h-96 rounded-2xl bg-slate-50 border border-slate-100 flex items-center justify-center p-4 overflow-hidden shadow-inner">
+                <img id="detail-main-img" src="${s.cover || d.cover}" class="max-h-full max-w-full object-contain transition duration-300" onerror="this.src='https://via.placeholder.com/400x300?text=No+Image'">
+              </div>
+              ${covers.length > 1 ? `
+                <div class="flex gap-2 overflow-x-auto py-3 max-w-full custom-scroll">
+                  ${covers.map((c, i) => `
+                    <img src="${c.url || c.cover || c}" class="w-16 h-16 rounded-xl border-2 border-slate-200 object-contain p-1 cursor-pointer hover:border-blue-500 transition" onclick="document.getElementById('detail-main-img').src='${c.url || c.cover || c}'">
+                  `).join('')}
+                </div>
+              ` : ''}
+            </div>
+
+            <!-- Product Specs & Short Intro -->
+            <div class="space-y-5">
+              <div>
+                <span class="text-xs uppercase font-bold tracking-wider text-blue-600 bg-blue-50 px-2.5 py-1 rounded-md">
+                  ${s.parent_type || ''} &rsaquo; ${s.type || ''}
+                </span>
+                <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-2 leading-tight">
+                  ${s.title}
+                </h1>
+              </div>
+
+              <div class="p-4 rounded-2xl bg-slate-50 border border-slate-100 space-y-2">
+                <div class="flex items-center justify-between text-sm">
+                  <span class="text-slate-500">Mã sản phẩm:</span>
+                  <span class="font-mono font-bold text-slate-800">${s.code || d.code || 'N/A'}</span>
+                </div>
+                <div class="flex items-center justify-between text-sm">
+                  <span class="text-slate-500">Mã định danh ID:</span>
+                  <span class="font-mono text-slate-700">${s.id}</span>
+                </div>
+                ${d.update_time ? `
+                  <div class="flex items-center justify-between text-sm">
+                    <span class="text-slate-500">Thời gian cập nhật:</span>
+                    <span class="text-slate-700">${d.update_time}</span>
+                  </div>
+                ` : ''}
+              </div>
+
+              ${d.intro ? `
+                <div class="space-y-1">
+                  <h4 class="text-xs uppercase font-bold text-slate-400">Giới thiệu sản phẩm:</h4>
+                  <p class="text-sm text-slate-700 leading-relaxed bg-white p-4 rounded-2xl border border-slate-100 shadow-sm product-desc-text">${d.intro}</p>
+                </div>
+              ` : ''}
+
+              <!-- Direct Action Buttons -->
+              <div class="flex flex-wrap gap-3 pt-2">
+                ${d.manual ? `
+                  <a href="${d.manual}" target="_blank" class="px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-sm transition shadow-md shadow-emerald-600/20 flex items-center gap-2">
+                    <i class="fa-solid fa-file-pdf"></i> Tải sách hướng dẫn (Manual PDF)
+                  </a>
+                ` : ''}
+                ${d.video ? `
+                  <a href="${d.video}" target="_blank" class="px-5 py-2.5 rounded-xl bg-purple-600 hover:bg-purple-700 text-white font-semibold text-sm transition shadow-md shadow-purple-600/20 flex items-center gap-2">
+                    <i class="fa-solid fa-circle-play"></i> Xem Video giới thiệu
+                  </a>
+                ` : ''}
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+
+      // Rich Content Slices (Được hiển thị toàn màn hình, không ép kích thước, không bị cắt viền phải)
+      if (d.content) {
+        // Chuẩn hóa triệt để lỗi dấu ngoặc kép bên trong style url("...') gây đóng thẻ style sớm và mất background / vỡ absolute positioning
+        let fixedContent = (d.content || '').replace(/url\(["']?([^"'\)\s]+)["']?\)/g, "url('$1')");
+        // Căn giữa toàn bộ các ảnh và video dạng poster cuộn (Product 60, 69, 79, v.v.)
+        fixedContent = fixedContent.replace(/<p\s+style=["']text-align:\s*left;?["']>/gi, '<p style="text-align: center;">');
+        // Căn giữa toàn bộ bảng biểu (table) và sửa lỗi ký tự nhân &times; bị dịch thành &lần;
+        fixedContent = fixedContent.replace(/&lần;/g, '×').replace(/&times;/g, '×');
+        fixedContent = fixedContent.replace(/<table(?![^>]*align=)/gi, '<table align="center" style="margin: 20px auto;"');
+
+        // Loại bỏ modal che khuất (#bg_L) trước khi kiểm tra màu nền chính của sản phẩm
+        const cleanContent = fixedContent.replace(/#bg_L\s*\{[^}]*\}/gi, '');
+        const isDarkTheme = /\.slice_box\s*\{[^}]*background(?:-color)?:\s*#(?:000000|000|101010|0d0d0d|141414)/i.test(cleanContent) ||
+                            /class=["'][^"']*slice_box[^"']*["'][^>]*background(?:-color)?:\s*#(?:000000|000|101010)/i.test(cleanContent) ||
+                            /^\s*<div[^>]*style=["'][^"']*background(?:-color)?:\s*#(?:000000|000|101010|0d0d0d|141414)/i.test(cleanContent);
+        html += `
+          <!-- Full Native HTML Content Area (Giống hệt trang web gốc ZMRobo) -->
+          <div class="w-full border-t border-slate-100 my-6">
+            ${hasRichContent ? `
+              <div class="w-full bg-slate-900 py-3 px-4 text-center text-xs text-slate-300 font-medium">
+                <i class="fa-solid fa-desktop mr-1.5"></i> Trang giới thiệu đồ họa chi tiết theo chuẩn ZMRobo (Kích thước mở rộng toàn màn hình 1560px)
+              </div>
+            ` : ''}
+            <div class="zm-content-wrapper ${isDarkTheme ? 'zm-dark-wrapper' : ''}">
+              <div class="zm-content-inner ${hasRichContent ? '' : 'px-4 py-8'}">
+                ${fixedContent}
+              </div>
+            </div>
+          </div>
+        `;
+      }
+
+      // Bottom Area: Compatible Software, Attached Resources, and FAQs
+      if (softwares.length > 0 || resources.length > 0 || faqs.length > 0) {
+        html += `
+          <div class="max-w-[1560px] mx-auto px-4 py-10 space-y-8 border-t border-slate-100">
+            <!-- Software List -->
+            ${softwares.length > 0 ? `
+              <div>
+                <h3 class="text-lg font-bold text-slate-900 mb-4 flex items-center gap-2">
+                  <i class="fa-solid fa-cube text-blue-600"></i> Phần mềm tương thích
+                </h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                  ${softwares.map(sw => `
+                    <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 flex items-center gap-3">
+                      <div class="w-10 h-10 rounded-xl bg-blue-100 text-blue-600 flex items-center justify-center font-bold flex-shrink-0">
+                        <i class="fa-solid fa-code"></i>
+                      </div>
+                      <div>
+                        <h4 class="font-bold text-sm text-slate-900">${sw.name || sw.title}</h4>
+                        <span class="text-xs text-slate-500">${sw.version || 'Tương thích'}</span>
+                      </div>
+                    </div>
+                  `).join('')}
+                </div>
+              </div>
+            ` : ''}
+
+            <!-- Resources List -->
+            ${resources.length > 0 ? `
+              <div>
+                <h3 class="text-lg font-bold text-slate-900 mb-4 flex items-center gap-2">
+                  <i class="fa-solid fa-file-arrow-down text-blue-600"></i> Tài liệu & Driver đi kèm
+                </h3>
+                <div class="divide-y divide-slate-100 bg-slate-50 rounded-2xl border border-slate-200 p-2">
+                  ${resources.map(res => `
+                    <div class="p-3 flex items-center justify-between gap-4">
+                      <span class="text-sm font-semibold text-slate-800">${res.title || 'Tài liệu hướng dẫn'}</span>
+                      ${res.url1 || res.url2 ? `
+                        <a href="${res.url1 || res.url2}" target="_blank" class="px-3 py-1.5 bg-blue-600 text-white text-xs font-semibold rounded-lg hover:bg-blue-700 transition">Tải xuống</a>
+                      ` : ''}
+                    </div>
+                  `).join('')}
+                </div>
+              </div>
+            ` : ''}
+
+            <!-- FAQs -->
+            ${faqs.length > 0 ? `
+              <div>
+                <h3 class="text-lg font-bold text-slate-900 mb-4 flex items-center gap-2">
+                  <i class="fa-solid fa-circle-question text-blue-600"></i> Câu hỏi thường gặp (Q&A)
+                </h3>
+                <div class="space-y-3">
+                  ${faqs.map(q => `
+                    <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200">
+                      <p class="font-bold text-sm text-slate-900">Q: ${q.question}</p>
+                      <p class="text-sm text-slate-600 mt-1.5">A: ${q.answer}</p>
+                    </div>
+                  `).join('')}
+                </div>
+              </div>
+            ` : ''}
+          </div>
+        `;
+      }
+
+      body.innerHTML = html;
+
+      // Switch views
+      document.getElementById('main-catalog-view').classList.add('hidden');
+      document.getElementById('product-detail-view').classList.remove('hidden');
+      window.scrollTo(0, 0);
+
+      if (updateHash) {
+        window.location.hash = `#product-${pid}`;
+      }
+    }
+
+    function closeProductDetailView(updateHash = true) {
+      document.getElementById('product-detail-view').classList.add('hidden');
+      document.getElementById('main-catalog-view').classList.remove('hidden');
+
+      if (savedScrollPosition) {
+        window.scrollTo(0, savedScrollPosition);
+      }
+
+      if (updateHash && window.location.hash) {
+        history.pushState("", document.title, window.location.pathname + window.location.search);
+      }
+    }
+
+    // Render Software
+    function renderSoftware() {
+      const container = document.getElementById('software-container');
+      container.innerHTML = "";
+
+      allSoftware.forEach(item => {
+        const s = item.summary || {};
+        const d = item.detail?.softwareInfo || {};
+        const downloads = item.detail?.downloadList || [];
+
+        const card = document.createElement('div');
+        card.className = "bg-white p-4 sm:p-5 rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-between min-w-0 overflow-hidden";
+        card.innerHTML = `
+          <div class="min-w-0">
+            <div class="flex items-center gap-3 mb-2.5 min-w-0">
+              <img src="${s.icon}" class="w-11 h-11 rounded-xl object-contain bg-slate-50 border p-1 flex-shrink-0" onerror="this.src='https://via.placeholder.com/48'">
+              <div class="min-w-0 flex-1">
+                <h3 class="font-bold text-slate-900 text-sm sm:text-base truncate">${s.name}</h3>
+                <span class="text-[10px] px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 font-medium">${s.type || 'App'}</span>
+              </div>
+            </div>
+            <p class="text-xs text-slate-600 line-clamp-3 leading-relaxed mb-3">${d.intro || 'Phần mềm lập trình điều khiển robot ZMRobo.'}</p>
+          </div>
+          <div class="pt-3 border-t border-slate-100 space-y-1.5 min-w-0">
+            <div class="text-[10px] font-bold text-slate-400 uppercase">Tải về:</div>
+            <div class="flex flex-wrap gap-1.5 min-w-0">
+              ${downloads.map(dl => `
+                <a href="${dl.url}" target="_blank" class="px-2.5 py-1 rounded-lg bg-blue-50 hover:bg-blue-600 text-blue-700 hover:text-white text-xs font-semibold transition flex items-center gap-1.5 flex-shrink-0">
+                  <i class="fa-solid fa-download text-[10px]"></i> <span>${dl.type || 'Download'}</span>
+                </a>
+              `).join('')}
+            </div>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    // Render Resources
+    function renderResources() {
+      const query = document.getElementById('resource-search').value.toLowerCase();
+      const list = document.getElementById('resources-list');
+      list.innerHTML = "";
+
+      const filtered = allResources.filter(r => {
+        const t = (r.summary.title || r.detail?.title || '').toLowerCase();
+        return t.includes(query);
+      });
+
+      filtered.forEach(r => {
+        const s = r.summary || {};
+        const d = r.detail || {};
+        const downloadUrl = d.url1 || d.url2 || null;
+
+        const row = document.createElement('div');
+        row.className = "p-3.5 hover:bg-slate-50 transition flex flex-col sm:flex-row sm:items-center justify-between gap-3 min-w-0";
+        row.innerHTML = `
+          <div class="flex items-center gap-3 min-w-0 flex-1">
+            <div class="w-8 h-8 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center text-xs font-bold flex-shrink-0">
+              <i class="fa-solid fa-file-lines"></i>
+            </div>
+            <div class="min-w-0 flex-1">
+              <h4 class="font-bold text-slate-900 text-xs sm:text-sm">${s.title}</h4>
+              <p class="text-[11px] text-slate-400 mt-0.5">Cập nhật: ${s.update_time || 'N/A'}</p>
+            </div>
+          </div>
+          ${downloadUrl ? `
+            <a href="${downloadUrl}" target="_blank" class="self-start sm:self-center px-3 py-1.5 bg-slate-100 hover:bg-blue-600 hover:text-white text-slate-700 text-xs font-semibold rounded-xl transition flex items-center gap-1.5 flex-shrink-0">
+              <i class="fa-solid fa-download text-[11px]"></i> <span>Tải xuống</span>
+            </a>
+          ` : '<span class="text-xs text-slate-400 self-start sm:self-center">Không có link</span>'}
+        `;
+        list.appendChild(row);
+      });
+    }
+
+    function filterResources() {
+      renderResources();
+    }
+
+    // Render News
+    // Đóng khi bấm phím Escape
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        if (!document.getElementById('product-detail-view').classList.contains('hidden')) {
+          closeProductDetailView();
+        }
+      }
+    });
+  </script>
+</body>
+
+</html>
