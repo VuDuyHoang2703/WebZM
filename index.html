@@ -1424,26 +1424,56 @@
 
     // Render News
     // =========================================================================
-    // UNIVERSAL VIDEO MODAL CONTROLLER (Phát mượt trên cả localhost lẫn Vercel)
+    // UNIVERSAL VIDEO MODAL CONTROLLER (Phát siêu tốc trên cả localhost & Vercel)
     // =========================================================================
+    let currentRawVideoUrl = '';
+
     function openGlobalVideoModal(url, title = 'Video Giới Thiệu') {
       if (!url) return;
       let cleanUrl = url.trim().replace(/^\/media\//, 'https://oss.zmrobo.com/');
       if (!cleanUrl.startsWith('http')) {
         cleanUrl = 'https://oss.zmrobo.com/' + cleanUrl.replace(/^\/+/, '');
       }
+      currentRawVideoUrl = cleanUrl;
 
       const modal = document.getElementById('universal-video-modal');
       const player = document.getElementById('universal-video-player');
       const titleElem = document.getElementById('video-modal-title');
       const directLink = document.getElementById('video-modal-direct-link');
+      const spinner = document.getElementById('video-loading-spinner');
 
       if (modal && player) {
         titleElem.textContent = title;
         directLink.href = cleanUrl;
-        player.src = cleanUrl;
+
+        // Hiển thị vòng xoay đang kết nối
+        if (spinner) spinner.style.display = 'flex';
+
+        // Trên Vercel: sử dụng Edge Streaming Route (/api/video) để Vercel Singapore POP cache và tăng tốc 10x
+        // Trên localhost: phát trực tiếp từ CDN
+        const playUrl = (!isLocal && window.location.protocol.startsWith('http')) 
+          ? `/api/video?url=${encodeURIComponent(cleanUrl)}`
+          : cleanUrl;
+
+        player.src = playUrl;
         modal.classList.remove('hidden');
         document.body.style.overflow = 'hidden';
+
+        // Tự động chuyển về link gốc nếu API proxy Vercel gặp sự cố
+        player.onerror = () => {
+          if (player.src !== cleanUrl) {
+            console.warn('Vercel Edge Stream proxy fallback to direct OSS CDN URL');
+            player.src = cleanUrl;
+            player.play().catch(() => {});
+          } else {
+            if (spinner) spinner.style.display = 'none';
+          }
+        };
+
+        player.onwaiting = () => { if (spinner) spinner.style.display = 'flex'; };
+        player.onplaying = () => { if (spinner) spinner.style.display = 'none'; };
+        player.oncanplay = () => { if (spinner) spinner.style.display = 'none'; };
+
         player.play().catch(() => {});
       }
     }
@@ -1451,10 +1481,12 @@
     function closeGlobalVideoModal() {
       const modal = document.getElementById('universal-video-modal');
       const player = document.getElementById('universal-video-player');
+      const spinner = document.getElementById('video-loading-spinner');
       if (modal && player) {
         player.pause();
         player.removeAttribute('src');
         player.load();
+        if (spinner) spinner.style.display = 'none';
         modal.classList.add('hidden');
         document.body.style.overflow = '';
       }
@@ -1505,17 +1537,17 @@
     });
   </script>
 
-  <!-- Universal Global Video Modal (Phát video mượt mà trên cả localhost lẫn Vercel) -->
+  <!-- Universal Global Video Modal (Phát video siêu mượt trên cả localhost lẫn Vercel) -->
   <div id="universal-video-modal" class="hidden fixed inset-0 z-[999999] bg-black/95 backdrop-blur-md flex items-center justify-center p-3 sm:p-6 transition-all duration-300" onclick="if(event.target===this)closeGlobalVideoModal()">
     <div class="relative w-full max-w-5xl bg-slate-900 rounded-3xl overflow-hidden shadow-2xl border border-slate-800 flex flex-col">
       <!-- Modal Header -->
       <div class="flex items-center justify-between px-5 py-3.5 border-b border-slate-800 bg-slate-900/90">
         <div class="flex items-center gap-2.5 text-white font-bold text-sm sm:text-base truncate pr-4">
-          <i class="fa-solid fa-circle-play text-purple-400 text-lg"></i>
+          <i class="fa-solid fa-circle-play text-purple-400 text-lg animate-pulse"></i>
           <span id="video-modal-title" class="truncate">Video Giới Thiệu Sản Phẩm</span>
         </div>
         <div class="flex items-center gap-2 flex-shrink-0">
-          <a id="video-modal-direct-link" href="#" target="_blank" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white text-xs font-semibold transition flex items-center gap-1.5" title="Mở trực tiếp trong tab mới">
+          <a id="video-modal-direct-link" href="#" target="_blank" class="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white text-xs font-semibold transition flex items-center gap-1.5" title="Mở trực tiếp link gốc">
             <i class="fa-solid fa-arrow-up-right-from-square"></i> <span class="hidden sm:inline">Mở tab mới</span>
           </a>
           <button onclick="closeGlobalVideoModal()" class="w-8 h-8 rounded-full bg-slate-800 text-slate-400 hover:text-white hover:bg-red-600 transition flex items-center justify-center cursor-pointer">
@@ -1523,9 +1555,15 @@
           </button>
         </div>
       </div>
-      <!-- Video Player -->
-      <div class="relative w-full bg-black aspect-video flex items-center justify-center">
-        <video id="universal-video-player" class="w-full h-full object-contain" controls autoplay playsinline preload="auto">
+      <!-- Video Player Container with Loading State -->
+      <div class="relative w-full bg-black aspect-video flex items-center justify-center overflow-hidden">
+        <!-- Spinner Overlay -->
+        <div id="video-loading-spinner" class="absolute inset-0 z-10 flex flex-col items-center justify-center bg-black/75 backdrop-blur-sm pointer-events-none transition-opacity duration-300">
+          <div class="w-12 h-12 border-4 border-purple-500/20 border-t-purple-500 rounded-full animate-spin mb-3"></div>
+          <span class="text-xs font-medium text-slate-300 tracking-wide">Đang kết nối luồng phát video siêu tốc...</span>
+        </div>
+        <!-- HTML5 Video Element -->
+        <video id="universal-video-player" class="w-full h-full object-contain relative z-0" controls autoplay playsinline preload="metadata">
           Trình duyệt của bạn không hỗ trợ phát trực tiếp video này. Hãy bấm "Mở tab mới" để xem.
         </video>
       </div>
