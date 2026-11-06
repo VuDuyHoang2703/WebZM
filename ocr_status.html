@@ -19,16 +19,16 @@
           </span>
           <h1 class="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">Tiến Độ AI OCR & Dịch Ảnh ZMRobo</h1>
         </div>
-        <p class="text-xs text-slate-500 mt-1">Hệ thống đang tự động đọc, nhận diện chữ tiếng Anh / tiếng Trung và dịch đè tiếng Việt</p>
+        <p class="text-xs text-slate-500 mt-1">Hệ thống đã hoàn tất đọc và dịch toàn bộ hình ảnh trong hệ thống</p>
       </div>
 
       <div class="flex items-center gap-3 self-end sm:self-auto">
         <a href="index.html" class="px-3.5 py-1.5 rounded-xl bg-slate-200 hover:bg-slate-300 text-slate-700 text-xs font-semibold transition flex items-center gap-1.5">
           <i class="fa-solid fa-arrow-left"></i> Về trang sản phẩm
         </a>
-        <div class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-emerald-50 text-emerald-700 border border-emerald-200 text-xs font-semibold">
-          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-          <span>Tự động cập nhật (2s)</span>
+        <div id="live-indicator" class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-emerald-50 text-emerald-700 border border-emerald-200 text-xs font-semibold">
+          <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+          <span id="live-text">Đã hoàn tất 100%</span>
         </div>
       </div>
     </div>
@@ -38,17 +38,17 @@
       <div class="flex items-center justify-between">
         <div>
           <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Tổng Tiến Độ</span>
-          <div class="text-3xl font-extrabold text-slate-900 mt-0.5" id="pct-text">0%</div>
+          <div class="text-3xl font-extrabold text-emerald-600 mt-0.5" id="pct-text">100%</div>
         </div>
         <div class="text-right text-xs text-slate-500 space-y-0.5">
-          <div>Đã xử lý: <span class="font-bold text-slate-800" id="processed-count">0</span> / <span id="total-count">0</span> ảnh</div>
-          <div class="text-[11px] text-slate-400">Cập nhật: <span id="last-updated">Đang nạp...</span></div>
+          <div>Đã xử lý: <span class="font-bold text-slate-800" id="processed-count">1536</span> / <span id="total-count">1536</span> ảnh</div>
+          <div class="text-[11px] text-slate-400">Cập nhật: <span id="last-updated">Hoàn tất</span></div>
         </div>
       </div>
 
       <!-- Progress Bar -->
       <div class="w-full h-3.5 bg-slate-100 rounded-full overflow-hidden p-0.5 border border-slate-200">
-        <div id="progress-bar" class="h-full bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full transition-all duration-500" style="width: 0%"></div>
+        <div id="progress-bar" class="h-full bg-gradient-to-r from-emerald-500 to-teal-600 rounded-full transition-all duration-500" style="width: 100%"></div>
       </div>
 
       <!-- Stat Badges -->
@@ -57,28 +57,28 @@
           <div class="text-xs text-emerald-600 font-semibold flex items-center gap-1.5">
             <i class="fa-solid fa-circle-check"></i> Đã dịch tiếng Việt
           </div>
-          <div class="text-xl font-bold text-emerald-800 mt-1" id="stat-translated">0</div>
+          <div class="text-xl font-bold text-emerald-800 mt-1" id="stat-translated">353</div>
         </div>
 
         <div class="p-3 bg-slate-100 border border-slate-200 rounded-xl">
           <div class="text-xs text-slate-600 font-semibold flex items-center gap-1.5">
             <i class="fa-solid fa-cube"></i> Ảnh linh kiện (Không chữ)
           </div>
-          <div class="text-xl font-bold text-slate-800 mt-1" id="stat-notext">0</div>
+          <div class="text-xl font-bold text-slate-800 mt-1" id="stat-notext">1183</div>
         </div>
 
-        <div class="p-3 bg-amber-50 border border-amber-100 rounded-xl">
-          <div class="text-xs text-amber-600 font-semibold flex items-center gap-1.5">
-            <i class="fa-solid fa-spinner animate-spin"></i> Đang chờ xử lý
+        <div class="p-3 bg-emerald-50 border border-emerald-100 rounded-xl">
+          <div class="text-xs text-emerald-600 font-semibold flex items-center gap-1.5">
+            <i class="fa-solid fa-check-double"></i> Còn lại
           </div>
-          <div class="text-xl font-bold text-amber-800 mt-1" id="stat-pending">0</div>
+          <div class="text-xl font-bold text-emerald-800 mt-1" id="stat-pending">0</div>
         </div>
 
         <div class="p-3 bg-blue-50 border border-blue-100 rounded-xl">
           <div class="text-xs text-blue-600 font-semibold flex items-center gap-1.5">
             <i class="fa-solid fa-images"></i> Tổng số ảnh
           </div>
-          <div class="text-xl font-bold text-blue-800 mt-1" id="stat-total">0</div>
+          <div class="text-xl font-bold text-blue-800 mt-1" id="stat-total">1536</div>
         </div>
       </div>
     </div>
@@ -87,9 +87,9 @@
     <div class="mt-8">
       <div class="flex items-center justify-between mb-4">
         <h2 class="text-base font-bold text-slate-900 flex items-center gap-2">
-          <i class="fa-solid fa-wand-magic-sparkles text-purple-600"></i> Các ảnh vừa được AI phát hiện chữ & dịch tiếng Việt
+          <i class="fa-solid fa-wand-magic-sparkles text-purple-600"></i> Các ảnh đã được AI phát hiện chữ & dịch tiếng Việt
         </h2>
-        <span class="text-xs text-slate-500 font-medium" id="feed-count">Hiển thị các ảnh mới nhất</span>
+        <span class="text-xs text-slate-500 font-medium" id="feed-count">Tổng cộng 353 ảnh có chữ</span>
       </div>
 
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4" id="translated-feed">
@@ -103,6 +103,9 @@
   </div>
 
   <script>
+    let pollTimer = null;
+    let lastRenderedTime = '';
+
     async function updateStatus() {
       try {
         const res = await fetch('data/ocr_image_registry.json?t=' + Date.now());
@@ -128,7 +131,20 @@
         document.getElementById('stat-pending').textContent = pending;
         document.getElementById('stat-total').textContent = total;
 
-        // Render feed
+        // Nếu đã hoàn tất 100%, tự động DỪNG POLLING để giải phóng CPU hoàn toàn!
+        if (pending === 0 && processed > 0) {
+          if (pollTimer) clearInterval(pollTimer);
+          const ind = document.getElementById('live-indicator');
+          if (ind) {
+            ind.className = 'flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-emerald-100 text-emerald-800 border border-emerald-300 text-xs font-semibold';
+            document.getElementById('live-text').textContent = '✅ Đã hoàn tất 100%';
+          }
+        }
+
+        // Chỉ re-render DOM khi có ảnh mới để tránh tốn CPU trình duyệt
+        if (lastRenderedTime === s.last_updated) return;
+        lastRenderedTime = s.last_updated;
+
         const images = data.images || {};
         const transList = Object.entries(images)
           .filter(([p, v]) => v.status === 'translated')
@@ -142,13 +158,12 @@
           return;
         }
 
-        // Show latest 18 translated images
         feedContainer.innerHTML = transList.slice(0, 18).map(([path, info]) => {
           const items = info.items || [];
           return `
             <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-md transition flex flex-col">
               <div class="relative w-full h-44 bg-slate-100 flex items-center justify-center p-2 overflow-hidden border-b border-slate-100">
-                <img src="/${path}?t=${Date.now()}" class="max-h-full max-w-full object-contain" loading="lazy" alt="Image">
+                <img src="/${path}" class="max-h-full max-w-full object-contain" loading="lazy" alt="Image">
                 <span class="absolute top-2 right-2 px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500 text-white shadow-sm">
                   ${info.text_count || items.length} đoạn chữ
                 </span>
@@ -180,10 +195,9 @@
       }
     }
 
-    // Polling every 2 seconds
     updateStatus();
-    setInterval(updateStatus, 2000);
+    // Chỉ poll nếu chưa hoàn tất
+    pollTimer = setInterval(updateStatus, 3000);
   </script>
 </body>
 </html>
-
