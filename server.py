@@ -7,6 +7,7 @@ import sys
 import urllib.parse
 import mimetypes
 import shutil
+import time
 
 sys.stdout.reconfigure(encoding='utf-8')
 
@@ -98,13 +99,14 @@ def start_server():
     while True:
         try:
             with DualStackThreadingServer(("::", PORT), LocalMediaHandler) as httpd:
-                url = f"http://127.0.0.1:{PORT}/index.html"
+                t_stamp = int(time.time())
+                url = f"http://127.0.0.1:{PORT}/index.html?t={t_stamp}"
                 print("========================================================")
                 print("  ZMROBO PRODUCT SHOWCASE - MÁY CHỦ BỘ NHỚ ĐỆM TỐC ĐỘ CAO")
                 print(f"  Truy cập tại: {url}")
-                print(f"  Hoặc:        http://localhost:{PORT}/index.html")
+                print(f"  Hoặc:        http://localhost:{PORT}/index.html?t={t_stamp}")
                 print(f"  Thư mục media cục bộ: {MEDIA_DIR}")
-                print("  (Toàn bộ ảnh/icon phục vụ trực tiếp 100% từ ổ cứng)")
+                print("  (Chế độ chống cache: Tự động tải 100% tệp mới nhất từ ổ cứng)")
                 print("========================================================")
                 webbrowser.open(url)
                 httpd.serve_forever()

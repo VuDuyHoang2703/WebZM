@@ -6,6 +6,7 @@ cd /d "%~dp0"
 
 echo ========================================================
 echo   ZMROBO DATA VIEWER - GIAO DIEN XEM DU LIEU
+echo   [CHE DO KHONG CACHE - DOC 100%% ANH MOI TU O CUNG]
 echo ========================================================
 echo.
 
@@ -18,10 +19,10 @@ if %errorlevel% neq 0 (
     exit /b 1
 )
 
+:: Giai phong cong 8080 neu co tien trinh server cu dang chay ngam
+powershell -NoProfile -ExecutionPolicy Bypass -Command "Get-NetTCPConnection -LocalPort 8080 -State Listen -ErrorAction SilentlyContinue | ForEach-Object { Stop-Process -Id $_.OwningProcess -Force -ErrorAction SilentlyContinue }" >nul 2>nul
+
 echo Dang khoi dong may chu web va mo trinh duyet...
-echo.
-echo * Luu y: Neu trinh duyet con nho anh cu trong bo nho dem (cache),
-echo   hay nhan to hop phim [Ctrl + F5] hoac [Ctrl + Shift + R] de tai lai moi 100%% tu o cung!
 echo.
 
 python server.py

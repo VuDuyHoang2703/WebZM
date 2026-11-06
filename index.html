@@ -834,9 +834,10 @@
     let allResources = [];
 
     const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+    const cacheBuster = Date.now();
 
     // Helper chuyển đổi link ảnh:
-    // - Localhost: phục vụ siêu tốc 1ms từ thư mục media/ trên ổ cứng
+    // - Localhost: phục vụ siêu tốc 1ms từ thư mục media/ trên ổ cứng (tự động gắn cacheBuster để không bao giờ đọc cache cũ)
     // - Vercel: chuyển sang /media/ và được Vercel Edge Server (Singapore) lưu cache 1 năm, tải 20ms
     // - Video MP4: LUÔN dùng link CDN oss.zmrobo.com để hỗ trợ Range 206 tua mượt mà
     function toMediaUrl(url) {
@@ -846,7 +847,10 @@
         return url.replace(/^\/media\//, 'https://oss.zmrobo.com/');
       }
       if (url.startsWith('https://oss.zmrobo.com/')) {
-        return url.replace('https://oss.zmrobo.com/', '/media/');
+        url = url.replace('https://oss.zmrobo.com/', '/media/');
+      }
+      if (isLocal && (url.startsWith('/media/') || url.startsWith('media/'))) {
+        return url + (url.includes('?') ? '&' : '?') + 't=' + cacheBuster;
       }
       return url;
     }
@@ -874,10 +878,10 @@
     async function loadAllData() {
       try {
         const [resCat, resProd, resSoft, resRes] = await Promise.all([
-          fetch('data/categories.json').then(r => r.json()).catch(() => []),
-          fetch('data/products_full.json').then(r => r.json()).catch(() => []),
-          fetch('data/software.json').then(r => r.json()).catch(() => []),
-          fetch('data/resources.json').then(r => r.json()).catch(() => [])
+          fetch(isLocal ? `data/categories.json?t=${cacheBuster}` : 'data/categories.json').then(r => r.json()).catch(() => []),
+          fetch(isLocal ? `data/products_full.json?t=${cacheBuster}` : 'data/products_full.json').then(r => r.json()).catch(() => []),
+          fetch(isLocal ? `data/software.json?t=${cacheBuster}` : 'data/software.json').then(r => r.json()).catch(() => []),
+          fetch(isLocal ? `data/resources.json?t=${cacheBuster}` : 'data/resources.json').then(r => r.json()).catch(() => [])
         ]);
 
         categories = resCat;
@@ -1212,6 +1216,9 @@
         fixedContent = fixedContent.replace(/(\.(?:png|jpg|jpeg|gif|webp|mp4))\\+/gi, '$1');
         fixedContent = fixedContent.replace(/https:\/\/oss\.zmrobo\.com\/(?!([^\s"'<>]+\.mp4))/gi, '/media/');
         fixedContent = fixedContent.replace(/(?:src|source)=["'](?:\/media\/|https:\/\/oss\.zmrobo\.com\/)?([^"']+\.mp4)["']/gi, 'src="https://oss.zmrobo.com/$1"');
+        if (isLocal) {
+          fixedContent = fixedContent.replace(/(["'\(])(?:\/media\/|media\/)([^"'\)]+\.(?:png|jpg|jpeg|gif|webp))(["'\)])/gi, `$1/media/$2?t=${cacheBuster}$3`);
+        }
 
         // Kích hoạt lazy-loading và decoding bất đồng bộ cho toàn bộ ảnh nội dung, chỉ tải khi cuộn tới
         fixedContent = fixedContent.replace(/<img(?![^>]*loading=)/gi, '<img loading="lazy" decoding="async"');
