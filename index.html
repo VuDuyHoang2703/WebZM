@@ -836,20 +836,17 @@
     const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
 
     // Helper chuyển đổi link ảnh:
-    // - Trên localhost: dùng /media/ để tải siêu tốc 1ms từ ổ cứng
-    // - Trên Vercel: dùng trực tiếp CDN https://oss.zmrobo.com/ (không cần đẩy 1.1GB ảnh lên GitHub)
-    // - Video MP4: LUÔN dùng trực tiếp CDN oss.zmrobo.com để hỗ trợ HTTP Range 206 tua mượt mà
+    // - Localhost: phục vụ siêu tốc 1ms từ thư mục media/ trên ổ cứng
+    // - Vercel: chuyển sang /media/ và được Vercel Edge Server (Singapore) lưu cache 1 năm, tải 20ms
+    // - Video MP4: LUÔN dùng link CDN oss.zmrobo.com để hỗ trợ Range 206 tua mượt mà
     function toMediaUrl(url) {
       if (!url) return 'https://via.placeholder.com/300x200?text=No+Image';
       url = String(url).trim().replace(/\\+$/, '');
       if (url.endsWith('.mp4') || url.includes('.mp4')) {
         return url.replace(/^\/media\//, 'https://oss.zmrobo.com/');
       }
-      if (isLocal && url.startsWith('https://oss.zmrobo.com/')) {
+      if (url.startsWith('https://oss.zmrobo.com/')) {
         return url.replace('https://oss.zmrobo.com/', '/media/');
-      }
-      if (!isLocal && url.startsWith('/media/')) {
-        return url.replace(/^\/media\//, 'https://oss.zmrobo.com/');
       }
       return url;
     }
@@ -1210,16 +1207,10 @@
         // Fix tràn chữ & đè lên robot trên Product 302 (Early Soccer Robotics Kit)
         fixedContent = fixedContent.replace(/position:absolute;top:680px;top:186px;right:-220px;font-size:15px;text-align:center;/g, 'position:absolute;top:180px;left:760px;width:280px;font-size:15px;text-align:left;');
 
-        // Xử lý thông minh giữa Localhost và Vercel:
-        // - Trên localhost: chuyển toàn bộ ảnh sang /media/ để tăng tốc 1ms từ ổ cứng, nhưng giữ nguyên video .mp4
-        // - Trên Vercel: đưa toàn bộ tài nguyên về CDN https://oss.zmrobo.com/ để chạy mượt 100% không lo thiếu file
+        // Toàn bộ ảnh được chuyển sang /media/ để load từ ổ cứng (localhost) hoặc qua Vercel Edge Cache (Singapore)
+        // Video .mp4 luôn giữ link trực tiếp CDN để hỗ trợ tua và streaming
         fixedContent = fixedContent.replace(/(\.(?:png|jpg|jpeg|gif|webp|mp4))\\+/gi, '$1');
-        if (isLocal) {
-          fixedContent = fixedContent.replace(/https:\/\/oss\.zmrobo\.com\/(?!([^\s"'<>]+\.mp4))/gi, '/media/');
-        } else {
-          fixedContent = fixedContent.replace(/\/media\//g, 'https://oss.zmrobo.com/');
-        }
-        // Đảm bảo video .mp4 luôn luôn phát từ CDN https://oss.zmrobo.com/ để hỗ trợ tua và streaming
+        fixedContent = fixedContent.replace(/https:\/\/oss\.zmrobo\.com\/(?!([^\s"'<>]+\.mp4))/gi, '/media/');
         fixedContent = fixedContent.replace(/(?:src|source)=["'](?:\/media\/|https:\/\/oss\.zmrobo\.com\/)?([^"']+\.mp4)["']/gi, 'src="https://oss.zmrobo.com/$1"');
 
         // Kích hoạt lazy-loading và decoding bất đồng bộ cho toàn bộ ảnh nội dung, chỉ tải khi cuộn tới

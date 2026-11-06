@@ -1,5 +1,12 @@
-# Media files cache (1GB+ local cache - not needed on Vercel as Vercel streams directly from oss.zmrobo.com CDN)
-media/
+# Chỉ bỏ qua các tệp video MP4 dung lượng lớn (766MB) để video phát trực tiếp từ CDN web zmrobo
+media/**/*.mp4
+media/**/*.mov
+media/**/*.avi
+media/**/*.webm
+*.mp4
+*.mov
+*.avi
+*.webm
 
 # Python cache & temporary scripts
 __pycache__/
@@ -14,9 +21,13 @@ test*
 audit*
 populate*
 cleanup*
+find_*
+download_*
+inspect_*
+simulate_*
+verify_*
 
 # IDE & OS files
 .DS_Store
 Thumbs.db
 .gemini/
-
