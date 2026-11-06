@@ -940,6 +940,10 @@ def translate_html_content(html, trans_map):
     # F3. Chuẩn hóa nhiều &nbsp; liên tiếp thành đúng 1 &nbsp;
     html = re.sub(r'(?:&nbsp;){2,}', '&nbsp;', html)
 
+    # G. Sửa lỗi định vị tràn chữ đè hình trên Product 302 (Early Soccer Robotics Kit)
+    html = html.replace('position:absolute;top:680px;top:186px;right:-220px;font-size:15px;text-align:center;',
+                        'position:absolute;top:180px;left:760px;width:280px;font-size:15px;text-align:left;')
+
     return html
 
 def is_translatable(text):

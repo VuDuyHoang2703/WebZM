@@ -5,6 +5,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ZMRobo Data Viewer - Khám phá dữ liệu cào</title>
+  <link rel="preconnect" href="https://oss.zmrobo.com" crossorigin>
+  <link rel="dns-prefetch" href="https://oss.zmrobo.com">
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
@@ -78,6 +80,30 @@
       box-sizing: border-box;
       position: relative !important;
       overflow: visible !important;
+    }
+
+    /* Tối ưu hóa hiệu năng render: chỉ render & tải tài nguyên các slice khi cuộn tới */
+    .zm-content-inner .slice_box {
+      content-visibility: auto;
+      contain-intrinsic-size: 800px;
+    }
+
+    /* Hiệu ứng Shimmer Skeleton tải ảnh mượt mà, tránh giật khung hình */
+    @keyframes zmShimmer {
+      0% { background-position: -200% 0; }
+      100% { background-position: 200% 0; }
+    }
+    .img-skeleton {
+      background: linear-gradient(90deg, #f8fafc 25%, #e2e8f0 50%, #f8fafc 75%);
+      background-size: 200% 100%;
+      animation: zmShimmer 1.5s infinite;
+    }
+    .img-fade-in {
+      opacity: 0;
+      transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .img-fade-in.loaded {
+      opacity: 1;
     }
 
     .zm-content-inner .slice_inbox {
@@ -304,10 +330,31 @@
       text-shadow: none !important;
     }
 
+    /* Khối banner đầu trang của các dòng Super AI (Product 352, 351, 353, v.v.): Luôn có nền tối vũ trụ */
+    .zm-content-inner .slice_box:has(.gradient_tittle_top),
+    .zm-content-inner .slice_box:has(img[src*="/1.png"]) {
+      background-color: #060919 !important;
+      min-height: 520px !important;
+    }
+
     /* Thẻ card có ảnh nền chụp thực tế (như mục Giáo dục STEM, Cuộc thi Robotics dòng Super AI) */
     .zm-content-inner .gray_rect {
+      display: inline-block !important;
       position: relative !important;
+      width: 580px !important;
+      height: 420px !important;
+      min-height: 420px !important;
+      border-radius: 20px !important;
       overflow: hidden !important;
+      background-color: #1a1a24 !important;
+      vertical-align: top !important;
+    }
+
+    .zm-content-inner .gray_rect img {
+      width: 100% !important;
+      height: 100% !important;
+      object-fit: cover !important;
+      display: block !important;
     }
 
     .zm-content-inner .gray_rect > div[style*="position:absolute"] {
@@ -427,18 +474,51 @@
     /* ========================================================================== */
     /* 6. KHẮC PHỤC TRÀN CHỮ VÀ ĐÈ HÌNH TRÊN SẢN PHẨM 129 (AI STORM - RUBIK ROBOT) */
     /* ========================================================================== */
-    .zm-content-inner div[style*="4-bg.png"],
-    .zm-content-inner div[style*="5-bg.png"] {
+    .zm-content-inner div[style*="JMC-NY-2451"][style*="4-bg.png"],
+    .zm-content-inner div[style*="JMC-NY-2451"][style*="5-bg.png"] {
       line-height: 1.6 !important;
       font-size: 16px !important;
     }
 
-    .zm-content-inner div[style*="4-bg.png"] > div,
-    .zm-content-inner div[style*="5-bg.png"] > div {
+    .zm-content-inner div[style*="JMC-NY-2451"][style*="4-bg.png"] > div,
+    .zm-content-inner div[style*="JMC-NY-2451"][style*="5-bg.png"] > div {
       height: auto !important;
       max-height: 380px !important;
       line-height: 1.65 !important;
       font-size: 16px !important;
+    }
+
+    /* Đảm bảo toàn bộ thẻ Giải pháp Robot và Cảm biến dòng Super AI (Product 352, 351, 353) co giãn trọn vẹn, không lòi ra ngoài */
+    .zm-content-inner .task_robo_div,
+    .zm-content-inner .down_list,
+    .zm-content-inner .sensor_div {
+      height: auto !important;
+      max-height: none !important;
+      overflow: visible !important;
+    }
+
+    .zm-content-inner .sensor_item {
+      display: inline-block !important;
+      vertical-align: top !important;
+    }
+
+    .zm-content-inner div[style*="1440px"] {
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+      height: auto !important;
+      min-height: auto !important;
+    }
+
+    /* Product 302 (Early Soccer Robotics Kit) - Căn chỉnh chuẩn cho nhãn Mô Hình Robot bên cạnh 3-1.png */
+    .zm-content-inner div:has(> img[src*="3-1.png"]) > div[style*="186px"],
+    .zm-content-inner div:has(> img[src*="3-1.png"]) > div[style*="180px"],
+    .zm-content-inner div:has(> img[src*="3-1.png"]) > div:last-child {
+      position: absolute !important;
+      top: 180px !important;
+      left: 760px !important;
+      right: auto !important;
+      width: 280px !important;
+      text-align: left !important;
     }
 
     /* ========================================================================== */
@@ -756,6 +836,15 @@
     let allSoftware = [];
     let allResources = [];
 
+    // Helper chuyển đổi link ảnh sang bộ nhớ đệm cục bộ siêu tốc /media/... (1ms)
+    function toMediaUrl(url) {
+      if (!url) return 'https://via.placeholder.com/300x200?text=No+Image';
+      if (url.startsWith('https://oss.zmrobo.com/')) {
+        return url.replace('https://oss.zmrobo.com/', '/media/');
+      }
+      return url;
+    }
+
     // Init
     window.addEventListener('DOMContentLoaded', async () => {
       await loadAllData();
@@ -933,8 +1022,12 @@
         card.className = "bg-white rounded-2xl border border-slate-200 p-3.5 shadow-sm hover:shadow-md hover:border-blue-300 transition flex flex-col group min-w-0 overflow-hidden cursor-pointer";
         card.onclick = () => openProductDetailView(s.id);
         card.innerHTML = `
-          <div class="relative w-full h-44 rounded-xl bg-slate-50 overflow-hidden flex items-center justify-center p-2 mb-2.5 min-w-0">
-            <img src="${cover}" alt="${title}" class="max-h-full max-w-full object-contain group-hover:scale-105 transition duration-300" loading="lazy" onerror="this.src='https://via.placeholder.com/300x200?text=Image+Error'">
+          <div class="relative w-full h-44 rounded-xl bg-slate-50 overflow-hidden flex items-center justify-center p-2 mb-2.5 min-w-0 img-skeleton">
+            <img src="${toMediaUrl(cover)}" alt="${title}"
+                 class="img-fade-in max-h-full max-w-full object-contain group-hover:scale-105 transition duration-300"
+                 loading="lazy" decoding="async"
+                 onload="this.classList.add('loaded'); this.parentElement.classList.remove('img-skeleton');"
+                 onerror="this.onerror=null; this.src='https://oss.zmrobo.com/'+this.src.replace(/^.*\/media\//, ''); this.classList.add('loaded');">
             <span class="absolute top-2 left-2 text-[10px] font-mono font-bold bg-white/90 backdrop-blur-sm text-slate-700 px-2 py-0.5 rounded-md border border-slate-200 max-w-[80%] truncate">
               ${code}
             </span>
@@ -1012,12 +1105,19 @@
             <!-- Gallery / Hero Cover -->
             <div class="flex flex-col items-center">
               <div class="w-full h-80 sm:h-96 rounded-2xl bg-slate-50 border border-slate-100 flex items-center justify-center p-4 overflow-hidden shadow-inner">
-                <img id="detail-main-img" src="${s.cover || d.cover}" class="max-h-full max-w-full object-contain transition duration-300" onerror="this.src='https://via.placeholder.com/400x300?text=No+Image'">
+                <img id="detail-main-img" src="${toMediaUrl(s.cover || d.cover)}"
+                     class="max-h-full max-w-full object-contain transition duration-300"
+                     decoding="async"
+                     onerror="this.onerror=null; this.src='https://oss.zmrobo.com/'+this.src.replace(/^.*\/media\//, '');">
               </div>
               ${covers.length > 1 ? `
                 <div class="flex gap-2 overflow-x-auto py-3 max-w-full custom-scroll">
                   ${covers.map((c, i) => `
-                    <img src="${c.url || c.cover || c}" class="w-16 h-16 rounded-xl border-2 border-slate-200 object-contain p-1 cursor-pointer hover:border-blue-500 transition" onclick="document.getElementById('detail-main-img').src='${c.url || c.cover || c}'">
+                    <img src="${toMediaUrl(c.url || c.cover || c)}"
+                         loading="lazy" decoding="async"
+                         class="w-16 h-16 rounded-xl border-2 border-slate-200 object-contain p-1 cursor-pointer hover:border-blue-500 transition"
+                         onclick="document.getElementById('detail-main-img').src='${toMediaUrl(c.url || c.cover || c)}'"
+                         onerror="this.onerror=null; this.src='https://oss.zmrobo.com/'+this.src.replace(/^.*\/media\//, '');">
                   `).join('')}
                 </div>
               ` : ''}
@@ -1078,13 +1178,25 @@
 
       // Rich Content Slices (Được hiển thị toàn màn hình, không ép kích thước, không bị cắt viền phải)
       if (d.content) {
-        // Chuẩn hóa triệt để lỗi dấu ngoặc kép bên trong style url("...') gây đóng thẻ style sớm và mất background / vỡ absolute positioning
-        let fixedContent = (d.content || '').replace(/url\(["']?([^"'\)\s]+)["']?\)/g, "url('$1')");
+        // Chuẩn hóa triệt để lỗi dấu ngoặc kép hoặc ký tự mã hóa entity bên trong style url(...) gây đóng thẻ style sớm hoặc hỏng đường dẫn
+        let fixedContent = (d.content || '').replace(/url\((?:&#39;|&quot;|['"])*([^'"\)\s&]+)(?:&#39;|&quot;|['"])*\)/gi, "url('$1')");
         // Căn giữa toàn bộ các ảnh và video dạng poster cuộn (Product 60, 69, 79, v.v.)
         fixedContent = fixedContent.replace(/<p\s+style=["']text-align:\s*left;?["']>/gi, '<p style="text-align: center;">');
         // Căn giữa toàn bộ bảng biểu (table) và sửa lỗi ký tự nhân &times; bị dịch thành &lần;
         fixedContent = fixedContent.replace(/&lần;/g, '×').replace(/&times;/g, '×');
         fixedContent = fixedContent.replace(/<table(?![^>]*align=)/gi, '<table align="center" style="margin: 20px auto;"');
+
+        // Fix tràn chữ & đè lên robot trên Product 302 (Early Soccer Robotics Kit)
+        fixedContent = fixedContent.replace(/position:absolute;top:680px;top:186px;right:-220px;font-size:15px;text-align:center;/g, 'position:absolute;top:180px;left:760px;width:280px;font-size:15px;text-align:left;');
+
+        // Tối ưu hóa siêu tốc: Chuyển toàn bộ ảnh và icon sang bộ đệm cục bộ /media/... (1ms từ ổ cứng)
+        fixedContent = fixedContent.replace(/https:\/\/oss\.zmrobo\.com\//g, '/media/');
+        // Kích hoạt lazy-loading và decoding bất đồng bộ cho toàn bộ ảnh nội dung, chỉ tải khi cuộn tới
+        fixedContent = fixedContent.replace(/<img(?![^>]*loading=)/gi, '<img loading="lazy" decoding="async"');
+        // Ngoại lệ: Ảnh banner đầu trang 1.png tải ưu tiên ngay (fetchpriority="high") không trì hoãn
+        fixedContent = fixedContent.replace(/<img([^>]*src=["'][^"']*1\.png["'][^>]*)loading=["']lazy["']/gi, '<img$1fetchpriority="high"');
+        // Tự động chuyển hướng về oss.zmrobo.com nếu ảnh nội dung chưa có trong bộ đệm ổ cứng
+        fixedContent = fixedContent.replace(/<img(?![^>]*onerror=)/gi, '<img onerror="if(!this.dataset.triedRemote){this.dataset.triedRemote=1;this.src=\'https://oss.zmrobo.com/\'+this.src.replace(/^.*\\/media\\//, \'\');}"');
 
         // Loại bỏ modal che khuất (#bg_L) trước khi kiểm tra màu nền chính của sản phẩm
         const cleanContent = fixedContent.replace(/#bg_L\s*\{[^}]*\}/gi, '');
