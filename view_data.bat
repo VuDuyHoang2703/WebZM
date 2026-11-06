@@ -25,7 +25,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -Command "Get-NetTCPConnection -Lo
 echo Dang khoi dong may chu web va mo trinh duyet...
 echo.
 
-python server.py
+python tools\server.py
 
 pause
 

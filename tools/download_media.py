@@ -15,7 +15,7 @@ from concurrent.futures import ThreadPoolExecutor
 
 sys.stdout.reconfigure(encoding='utf-8')
 
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 MEDIA_DIR = os.path.join(BASE_DIR, "media")
 DATA_DIR = os.path.join(BASE_DIR, "data")
 os.makedirs(MEDIA_DIR, exist_ok=True)
