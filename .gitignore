@@ -14,18 +14,19 @@ __pycache__/
 *$py.class
 *.log
 
-# Scratch scripts
-scratch*
-check*
-test*
-audit*
-populate*
-cleanup*
-find_*
-download_*
-inspect_*
-simulate_*
-verify_*
+# Scratch & temporary debug scripts (chỉ áp dụng ở thư mục gốc)
+/scratch*
+/check*
+/test_*
+/audit*
+/populate*
+/cleanup*
+/find_*
+/inspect_*
+/simulate_*
+/verify_*
+/redownload_*
+/update_*
 
 # IDE & OS files
 .DS_Store

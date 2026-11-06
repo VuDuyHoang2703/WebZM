@@ -38,16 +38,21 @@ Chỉ khi muốn cập nhật dữ liệu, chạy `run_crawler.bat`. Trình thu 
 
 | Tệp/thư mục | Vai trò |
 |---|---|
-| `crawler_zmrobo.py` | Gọi API, thu thập danh mục, sản phẩm, phần mềm, tài nguyên, tin tức và liên hệ; ghi dữ liệu xuống `data/`. |
-| `apply_full_translation.py` | Tệp dịch theo quy tắc cũ, hiện không còn được gọi trong luồng crawler. |
-| `full_system_translator.py` | Thu thập từng trường/cả đoạn HTML, yêu cầu Gemini dịch theo ngữ cảnh, lưu cache riêng và cập nhật JSON/CSV. |
-| `run_crawler.bat` | Khởi chạy trình cào bằng lệnh `python crawler_zmrobo.py`. |
-| `server.py` | Phục vụ các tệp tĩnh qua HTTP và mở trình duyệt tới giao diện. |
-| `view_data.bat` | Khởi chạy máy chủ xem dữ liệu. |
-| `index.html` | Giao diện người dùng, bộ lọc/tìm kiếm và cách hiển thị dữ liệu JSON. |
-| `README.md` | Tài liệu giới thiệu/API ban đầu; sổ tay này bổ sung luồng chạy và các lưu ý đối chiếu mã nguồn. |
-| `data/` | Dữ liệu đã thu thập, dữ liệu đã dịch và bộ nhớ dịch. |
-| `.venv/`, `__pycache__/` | Thư mục môi trường Python và bộ nhớ đệm Python có trong workspace. Các tệp `.bat` hiện gọi `python` theo PATH, không tự kích hoạt `.venv`. |
+| `view_data.bat` | Khởi chạy máy chủ cục bộ và tự động mở trình duyệt xem dữ liệu (chống cache). |
+| `server.py` | Máy chủ web cục bộ đa luồng tốc độ cao (0-1ms), phục vụ trực tiếp `media/` từ ổ cứng. |
+| `index.html` | Giao diện người dùng tiếng Việt, tra cứu sản phẩm, phần mềm, tài liệu và streaming video CDN. |
+| `crawler_zmrobo.py` | Gọi API ZMRobo thu thập danh mục, sản phẩm, phần mềm, tài nguyên, tin tức và liên hệ. |
+| `run_crawler.bat` | Khởi chạy trình cào dữ liệu mới. |
+| `download_media.py` | Tải toàn bộ hình ảnh gốc từ máy chủ CDN `oss.zmrobo.com` về lưu trữ cục bộ. |
+| `download_media.bat` | Khởi chạy bộ tải hình ảnh cục bộ. |
+| `full_system_translator.py` | Bộ dịch thuật văn bản tự động Trung -> Việt cho crawler (dịch tiêu đề, nội dung HTML). |
+| `data/` | Dữ liệu sản phẩm, phần mềm, tin tức, tài liệu tiếng Việt dạng JSON/CSV. |
+| `data_raw/` | Bản sao lưu dữ liệu gốc chưa dịch từ ZMRobo để đối chiếu. |
+| `media/` | Toàn bộ 1.637 tệp ảnh gốc chất lượng cao được lưu trữ cục bộ. |
+| `api/video.js` | Hàm serverless proxy video phục vụ triển khai Vercel. |
+| `vercel.json` | Cấu hình triển khai web tĩnh & serverless trên Vercel. |
+| `README.md` | Tài liệu giới thiệu và hướng dẫn tổng quan dự án. |
+| `SO_TAY_DU_AN.md` | Sổ tay kỹ thuật và hướng dẫn vận hành chi tiết. |
 
 Các chương trình Python trong dự án chủ yếu dùng thư viện chuẩn; hiện không có tệp manifest phụ thuộc như `requirements.txt`.
 
