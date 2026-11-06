@@ -841,6 +841,7 @@
     // - Video MP4: LUÔN dùng trực tiếp CDN oss.zmrobo.com để hỗ trợ HTTP Range 206 tua mượt mà
     function toMediaUrl(url) {
       if (!url) return 'https://via.placeholder.com/300x200?text=No+Image';
+      url = String(url).trim().replace(/\\+$/, '');
       if (url.endsWith('.mp4') || url.includes('.mp4')) {
         return url.replace(/^\/media\//, 'https://oss.zmrobo.com/');
       }
@@ -1128,7 +1129,7 @@
                 <img id="detail-main-img" src="${toMediaUrl(s.cover || d.cover)}"
                      class="max-h-full max-w-full object-contain transition duration-300"
                      decoding="async"
-                     onerror="this.onerror=null; this.src='https://oss.zmrobo.com/'+this.src.replace(/^.*\/media\//, '');">
+                     onerror="this.onerror=null; this.src='https://via.placeholder.com/400x300?text=No+Image';">
               </div>
               ${covers.length > 1 ? `
                 <div class="flex gap-2 overflow-x-auto py-3 max-w-full custom-scroll">
@@ -1137,7 +1138,7 @@
                          loading="lazy" decoding="async"
                          class="w-16 h-16 rounded-xl border-2 border-slate-200 object-contain p-1 cursor-pointer hover:border-blue-500 transition"
                          onclick="document.getElementById('detail-main-img').src='${toMediaUrl(c.url || c.cover || c)}'"
-                         onerror="this.onerror=null; this.src='https://oss.zmrobo.com/'+this.src.replace(/^.*\/media\//, '');">
+                         onerror="this.onerror=null; this.src='https://via.placeholder.com/80x80?text=No+Image';">
                   `).join('')}
                 </div>
               ` : ''}
@@ -1210,8 +1211,9 @@
         fixedContent = fixedContent.replace(/position:absolute;top:680px;top:186px;right:-220px;font-size:15px;text-align:center;/g, 'position:absolute;top:180px;left:760px;width:280px;font-size:15px;text-align:left;');
 
         // Xử lý thông minh giữa Localhost và Vercel:
-        // - Trên localhost: chuyển ảnh sang /media/ để tăng tốc 1ms từ ổ cứng, nhưng giữ nguyên video .mp4
+        // - Trên localhost: chuyển toàn bộ ảnh sang /media/ để tăng tốc 1ms từ ổ cứng, nhưng giữ nguyên video .mp4
         // - Trên Vercel: đưa toàn bộ tài nguyên về CDN https://oss.zmrobo.com/ để chạy mượt 100% không lo thiếu file
+        fixedContent = fixedContent.replace(/(\.(?:png|jpg|jpeg|gif|webp|mp4))\\+/gi, '$1');
         if (isLocal) {
           fixedContent = fixedContent.replace(/https:\/\/oss\.zmrobo\.com\/(?!([^\s"'<>]+\.mp4))/gi, '/media/');
         } else {
@@ -1224,8 +1226,8 @@
         fixedContent = fixedContent.replace(/<img(?![^>]*loading=)/gi, '<img loading="lazy" decoding="async"');
         // Ngoại lệ: Ảnh banner đầu trang 1.png tải ưu tiên ngay (fetchpriority="high") không trì hoãn
         fixedContent = fixedContent.replace(/<img([^>]*src=["'][^"']*1\.png["'][^>]*)loading=["']lazy["']/gi, '<img$1fetchpriority="high"');
-        // Tự động chuyển hướng về oss.zmrobo.com nếu ảnh nội dung chưa có trong bộ đệm ổ cứng
-        fixedContent = fixedContent.replace(/<img(?![^>]*onerror=)/gi, '<img onerror="if(!this.dataset.triedRemote){this.dataset.triedRemote=1;this.src=\'https://oss.zmrobo.com/\'+this.src.replace(/^.*\\/media\\//, \'\');}"');
+        // Xử lý lỗi ảnh nội dung: ẩn hoặc dùng placeholder nhẹ, không cố tải từ server Trung Quốc gây lag
+        fixedContent = fixedContent.replace(/<img(?![^>]*onerror=)/gi, '<img onerror="this.onerror=null; this.style.display=\'none\';"');
 
         // Loại bỏ modal che khuất (#bg_L) trước khi kiểm tra màu nền chính của sản phẩm
         const cleanContent = fixedContent.replace(/#bg_L\s*\{[^}]*\}/gi, '');
@@ -1354,7 +1356,7 @@
         card.innerHTML = `
           <div class="min-w-0">
             <div class="flex items-center gap-3 mb-2.5 min-w-0">
-              <img src="${s.icon}" class="w-11 h-11 rounded-xl object-contain bg-slate-50 border p-1 flex-shrink-0" onerror="this.src='https://via.placeholder.com/48'">
+              <img src="${toMediaUrl(s.icon)}" class="w-11 h-11 rounded-xl object-contain bg-slate-50 border p-1 flex-shrink-0" onerror="this.src='https://via.placeholder.com/48'">
               <div class="min-w-0 flex-1">
                 <h3 class="font-bold text-slate-900 text-sm sm:text-base truncate">${s.name}</h3>
                 <span class="text-[10px] px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 font-medium">${s.type || 'App'}</span>
