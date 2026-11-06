@@ -123,7 +123,7 @@ def start_server():
             with DualStackThreadingServer(("::", PORT), CachingMediaHandler) as httpd:
                 url = f"http://127.0.0.1:{PORT}/index.html"
                 print("========================================================")
-                print("  ZMROBO DATA VIEWER - MÁY CHỦ BỘ NHỚ ĐỆM TỐC ĐỘ CAO (DUAL-STACK)")
+                print("  ZMROBO PRODUCT SHOWCASE - MÁY CHỦ BỘ NHỚ ĐỆM TỐC ĐỘ CAO")
                 print(f"  Truy cập tại: {url}")
                 print(f"  Hoặc:        http://localhost:{PORT}/index.html")
                 print(f"  Thư mục cache ảnh: {MEDIA_DIR}")
