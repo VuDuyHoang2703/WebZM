@@ -1,0 +1,22 @@
+# Media files cache (1GB+ local cache - not needed on Vercel as Vercel streams directly from oss.zmrobo.com CDN)
+media/
+
+# Python cache & temporary scripts
+__pycache__/
+*.py[cod]
+*$py.class
+*.log
+
+# Scratch scripts
+scratch*
+check*
+test*
+audit*
+populate*
+cleanup*
+
+# IDE & OS files
+.DS_Store
+Thumbs.db
+.gemini/
+

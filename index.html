@@ -836,11 +836,22 @@
     let allSoftware = [];
     let allResources = [];
 
-    // Helper chuyển đổi link ảnh sang bộ nhớ đệm cục bộ siêu tốc /media/... (1ms)
+    const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+
+    // Helper chuyển đổi link ảnh:
+    // - Trên localhost: dùng /media/ để tải siêu tốc 1ms từ ổ cứng
+    // - Trên Vercel: dùng trực tiếp CDN https://oss.zmrobo.com/ (không cần đẩy 1.1GB ảnh lên GitHub)
+    // - Video MP4: LUÔN dùng trực tiếp CDN oss.zmrobo.com để hỗ trợ HTTP Range 206 tua mượt mà
     function toMediaUrl(url) {
       if (!url) return 'https://via.placeholder.com/300x200?text=No+Image';
-      if (url.startsWith('https://oss.zmrobo.com/')) {
+      if (url.endsWith('.mp4') || url.includes('.mp4')) {
+        return url.replace(/^\/media\//, 'https://oss.zmrobo.com/');
+      }
+      if (isLocal && url.startsWith('https://oss.zmrobo.com/')) {
         return url.replace('https://oss.zmrobo.com/', '/media/');
+      }
+      if (!isLocal && url.startsWith('/media/')) {
+        return url.replace(/^\/media\//, 'https://oss.zmrobo.com/');
       }
       return url;
     }
@@ -1078,6 +1089,18 @@
       document.getElementById('detail-nav-title').textContent = s.title || d.title || '';
       document.getElementById('detail-nav-code').textContent = s.code || d.code || 'N/A';
 
+      // Tự động tìm link video từ d.video hoặc quét trong nội dung
+      let productVideo = d.video || s.video || '';
+      if (!productVideo && d.content) {
+        const vMatch = d.content.match(/https?:\/\/[^\s"']+\.mp4/i) || d.content.match(/src=["']([^"']+\.mp4)["']/i);
+        if (vMatch) {
+          productVideo = vMatch[1] || vMatch[0];
+        }
+      }
+      if (productVideo.startsWith('/media/')) {
+        productVideo = 'https://oss.zmrobo.com/' + productVideo.replace(/^\/media\//, '');
+      }
+
       const actionsContainer = document.getElementById('detail-nav-actions');
       actionsContainer.innerHTML = `
         ${d.manual ? `
@@ -1085,10 +1108,10 @@
             <i class="fa-solid fa-file-pdf"></i> <span class="hidden sm:inline">Tải sách hướng dẫn</span>
           </a>
         ` : ''}
-        ${d.video ? `
-          <a href="${d.video}" target="_blank" class="px-3 py-1.5 rounded-xl bg-purple-50 text-purple-700 hover:bg-purple-600 hover:text-white font-semibold text-xs transition flex items-center gap-1.5">
-            <i class="fa-solid fa-circle-play"></i> <span class="hidden sm:inline">Xem Video</span>
-          </a>
+        ${productVideo ? `
+          <button onclick="openGlobalVideoModal('${productVideo}', '${(s.title || d.title || '').replace(/'/g, "\\'")}')" class="px-3.5 py-1.5 rounded-xl bg-purple-50 text-purple-700 hover:bg-purple-600 hover:text-white font-semibold text-xs transition flex items-center gap-1.5 cursor-pointer shadow-sm">
+            <i class="fa-solid fa-circle-play text-purple-600"></i> <span class="hidden sm:inline">Xem Video</span>
+          </button>
         ` : ''}
       `;
 
@@ -1165,10 +1188,10 @@
                     <i class="fa-solid fa-file-pdf"></i> Tải sách hướng dẫn (Manual PDF)
                   </a>
                 ` : ''}
-                ${d.video ? `
-                  <a href="${d.video}" target="_blank" class="px-5 py-2.5 rounded-xl bg-purple-600 hover:bg-purple-700 text-white font-semibold text-sm transition shadow-md shadow-purple-600/20 flex items-center gap-2">
+                ${productVideo ? `
+                  <button onclick="openGlobalVideoModal('${productVideo}', '${(s.title || d.title || '').replace(/'/g, "\\'")}')" class="px-5 py-2.5 rounded-xl bg-purple-600 hover:bg-purple-700 text-white font-semibold text-sm transition shadow-md shadow-purple-600/20 flex items-center gap-2 cursor-pointer">
                     <i class="fa-solid fa-circle-play"></i> Xem Video giới thiệu
-                  </a>
+                  </button>
                 ` : ''}
               </div>
             </div>
@@ -1189,8 +1212,17 @@
         // Fix tràn chữ & đè lên robot trên Product 302 (Early Soccer Robotics Kit)
         fixedContent = fixedContent.replace(/position:absolute;top:680px;top:186px;right:-220px;font-size:15px;text-align:center;/g, 'position:absolute;top:180px;left:760px;width:280px;font-size:15px;text-align:left;');
 
-        // Tối ưu hóa siêu tốc: Chuyển toàn bộ ảnh và icon sang bộ đệm cục bộ /media/... (1ms từ ổ cứng)
-        fixedContent = fixedContent.replace(/https:\/\/oss\.zmrobo\.com\//g, '/media/');
+        // Xử lý thông minh giữa Localhost và Vercel:
+        // - Trên localhost: chuyển ảnh sang /media/ để tăng tốc 1ms từ ổ cứng, nhưng giữ nguyên video .mp4
+        // - Trên Vercel: đưa toàn bộ tài nguyên về CDN https://oss.zmrobo.com/ để chạy mượt 100% không lo thiếu file
+        if (isLocal) {
+          fixedContent = fixedContent.replace(/https:\/\/oss\.zmrobo\.com\/(?!([^\s"'<>]+\.mp4))/gi, '/media/');
+        } else {
+          fixedContent = fixedContent.replace(/\/media\//g, 'https://oss.zmrobo.com/');
+        }
+        // Đảm bảo video .mp4 luôn luôn phát từ CDN https://oss.zmrobo.com/ để hỗ trợ tua và streaming
+        fixedContent = fixedContent.replace(/(?:src|source)=["'](?:\/media\/|https:\/\/oss\.zmrobo\.com\/)?([^"']+\.mp4)["']/gi, 'src="https://oss.zmrobo.com/$1"');
+
         // Kích hoạt lazy-loading và decoding bất đồng bộ cho toàn bộ ảnh nội dung, chỉ tải khi cuộn tới
         fixedContent = fixedContent.replace(/<img(?![^>]*loading=)/gi, '<img loading="lazy" decoding="async"');
         // Ngoại lệ: Ảnh banner đầu trang 1.png tải ưu tiên ngay (fetchpriority="high") không trì hoãn
@@ -1391,15 +1423,114 @@
     }
 
     // Render News
+    // =========================================================================
+    // UNIVERSAL VIDEO MODAL CONTROLLER (Phát mượt trên cả localhost lẫn Vercel)
+    // =========================================================================
+    function openGlobalVideoModal(url, title = 'Video Giới Thiệu') {
+      if (!url) return;
+      let cleanUrl = url.trim().replace(/^\/media\//, 'https://oss.zmrobo.com/');
+      if (!cleanUrl.startsWith('http')) {
+        cleanUrl = 'https://oss.zmrobo.com/' + cleanUrl.replace(/^\/+/, '');
+      }
+
+      const modal = document.getElementById('universal-video-modal');
+      const player = document.getElementById('universal-video-player');
+      const titleElem = document.getElementById('video-modal-title');
+      const directLink = document.getElementById('video-modal-direct-link');
+
+      if (modal && player) {
+        titleElem.textContent = title;
+        directLink.href = cleanUrl;
+        player.src = cleanUrl;
+        modal.classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+        player.play().catch(() => {});
+      }
+    }
+
+    function closeGlobalVideoModal() {
+      const modal = document.getElementById('universal-video-modal');
+      const player = document.getElementById('universal-video-player');
+      if (modal && player) {
+        player.pause();
+        player.removeAttribute('src');
+        player.load();
+        modal.classList.add('hidden');
+        document.body.style.overflow = '';
+      }
+    }
+
+    // Tự động bắt mọi nút bấm xem Video trong nội dung chi tiết bài viết (nút play_btn1 hoặc nút chứa chữ Video)
+    document.addEventListener('click', function(e) {
+      const btn = e.target.closest('.play_btn1, button, a');
+      if (btn) {
+        const isPlayBtn = btn.classList.contains('play_btn1') || 
+                          (btn.textContent && btn.textContent.trim().toLowerCase() === 'video') ||
+                          btn.querySelector('img[src*="icon-play"]') ||
+                          (btn.getAttribute('onclick') && btn.getAttribute('onclick').includes("video"));
+        if (isPlayBtn) {
+          const hash = window.location.hash;
+          let videoSrc = '';
+          if (hash && hash.startsWith('#product-')) {
+            const pid = parseInt(hash.replace('#product-', ''), 10);
+            const item = allProducts.find(p => p.summary.id === pid);
+            videoSrc = item?.detail?.productInfo?.video || item?.summary?.video || '';
+          }
+          if (!videoSrc) {
+            const videoInPage = document.querySelector('.zm-content-inner video') || document.querySelector('#video');
+            if (videoInPage) videoSrc = videoInPage.getAttribute('src');
+          }
+          if (videoSrc) {
+            e.preventDefault();
+            e.stopPropagation();
+            const title = document.getElementById('detail-nav-title')?.textContent || 'Video Giới Thiệu';
+            openGlobalVideoModal(videoSrc, title);
+          }
+        }
+      }
+    }, true);
+
     // Đóng khi bấm phím Escape
     window.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') {
+        const videoModal = document.getElementById('universal-video-modal');
+        if (videoModal && !videoModal.classList.contains('hidden')) {
+          closeGlobalVideoModal();
+          return;
+        }
         if (!document.getElementById('product-detail-view').classList.contains('hidden')) {
           closeProductDetailView();
         }
       }
     });
   </script>
+
+  <!-- Universal Global Video Modal (Phát video mượt mà trên cả localhost lẫn Vercel) -->
+  <div id="universal-video-modal" class="hidden fixed inset-0 z-[999999] bg-black/95 backdrop-blur-md flex items-center justify-center p-3 sm:p-6 transition-all duration-300" onclick="if(event.target===this)closeGlobalVideoModal()">
+    <div class="relative w-full max-w-5xl bg-slate-900 rounded-3xl overflow-hidden shadow-2xl border border-slate-800 flex flex-col">
+      <!-- Modal Header -->
+      <div class="flex items-center justify-between px-5 py-3.5 border-b border-slate-800 bg-slate-900/90">
+        <div class="flex items-center gap-2.5 text-white font-bold text-sm sm:text-base truncate pr-4">
+          <i class="fa-solid fa-circle-play text-purple-400 text-lg"></i>
+          <span id="video-modal-title" class="truncate">Video Giới Thiệu Sản Phẩm</span>
+        </div>
+        <div class="flex items-center gap-2 flex-shrink-0">
+          <a id="video-modal-direct-link" href="#" target="_blank" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white text-xs font-semibold transition flex items-center gap-1.5" title="Mở trực tiếp trong tab mới">
+            <i class="fa-solid fa-arrow-up-right-from-square"></i> <span class="hidden sm:inline">Mở tab mới</span>
+          </a>
+          <button onclick="closeGlobalVideoModal()" class="w-8 h-8 rounded-full bg-slate-800 text-slate-400 hover:text-white hover:bg-red-600 transition flex items-center justify-center cursor-pointer">
+            <i class="fa-solid fa-xmark text-base"></i>
+          </button>
+        </div>
+      </div>
+      <!-- Video Player -->
+      <div class="relative w-full bg-black aspect-video flex items-center justify-center">
+        <video id="universal-video-player" class="w-full h-full object-contain" controls autoplay playsinline preload="auto">
+          Trình duyệt của bạn không hỗ trợ phát trực tiếp video này. Hãy bấm "Mở tab mới" để xem.
+        </video>
+      </div>
+    </div>
+  </div>
 </body>
 
 </html>
