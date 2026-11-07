@@ -30,6 +30,7 @@ __pycache__/
 
 # Bộ sưu tập ảnh trích xuất cục bộ theo yêu cầu
 bo_anh_san_pham/
+bo_anh_da_dich/
 
 # IDE & OS files
 .DS_Store
