@@ -28,6 +28,9 @@ __pycache__/
 /redownload_*
 /update_*
 
+# Bộ sưu tập ảnh trích xuất cục bộ theo yêu cầu
+bo_anh_san_pham/
+
 # IDE & OS files
 .DS_Store
 Thumbs.db
