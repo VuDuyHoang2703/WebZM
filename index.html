@@ -698,14 +698,25 @@
                 Hiển thị <span id="filtered-count" class="font-bold text-slate-900">0</span> / <span id="total-count"
                   class="font-bold text-slate-900">0</span> sản phẩm
               </div>
-              <div class="flex items-center gap-2 text-xs">
-                <span class="text-slate-400">Sắp xếp:</span>
-                <select id="product-sort" onchange="filterProducts()"
-                  class="bg-slate-50 border border-slate-200 rounded-lg px-2 py-1 focus:outline-none font-medium text-slate-700">
-                  <option value="id_desc">Mới nhất (ID giảm dần)</option>
-                  <option value="id_asc">Cũ nhất (ID tăng dần)</option>
-                  <option value="title_asc">Tên (A-Z)</option>
-                </select>
+              <div class="flex flex-wrap items-center gap-2 sm:gap-3 text-xs">
+                <div class="flex items-center gap-1.5">
+                  <span class="text-slate-400">Nhóm mã:</span>
+                  <select id="product-group-filter" onchange="filterProducts()"
+                    class="bg-slate-50 border border-slate-200 rounded-lg px-2 py-1 focus:outline-none font-medium text-slate-700">
+                    <option value="all">Tất cả sản phẩm</option>
+                    <option value="in_list">Mã trong danh sách chọn</option>
+                    <option value="out_list">Mã ngoài danh sách (có Note)</option>
+                  </select>
+                </div>
+                <div class="flex items-center gap-1.5">
+                  <span class="text-slate-400">Sắp xếp:</span>
+                  <select id="product-sort" onchange="filterProducts()"
+                    class="bg-slate-50 border border-slate-200 rounded-lg px-2 py-1 focus:outline-none font-medium text-slate-700">
+                    <option value="id_desc">Mới nhất (ID giảm dần)</option>
+                    <option value="id_asc">Cũ nhất (ID tăng dần)</option>
+                    <option value="title_asc">Tên (A-Z)</option>
+                  </select>
+                </div>
               </div>
             </div>
 
@@ -832,6 +843,43 @@
 
     let allSoftware = [];
     let allResources = [];
+
+    // Danh sách các mã sản phẩm được chọn lọc của dự án
+    const SELECTED_CODE_TOKENS = new Set([
+      '1799', '1707', '2322E', '2104E', '2109', '2321E', '2321AE', '2325E', '2108+E', '2106+E',
+      '2101+E', '2101AE', '2323E', '2421', '2508E', '2681', '2681B', '5161', '1005', '5148',
+      '9259', '51489259', '1245', '1149A', '1149', '1536', '2222', '2257', '1157', '1153',
+      '2701', '1141A', '1146', '1146A', '6313', '9528A', '1743', '9420A', '9520A', '9523A',
+      '9261', '3570A', '3571A', '3568A', '6311', '3568B', '3579A', '3581A', '3582A', '9522',
+      '0242', '0217', '1279', '0237', '0120', '0189', '0124', '0123', '0117', '0179',
+      '0190', '0148', '0146', '0144', '1276', '7229', '7228', '0126', '0127', '0128',
+      '0201', '0131', '0208', '0196', '0195', '0170', '0167', '0118', '0236', '0198',
+      '0156', '0137'
+    ]);
+
+    // Các mã sản phẩm trong danh sách có hình đã dịch trong thư mục bo_anh_da_dich
+    const TRANSLATED_IMAGE_CODES = new Set([
+      'JMC-NY-1799', 'JMC-SV-1707', 'JMC-NY-2101AE', 'JMC-NY-2104E', 'JMC-NY-2109',
+      'JMC-NY-2325E', 'JMC-NY-2421', 'JMC-NY-2681', 'JMC-NY-2681B', 'JMP-BE-1005',
+      'JMP-BE-5161', 'JMP-BE-1141A', 'JMP-BE-1146A', 'JMP-BE-1149', 'JMP-BE-1153',
+      'JMP-BE-1245', 'JMP-BE-1536', 'JMP-BE-1743', 'JMP-BE-2222', 'JMP-BE-2257',
+      'JMP-BE-2701', 'JMP-BE-6311', 'JMP-BE-6313', 'JMP-BE-9261', 'JMC-RT-9259',
+      'JMP-BE-3568A', 'JMP-BE-3568B', 'JMP-BE-3570A', 'JMP-BE-3571A', 'JMP-BE-3579A',
+      'JMP-BE-3581A', 'JMP-BE-3582A', 'JMP-BE-9520A', 'JMP-BE-9522', 'JMP-BE-9523A',
+      'JMP-BE-9528A'
+    ]);
+
+    function isInSelectedList(codeStr) {
+      if (!codeStr) return false;
+      const c = String(codeStr).trim().toUpperCase();
+      const suffix = c.split('-').pop().trim();
+      return SELECTED_CODE_TOKENS.has(c) || SELECTED_CODE_TOKENS.has(suffix);
+    }
+
+    function hasTranslatedImages(codeStr) {
+      if (!codeStr) return false;
+      return TRANSLATED_IMAGE_CODES.has(String(codeStr).trim().toUpperCase());
+    }
 
     const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
     const cacheBuster = Date.now();
@@ -970,6 +1018,8 @@
       selectedParentId = null;
       selectedSubId = null;
       document.getElementById('product-search').value = "";
+      const gf = document.getElementById('product-group-filter');
+      if (gf) gf.value = "all";
       renderCategoryTree();
       filterProducts();
     }
@@ -978,10 +1028,16 @@
     function filterProducts() {
       const query = document.getElementById('product-search').value.toLowerCase().trim();
       const sort = document.getElementById('product-sort').value;
+      const groupFilter = document.getElementById('product-group-filter')?.value || 'all';
 
       filteredProducts = allProducts.filter(p => {
         const s = p.summary || {};
         const d = p.detail?.productInfo || {};
+        const rawCode = s.code || d.code || '';
+
+        // Group check (trong danh sách vs ngoài danh sách)
+        if (groupFilter === 'in_list' && !isInSelectedList(rawCode)) return false;
+        if (groupFilter === 'out_list' && isInSelectedList(rawCode)) return false;
 
         // Category check
         const parentId = s.parent_type_id || d.parent_type_id;
@@ -993,7 +1049,7 @@
         if (query) {
           const title = (s.title || d.title || '').toLowerCase();
           const titleEn = (s.title_en || d.title_en || '').toLowerCase();
-          const code = (s.code || d.code || '').toLowerCase();
+          const code = rawCode.toLowerCase();
           if (!title.includes(query) && !titleEn.includes(query) && !code.includes(query)) return false;
         }
 
@@ -1027,9 +1083,10 @@
         const titleEn = s.title_en || d.title_en || '';
         const code = s.code || d.code || 'N/A';
         const category = s.type || d.type || s.parent_type || 'Robot';
+        const inList = isInSelectedList(code);
 
         const card = document.createElement('div');
-        card.className = "bg-white rounded-2xl border border-slate-200 p-3.5 shadow-sm hover:shadow-md hover:border-blue-300 transition flex flex-col group min-w-0 overflow-hidden cursor-pointer";
+        card.className = `bg-white rounded-2xl border ${inList ? 'border-slate-200' : 'border-amber-200/90'} p-3.5 shadow-sm hover:shadow-md hover:border-blue-300 transition flex flex-col group min-w-0 overflow-hidden cursor-pointer`;
         card.onclick = () => openProductDetailView(s.id);
         card.innerHTML = `
           <div class="relative w-full h-44 rounded-xl bg-slate-50 overflow-hidden flex items-center justify-center p-2 mb-2.5 min-w-0 img-skeleton">
@@ -1038,14 +1095,25 @@
                  loading="lazy" decoding="async"
                  onload="this.classList.add('loaded'); this.parentElement.classList.remove('img-skeleton');"
                  onerror="this.onerror=null; this.src='https://oss.zmrobo.com/'+this.src.replace(/^.*\/media\//, ''); this.classList.add('loaded');">
-            <span class="absolute top-2 left-2 text-[10px] font-mono font-bold bg-white/90 backdrop-blur-sm text-slate-700 px-2 py-0.5 rounded-md border border-slate-200 max-w-[80%] truncate">
+            <span class="absolute top-2 left-2 text-[10px] font-mono font-bold bg-white/90 backdrop-blur-sm text-slate-700 px-2 py-0.5 rounded-md border border-slate-200 max-w-[65%] truncate">
               ${code}
             </span>
+            ${!inList ? `
+              <span class="absolute top-2 right-2 text-[10px] font-bold bg-amber-100/95 text-amber-800 px-2 py-0.5 rounded-md border border-amber-300 flex items-center gap-1 shadow-sm" title="Mã sản phẩm không nằm trong danh sách chọn lọc">
+                <i class="fa-solid fa-note-sticky text-amber-600"></i> Note
+              </span>
+            ` : ''}
           </div>
           <div class="flex-1 flex flex-col min-w-0">
             <div class="text-[10px] font-bold text-blue-600 mb-1 uppercase tracking-wider truncate">${category}</div>
             <h3 class="font-bold text-slate-900 text-xs sm:text-sm line-clamp-2 leading-snug mb-1 group-hover:text-blue-600 transition" title="${title}">${title}</h3>
             ${titleEn && titleEn !== title ? `<p class="text-[11px] text-slate-400 truncate mb-2">${titleEn}</p>` : '<div class="mb-2"></div>'}
+            ${!inList ? `
+              <div class="mb-2 px-2.5 py-1.5 rounded-lg bg-amber-50 border border-amber-200 text-[11px] text-amber-800 flex items-start gap-1.5 leading-snug">
+                <i class="fa-solid fa-triangle-exclamation text-amber-600 mt-0.5 flex-shrink-0"></i>
+                <span><strong>Note:</strong> Mã ngoài danh sách chọn (hiển thị ảnh gốc)</span>
+              </div>
+            ` : ''}
             <div class="mt-auto pt-2.5 border-t border-slate-100 flex items-center justify-between gap-2 min-w-0">
               <span class="text-[11px] text-slate-400 font-mono">ID: ${s.id}</span>
               <button class="text-xs font-semibold px-2.5 py-1.5 rounded-lg bg-blue-50 text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition flex items-center gap-1.5 flex-shrink-0">
@@ -1083,10 +1151,13 @@
       const resources = item.detail?.resourceList || [];
       const faqs = item.detail?.questionList || [];
 
+      const detailCode = s.code || d.code || 'N/A';
+      const detailInList = isInSelectedList(detailCode);
+
       // Update Nav
       document.getElementById('detail-nav-category').textContent = `${s.parent_type || ''} / ${s.type || ''}`;
       document.getElementById('detail-nav-title').textContent = s.title || d.title || '';
-      document.getElementById('detail-nav-code').textContent = s.code || d.code || 'N/A';
+      document.getElementById('detail-nav-code').textContent = detailCode;
 
       // Tự động tìm link video từ d.video hoặc quét trong nội dung
       let productVideo = d.video || s.video || '';
@@ -1102,6 +1173,11 @@
 
       const actionsContainer = document.getElementById('detail-nav-actions');
       actionsContainer.innerHTML = `
+        ${!detailInList ? `
+          <span class="px-2.5 py-1 rounded-lg bg-amber-100 text-amber-800 border border-amber-300 font-bold text-xs flex items-center gap-1.5" title="Mã ngoài danh sách chọn (hiển thị ảnh gốc)">
+            <i class="fa-solid fa-note-sticky text-amber-600"></i> <span class="hidden md:inline">Note: Ngoài danh sách</span>
+          </span>
+        ` : ''}
         ${d.manual ? `
           <a href="${d.manual}" target="_blank" class="px-3 py-1.5 rounded-xl bg-emerald-50 text-emerald-700 hover:bg-emerald-600 hover:text-white font-semibold text-xs transition flex items-center gap-1.5">
             <i class="fa-solid fa-file-pdf"></i> <span class="hidden sm:inline">Tải sách hướng dẫn</span>
@@ -1155,6 +1231,15 @@
                   ${s.title}
                 </h1>
               </div>
+
+              ${!detailInList ? `
+                <div class="p-3.5 rounded-2xl bg-amber-50 border border-amber-200 text-amber-900 text-xs sm:text-sm flex items-start gap-2.5 shadow-sm">
+                  <i class="fa-solid fa-triangle-exclamation text-amber-600 text-base mt-0.5 flex-shrink-0"></i>
+                  <div>
+                    <span class="font-bold">Ghi chú (Note):</span> Mã sản phẩm <code class="font-mono font-bold bg-amber-100 px-1.5 py-0.5 rounded">${detailCode}</code> không nằm trong danh sách các mã chọn lọc (đang hiển thị bộ ảnh gốc).
+                  </div>
+                </div>
+              ` : ''}
 
               <div class="p-4 rounded-2xl bg-slate-50 border border-slate-100 space-y-2">
                 <div class="flex items-center justify-between text-sm">
