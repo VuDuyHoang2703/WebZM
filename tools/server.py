@@ -25,7 +25,7 @@ class LocalMediaHandler(http.server.SimpleHTTPRequestHandler):
 
     def log_message(self, format, *args):
         # Tắt log các request thành công để tránh nghẽn terminal I/O
-        if args and str(args[1]) in ['200', '304']:
+        if args and str(args[1]) in ['200', '206', '304']:
             return
         super().log_message(format, *args)
 
@@ -46,7 +46,7 @@ class LocalMediaHandler(http.server.SimpleHTTPRequestHandler):
                 self.send_error(403, "Access denied")
                 return
 
-            # Nếu tệp tồn tại trên ổ cứng: phục vụ siêu tốc 1ms với cache vĩnh viễn
+            # Nếu tệp tồn tại trên ổ cứng: phục vụ siêu tốc 1ms (hỗ trợ HTTP Range 206 cho video MP4)
             if os.path.exists(local_file_path) and os.path.isfile(local_file_path):
                 try:
                     file_size = os.path.getsize(local_file_path)
@@ -54,13 +54,40 @@ class LocalMediaHandler(http.server.SimpleHTTPRequestHandler):
                     if not mime_type:
                         mime_type = 'application/octet-stream'
 
+                    range_header = self.headers.get('Range')
+                    if range_header and range_header.startswith('bytes='):
+                        try:
+                            byte_range = range_header.split('=')[1].split(',')[0].strip()
+                            start_str, end_str = byte_range.split('-')
+                            start = int(start_str) if start_str else max(0, file_size - int(end_str))
+                            end = int(end_str) if end_str and start_str else file_size - 1
+                            end = min(end, file_size - 1)
+                            if 0 <= start <= end < file_size:
+                                length = end - start + 1
+                                self.send_response(206)
+                                self.send_header('Content-Type', mime_type)
+                                self.send_header('Accept-Ranges', 'bytes')
+                                self.send_header('Content-Range', f'bytes {start}-{end}/{file_size}')
+                                self.send_header('Content-Length', str(length))
+                                self.end_headers()
+                                with open(local_file_path, 'rb') as f:
+                                    f.seek(start)
+                                    remaining = length
+                                    buf_size = 64 * 1024
+                                    while remaining > 0:
+                                        chunk = f.read(min(buf_size, remaining))
+                                        if not chunk:
+                                            break
+                                        self.wfile.write(chunk)
+                                        remaining -= len(chunk)
+                                return
+                        except Exception:
+                            pass
+
                     self.send_response(200)
                     self.send_header('Content-Type', mime_type)
+                    self.send_header('Accept-Ranges', 'bytes')
                     self.send_header('Content-Length', str(file_size))
-                    self.send_header('Cache-Control', 'no-cache, no-store, must-revalidate')
-                    self.send_header('Pragma', 'no-cache')
-                    self.send_header('Expires', '0')
-                    self.send_header('Access-Control-Allow-Origin', '*')
                     self.end_headers()
 
                     with open(local_file_path, 'rb') as f:
