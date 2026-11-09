@@ -26,8 +26,9 @@ EXPORT_DIR = 'd:/DataZMRobo/xuat_web_ban_hang'
 MEDIA_DIR = 'd:/DataZMRobo/media'
 TRANSLATED_DIR = 'd:/DataZMRobo/bo_anh_da_dich'
 
-# Link CDN trực tiếp tới kho ảnh đã dịch của dự án trên GitHub (hoạt động ngay khi dán vào web bán hàng)
+# Link CDN trực tiếp tới kho ảnh đã dịch và kho video của dự án trên GitHub (hoạt động ngay khi dán vào web bán hàng)
 DEFAULT_IMAGE_CDN = 'https://raw.githubusercontent.com/VuDuyHoang2703/WebZM/main/media'
+DEFAULT_VIDEO_CDN = 'https://media.githubusercontent.com/media/VuDuyHoang2703/WebZM/main/media'
 
 with open(f'{BASE_DIR}/data/products_full.json', 'r', encoding='utf-8') as f:
     products = json.load(f)
@@ -171,6 +172,7 @@ def build_standardized_product_html(item, image_cdn=DEFAULT_IMAGE_CDN):
     # Thay thế toàn bộ link ảnh & video (/media/... hoặc oss.zmrobo.com/...) sang kho lưu trữ của dự án (tuyệt đối không gọi server ngoài)
     if image_cdn:
         image_cdn = image_cdn.rstrip('/')
+        video_cdn = DEFAULT_VIDEO_CDN.rstrip('/')
         def repl_media_url(m):
             full_url = m.group(0)
             clean_url = full_url.split('?')[0]
@@ -178,7 +180,8 @@ def build_standardized_product_html(item, image_cdn=DEFAULT_IMAGE_CDN):
             local_file = os.path.join(MEDIA_DIR, rel_unquoted.replace('/', os.sep))
             if os.path.exists(local_file):
                 encoded_rel = quote(rel_unquoted, safe='/')
-                return f"{image_cdn}/{encoded_rel}"
+                base_cdn = video_cdn if rel_unquoted.lower().endswith('.mp4') else image_cdn
+                return f"{base_cdn}/{encoded_rel}"
             return full_url
 
         out = re.sub(r'https?://oss\.zmrobo\.com/[^\s"\'\)\(&<>]+', repl_media_url, out)
@@ -272,13 +275,15 @@ for item in products:
     # 2b. Xuất toàn bộ ảnh & video nằm trong bài mô tả HTML (2_anh_noi_dung_mo_ta) & tách riêng video (4_video_gioi_thieu)
     img_content_dir = os.path.join(prod_dir, '2_anh_noi_dung_mo_ta')
     video_dir = os.path.join(prod_dir, '4_video_gioi_thieu')
-    cdn_urls = re.findall(re.escape(DEFAULT_IMAGE_CDN) + r'/[^\s"\'\)\(&<>]+', ecom_html)
+    cdn_pattern = r'(?:' + re.escape(DEFAULT_IMAGE_CDN) + r'|' + re.escape(DEFAULT_VIDEO_CDN) + r')/[^\s"\'\)\(&<>]+'
+    cdn_urls = re.findall(cdn_pattern, ecom_html)
     seen_rels = {}
     used_fnames = set()
     content_rel_list = []
     prod_video_count = 0
     for u in cdn_urls:
-        rel = unquote(u.replace(DEFAULT_IMAGE_CDN + '/', ''))
+        rel_part = u.replace(DEFAULT_IMAGE_CDN + '/', '').replace(DEFAULT_VIDEO_CDN + '/', '')
+        rel = unquote(rel_part)
         if rel in seen_rels: continue
         base_fname = os.path.basename(rel)
         if base_fname in used_fnames:
@@ -312,8 +317,9 @@ for item in products:
     # 2d. Xuất file xem_thu_offline.html (xem trực tiếp bằng ảnh & video cục bộ trong thư mục 2_anh_noi_dung_mo_ta)
     offline_html = ecom_html
     for rel, fname in content_rel_list:
-        cdn_url = f"{DEFAULT_IMAGE_CDN}/{quote(rel, safe='/')}"
-        offline_html = offline_html.replace(cdn_url, f"2_anh_noi_dung_mo_ta/{quote(fname)}")
+        encoded_rel = quote(rel, safe='/')
+        offline_html = offline_html.replace(f"{DEFAULT_IMAGE_CDN}/{encoded_rel}", f"2_anh_noi_dung_mo_ta/{quote(fname)}")
+        offline_html = offline_html.replace(f"{DEFAULT_VIDEO_CDN}/{encoded_rel}", f"2_anh_noi_dung_mo_ta/{quote(fname)}")
     with open(os.path.join(prod_dir, 'xem_thu_offline.html'), 'w', encoding='utf-8') as f:
         f.write(f"<!DOCTYPE html><html lang='vi'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width, initial-scale=1.0'><title>{code} - {title}</title></head><body style='margin:0;padding:0;background:#fff;font-family:sans-serif;'>{offline_html}</body></html>")
 
@@ -322,7 +328,7 @@ for item in products:
     if info.get('video'):
         v_rel = oss_url_to_local_rel(info.get('video'))
         if v_rel:
-            video_cdn_url = f"{DEFAULT_IMAGE_CDN}/{quote(v_rel, safe='/')}"
+            video_cdn_url = f"{DEFAULT_VIDEO_CDN}/{quote(v_rel, safe='/')}"
     with open(os.path.join(prod_dir, 'thong_tin_san_pham.txt'), 'w', encoding='utf-8') as f:
         f.write(f"TÊN SẢN PHẨM (VI): {title}\n")
         f.write(f"TÊN GỐC (EN):      {title_en}\n")

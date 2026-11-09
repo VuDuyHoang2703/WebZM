@@ -1,5 +1,4 @@
-# Chỉ bỏ qua tệp SuperTrack.mp4 > 100MB (vượt giới hạn GitHub) và thư mục đóng gói xuất lẻ
-media/stemtown/static/products/JMC-NY-2421E/video/SuperTrack.mp4
+# Chỉ bỏ qua thư mục đóng gói xuất lẻ và thư mục sao lưu nội bộ
 media/stemtown/v/2325E/AlphaX.mp4
 xuat_web_ban_hang/
 media_backup_goc/

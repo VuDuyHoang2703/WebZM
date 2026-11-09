@@ -902,6 +902,7 @@
     }
 
     const GITHUB_MEDIA_CDN = 'https://raw.githubusercontent.com/VuDuyHoang2703/WebZM/main/media';
+    const GITHUB_VIDEO_CDN = 'https://media.githubusercontent.com/media/VuDuyHoang2703/WebZM/main/media';
 
     function buildEcommerceHtmlForProduct(item) {
       if (!item) return '';
@@ -958,11 +959,13 @@
       ecomHtml = ecomHtml.replace(/https?:\/\/oss\.zmrobo\.com\/[^\s"'\)\(&<>]+/gi, (fullUrl) => {
         const cleanUrl = fullUrl.split('?')[0];
         const relPath = cleanUrl.replace(/^https?:\/\/oss\.zmrobo\.com\//i, '');
-        return `${GITHUB_MEDIA_CDN}/${relPath}`;
+        const baseCdn = /\.mp4$/i.test(cleanUrl) ? GITHUB_VIDEO_CDN : GITHUB_MEDIA_CDN;
+        return `${baseCdn}/${relPath}`;
       });
       ecomHtml = ecomHtml.replace(/(["'\(])\/media\/([^\s"'\)\(&<>]+)(["'\)])/gi, (m, q1, relPath, q2) => {
         const cleanRel = relPath.split('?')[0];
-        return `${q1}${GITHUB_MEDIA_CDN}/${cleanRel}${q2}`;
+        const baseCdn = /\.mp4$/i.test(cleanRel) ? GITHUB_VIDEO_CDN : GITHUB_MEDIA_CDN;
+        return `${q1}${baseCdn}/${cleanRel}${q2}`;
       });
       return ecomHtml;
     }
