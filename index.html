@@ -247,46 +247,87 @@
     /* 3. CĂN CHỈNH KHỐI CẢM BIẾN & ĐỘNG CƠ CÂN ĐỐI, KHÔNG BỊ CẮT MÉP TRÁI       */
     /* ========================================================================== */
     .zm-content-inner .both_sensor_div {
+      width: 100% !important;
+      max-width: 1260px !important;
       margin-left: auto !important;
       margin-right: auto !important;
-      text-align: center !important;
+      padding: 0 20px !important;
+      display: flex !important;
+      flex-wrap: wrap !important;
+      justify-content: space-between !important;
+      align-items: flex-start !important;
+      gap: 0 24px !important;
+      text-align: left !important;
+      box-sizing: border-box !important;
+    }
+
+    .zm-content-inner .both_sensor_inner {
       width: 100% !important;
+      max-width: 100% !important;
+      display: flex !important;
+      flex-wrap: wrap !important;
+      justify-content: space-between !important;
+      align-items: flex-start !important;
+      gap: 0 24px !important;
+      text-align: left !important;
       box-sizing: border-box !important;
     }
 
     .zm-content-inner .field_4 {
-      width: 570px !important;
       margin-top: 36px !important;
-      display: inline-block !important;
+      display: inline-flex !important;
+      flex-wrap: wrap !important;
+      justify-content: center !important;
+      align-items: flex-start !important;
+      max-width: 100% !important;
       vertical-align: top !important;
       text-align: left !important;
       box-sizing: border-box !important;
     }
 
+    .zm-content-inner .both_sensor_div .field_4 {
+      flex: 1 1 440px !important;
+      width: auto !important;
+      min-width: 0 !important;
+      max-width: 600px !important;
+      display: flex !important;
+      flex-wrap: nowrap !important;
+      justify-content: flex-start !important;
+      align-items: flex-start !important;
+      margin-left: 0 !important;
+      box-sizing: border-box !important;
+    }
+
     .zm-content-inner .both_sensor_div .field_4:nth-child(even) {
-      margin-left: 16px !important;
+      margin-left: 0 !important;
     }
 
     .zm-content-inner .sensor_left_box {
-      display: inline-block !important;
+      flex: 0 0 auto !important;
+      max-width: 48% !important;
       vertical-align: top !important;
+      box-sizing: border-box !important;
     }
 
     .zm-content-inner .sensor_left_box img {
-      width: 270px !important;
-      max-width: 270px !important;
+      max-width: 100% !important;
+      height: auto !important;
       object-fit: contain !important;
       vertical-align: top !important;
     }
 
     .zm-content-inner .sensor_right_box {
-      display: inline-block !important;
-      vertical-align: top !important;
+      flex: 0 1 auto !important;
+      min-width: 0 !important;
       margin-top: 10px !important;
-      margin-left: 16px !important;
-      width: 260px !important;
+      margin-left: 20px !important;
+      width: auto !important;
       box-sizing: border-box !important;
       text-align: left !important;
+    }
+
+    .zm-content-inner .both_sensor_div .sensor_right_box {
+      flex: 1 1 auto !important;
     }
 
     .zm-content-inner .func_icon_div {
@@ -294,7 +335,7 @@
       text-align: left !important;
       margin-top: 10px !important;
       display: flex !important;
-      align-items: center !important;
+      align-items: flex-start !important;
       gap: 10px !important;
     }
 
@@ -303,6 +344,8 @@
     }
 
     .zm-content-inner .func_icon_div div {
+      flex: 1 !important;
+      min-width: 0 !important;
       font-size: 14px !important;
       margin: 0 !important;
       display: block !important;
@@ -318,28 +361,51 @@
       text-justify: inter-word !important;
     }
 
-    /* Giữ nguyên căn giữa cho các tiêu đề hoặc icon đặc trưng */
+    /* Giữ nguyên căn giữa cho các tiêu đề hoặc icon đặc trưng (giữ nguyên căn lề gốc của .icon_2) */
+    .zm-content-inner .icon_2 {
+      vertical-align: top !important;
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+    }
+
+    .zm-content-inner .icon_2 > img {
+      display: inline-block !important;
+      margin-bottom: 6px !important;
+    }
+
+    .zm-content-inner .icon_2_row {
+      display: flex !important;
+      flex-wrap: wrap !important;
+      justify-content: center !important;
+      align-items: flex-start !important;
+      gap: 18px 12px !important;
+      width: 100% !important;
+      max-width: 1280px !important;
+      margin-left: auto !important;
+      margin-right: auto !important;
+      padding: 0 16px !important;
+      box-sizing: border-box !important;
+    }
+
+    .zm-content-inner .icon_2_row .icon_2 {
+      flex: 1 1 145px !important;
+      max-width: 220px !important;
+      min-width: 145px !important;
+      margin: 0 !important;
+    }
+
     .zm-content-inner h1,
     .zm-content-inner h2,
     .zm-content-inner h3,
     .zm-content-inner h4,
-    .zm-content-inner .icon_2,
-    .zm-content-inner .icon_2_font1,
-    .zm-content-inner .icon_2 .gray_font,
     .zm-content-inner .icon_8,
     .zm-content-inner .quality_item,
     .zm-content-inner .tookit_item,
     .zm-content-inner .task_robo_item {
       text-align: center !important;
+      vertical-align: top !important;
     }
 
-    /* Bỏ margin-left: 10px mặc định trên chữ của .icon_2 để chữ nằm thẳng trục giữa với icon phía trên */
-    .zm-content-inner .icon_2 .icon_2_font1,
-    .zm-content-inner .icon_2 .gray_font {
-      margin-left: 0 !important;
-    }
-
-    .zm-content-inner .icon_2 > img,
     .zm-content-inner .icon_8 > img,
     .zm-content-inner .func_icon_list > img,
     .zm-content-inner .color_icon_list > img,
@@ -587,7 +653,7 @@
     /* ========================================================================== */
     /* 8. CĂN GIỮA VÀ CHUẨN HÓA BẢNG BIỂU THÔNG SỐ (TABLE)                       */
     /* ========================================================================== */
-    .zm-content-inner table {
+    .zm-content-inner table:not(.table_L) {
       margin-left: auto !important;
       margin-right: auto !important;
       margin-top: 20px !important;
@@ -598,45 +664,45 @@
       max-width: 100% !important;
     }
 
-    .zm-content-inner table td,
-    .zm-content-inner table th {
+    .zm-content-inner table:not(.table_L) td,
+    .zm-content-inner table:not(.table_L) th {
       border: 1px solid #cbd5e1 !important;
       padding: 10px 16px !important;
       text-align: center !important;
       vertical-align: middle !important;
     }
 
-    .zm-content-inner table thead,
-    .zm-content-inner table tr:first-child:not(:only-child) {
+    .zm-content-inner table:not(.table_L) thead,
+    .zm-content-inner table:not(.table_L) tr:first-child:not(:only-child) {
       background-color: #f1f5f9 !important;
       font-weight: 700 !important;
     }
 
-    /* Đảm bảo toàn bộ div bọc chứa bảng biểu luôn căn giữa toàn bộ bảng */
+    /* Đảm bảo toàn bộ div bọc chứa bảng biểu luôn căn giữa và cuộn ngang mượt khi hẹp */
     .zm-content-inner div:has(> table) {
       text-align: center !important;
-      display: flex !important;
-      flex-direction: column !important;
-      align-items: center !important;
+      display: block !important;
       width: 100% !important;
+      max-width: 100% !important;
       overflow-x: auto !important;
+      box-sizing: border-box !important;
     }
 
     /* Định dạng bảng cho sản phẩm nền tối (Dark Theme) */
-    .zm-dark-wrapper table {
+    .zm-dark-wrapper table:not(.table_L) {
       background-color: #141414 !important;
       border-color: #334155 !important;
       color: #f8fafc !important;
     }
 
-    .zm-dark-wrapper table td,
-    .zm-dark-wrapper table th {
+    .zm-dark-wrapper table:not(.table_L) td,
+    .zm-dark-wrapper table:not(.table_L) th {
       border-color: #334155 !important;
       color: #f8fafc !important;
     }
 
-    .zm-dark-wrapper table thead,
-    .zm-dark-wrapper table tr:first-child:not(:only-child) {
+    .zm-dark-wrapper table:not(.table_L) thead,
+    .zm-dark-wrapper table:not(.table_L) tr:first-child:not(:only-child) {
       background-color: #1e293b !important;
       color: #ffffff !important;
     }
@@ -931,18 +997,39 @@
       '.container{width:100%;max-width:1560px;margin:0 auto;box-sizing:border-box;}',
       '.slice_box{width:100%;max-width:1560px;margin-left:auto;margin-right:auto;box-sizing:border-box;overflow-x:hidden;}',
       '.slice_inbox{margin:0 auto;text-align:center;max-width:100%;box-sizing:border-box;}',
-      '.slice_box img{max-width:100%;height:auto;vertical-align:middle;}',
+      '.slice_inbox div{max-width:100%;box-sizing:border-box;}',
+      '.slice_box img{display:inline-block;max-width:100%;height:auto;vertical-align:middle;}',
       '.zm-product-video{width:80%;max-width:100%;margin:24px auto;text-align:center;box-sizing:border-box;}',
       '.zm-product-video video{width:100%;max-width:100%;height:auto;display:block;margin:0 auto;background-color:#000000;border-radius:10px;}',
-      '.icon_2,.icon_2 .icon_2_font1,.icon_2 .gray_font,.icon_8,.quality_item,.tookit_item,.task_robo_item{text-align:center;}',
-      '.icon_2 .icon_2_font1,.icon_2 .gray_font{margin-left:0;}',
-      '.icon_2 img,.icon_8 img,.func_icon_list img,.color_icon_list img,.quality_item img,.tookit_item img,.task_robo_item img{display:block;margin-left:auto;margin-right:auto;}',
-      '.color_icon_list{display:inline-block;width:90px;margin-top:24px;vertical-align:top;text-align:center;box-sizing:border-box;}',
-      '.gray_rect{display:inline-block;vertical-align:top;max-width:100%;overflow:hidden;}',
-      '.gray_rect img{width:100%;height:100%;object-fit:cover;display:block;}',
-      '.field_4{max-width:100%;box-sizing:border-box;}',
+      '.icon_2{vertical-align:top;max-width:100%;box-sizing:border-box;}',
+      '.icon_2 img{display:inline-block;margin-bottom:6px;}',
+      '.icon_2_row,.slice_inbox .icon_2_row{display:flex;flex-wrap:wrap;justify-content:center;align-items:flex-start;gap:18px 12px;width:100%;max-width:1280px;margin-left:auto;margin-right:auto;padding-left:16px;padding-right:16px;box-sizing:border-box;}',
+      '.icon_2_row .icon_2{flex:1 1 145px;max-width:220px;min-width:145px;margin:0;vertical-align:top;box-sizing:border-box;}',
+      '.icon_8,.quality_item,.tookit_item,.task_robo_item{text-align:center;vertical-align:top;}',
+      '.icon_8 img,.func_icon_list img,.color_icon_list img,.quality_item img,.tookit_item img,.task_robo_item img{display:block;margin-left:auto;margin-right:auto;}',
+      '.color_icon_list{display:inline-block;width:90px;margin-top:24px;margin-left:45px;vertical-align:top;text-align:center;box-sizing:border-box;}',
+      '.func_icon_list{display:inline-block;vertical-align:top;text-align:center;box-sizing:border-box;}',
+      '.gray_rect{display:inline-block;vertical-align:top;max-width:100%;overflow:hidden;box-sizing:border-box;}',
+      '.gray_rect img{width:100%;height:auto;display:block;}',
+      '.field_4{display:inline-flex;flex-wrap:wrap;justify-content:center;align-items:flex-start;text-align:left;max-width:100%;vertical-align:top;box-sizing:border-box;}',
+      '.sensor_left_box,.slice_inbox .sensor_left_box{flex:0 0 auto;max-width:48%;vertical-align:top;box-sizing:border-box;}',
+      '.sensor_right_box{flex:0 1 auto;min-width:0;text-align:left;vertical-align:top;box-sizing:border-box;}',
+      '.both_sensor_div,.slice_inbox .both_sensor_div{width:100%;max-width:1260px;margin-left:auto;margin-right:auto;padding-left:20px;padding-right:20px;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-start;gap:0 24px;text-align:left;box-sizing:border-box;}',
+      '.both_sensor_inner{width:100%;max-width:100%;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-start;gap:0 24px;text-align:left;box-sizing:border-box;}',
+      '.both_sensor_div .field_4{flex:1 1 440px;min-width:0;max-width:600px;flex-wrap:nowrap;justify-content:flex-start;margin-left:0;box-sizing:border-box;}',
+      '.both_sensor_div .field_4:nth-child(even){margin-left:0;}',
+      '.both_sensor_div .sensor_left_box{flex:0 0 auto;max-width:48%;}',
+      '.both_sensor_div .sensor_right_box{flex:1 1 auto;min-width:0;margin-left:20px;}',
+      '.func_icon_div{display:flex;align-items:flex-start;text-align:left;}',
+      '.func_icon_div img{flex-shrink:0;}',
+      '.func_icon_div div{flex:1;min-width:0;display:block;margin-left:10px;margin-top:3px;text-align:left;white-space:normal;}',
       '.sensor_item{display:inline-block;vertical-align:top;}'
     ].join('\n');
+
+    const INLINE_KEEP_WIDTH_CLASSES = new Set([
+      'icon_2', 'gray_rect', 'func_icon_list', 'color_icon_list',
+      'task_robo_item', 'tookit_item', 'sensor_item', 'quality_item', 'two_row'
+    ]);
 
     function cleanSingleCssBlock(cssText) {
       const css = String(cssText || '').replace(/\/\*[\s\S]*?\*\//g, '');
@@ -986,9 +1073,121 @@
       const styleTag = `<style>\n${mergedCss}\n</style>`;
       const contMatch = body.match(/^(\s*<div\b[^>]*class=["'][^"']*\bcontainer\b[^"']*["'][^>]*>)/i);
       if (contMatch) {
-        return contMatch[1] + '\n' + styleTag + '\n' + body.slice(contMatch[1].length).replace(/^[\r\n]+/, '');
+        let openTag = contMatch[1];
+        if (!/\bstyle\s*=/i.test(openTag)) {
+          openTag = openTag.slice(0, -1) + ' style="width:100%;max-width:1560px;margin:0 auto;box-sizing:border-box;">';
+        }
+        return openTag + '\n' + styleTag + '\n' + body.slice(contMatch[1].length).replace(/^[\r\n]+/, '');
       }
       return styleTag + '\n' + body;
+    }
+
+    function normalizeTablesForCms(htmlStr) {
+      return String(htmlStr || '').replace(/<table\b([^>]*)>([\s\S]*?)<\/table>/gi, (m, rawAttrs, rawInner) => {
+        let attrs = rawAttrs || '';
+        let inner = rawInner || '';
+
+        if (!/\balign\s*=/i.test(attrs)) {
+          attrs = ' align="center"' + attrs;
+        }
+
+        const origWMatch = attrs.match(/(?<![-\w])width\s*:\s*(\d+)px/i);
+        const origW = origWMatch ? parseInt(origWMatch[1], 10) : 1200;
+
+        const thRe = /<th\b([^>]*)>/gi;
+        const thMatches = [];
+        let thM;
+        while ((thM = thRe.exec(inner)) !== null) {
+          const wM = thM[1].match(/(?<![-\w])width\s*:\s*(\d+)px/i);
+          thMatches.push({
+            start: thM.index,
+            end: thM.index + thM[0].length,
+            attrs: thM[1],
+            px: wM ? parseInt(wM[1], 10) : null
+          });
+        }
+
+        const numCols = thMatches.length;
+        const validWidths = thMatches.map(t => t.px).filter(w => w !== null);
+        if (numCols > 0 && validWidths.length === numCols) {
+          const totalPx = validWidths.reduce((a, b) => a + b, 0);
+          if (totalPx > 0) {
+            const pcts = [];
+            for (let i = 0; i < numCols; i++) {
+              if (i < numCols - 1) {
+                const pct = Math.round((validWidths[i] * 10000) / totalPx) / 100;
+                pcts.push(pct);
+              } else {
+                const sumPrev = pcts.reduce((a, b) => a + b, 0);
+                const pct = Math.max(0.5, Math.round((100 - sumPrev) * 100) / 100);
+                pcts.push(pct);
+              }
+            }
+            const rebuilt = [];
+            let lastPos = 0;
+            thMatches.forEach((thInfo, idx) => {
+              rebuilt.push(inner.slice(lastPos, thInfo.start));
+              const newThAttrs = thInfo.attrs.replace(/(?<![-\w])width\s*:\s*\d+px/i, `width:${pcts[idx]}%`);
+              rebuilt.push(`<th${newThAttrs}>`);
+              lastPos = thInfo.end;
+            });
+            rebuilt.push(inner.slice(lastPos));
+            inner = rebuilt.join('');
+          }
+        }
+
+        let minW = numCols >= 8 ? 960 : (numCols >= 5 ? 720 : 480);
+        minW = Math.min(minW, origW);
+        if (origWMatch) {
+          attrs = attrs.replace(/(?<![-\w])width\s*:\s*\d+px/i, `width:100%;max-width:${origW}px;min-width:${minW}px`);
+        }
+
+        const tableHtml = `<table${attrs}>${inner}</table>`;
+        return `<div style="width:100%;max-width:${origW}px;margin:0 auto;overflow-x:auto;box-sizing:border-box;">${tableHtml}</div>`;
+      });
+    }
+
+    function makeInlineContainersResponsive(htmlStr) {
+      const parts = String(htmlStr || '').split(/(<style\b[^>]*>[\s\S]*?<\/style>)/gi);
+      for (let idx = 0; idx < parts.length; idx++) {
+        const chunk = parts[idx];
+        if (!chunk || /^\s*<style\b/i.test(chunk)) continue;
+        parts[idx] = chunk.replace(/<([a-zA-Z0-9]+)\b([^>]*)>/g, (full, tag, attrs) => {
+          const tLow = tag.toLowerCase();
+          if (tLow === 'style' || tLow === 'table' || tLow === 'th' || tLow === 'td' || tLow === 'col' || tLow === 'colgroup' || tLow === 'img' || tLow === 'video') {
+            return full;
+          }
+          if (!/width/i.test(attrs)) return full;
+          let clsTokens = [];
+          const clsM = attrs.match(/\bclass=(["'])([^"']*)\1/i);
+          if (clsM) {
+            clsTokens = clsM[2].trim().split(/\s+/);
+            if (clsTokens.some(c => INLINE_KEEP_WIDTH_CLASSES.has(c))) return full;
+          }
+          const newAttrs = attrs.replace(/(?<![-\w])width\s*:\s*(\d+)px/g, (wm, pxStr) => {
+            const val = parseInt(pxStr, 10);
+            if (val >= 750) {
+              const maxW = (clsTokens.includes('field_4') && val >= 820 && val < 1020) ? 1020 : val;
+              return `width:100%;max-width:${maxW}px`;
+            }
+            return wm;
+          });
+          return `<${tag}${newAttrs}>`;
+        });
+      }
+      return parts.join('');
+    }
+
+    function normalizeSensorWrappers(htmlStr) {
+      let out = String(htmlStr || '').replace(
+        /(<div\b[^>]*class=["'][^"']*\bboth_sensor_div\b[^"']*["'][^>]*>\s*)<div\s+style=["']text-align:\s*left;?["']\s*>/gi,
+        '$1<div class="both_sensor_inner" style="text-align:left;">'
+      );
+      out = out.replace(
+        /<div\s+(style=[^>]*?)>(\s*<div\b[^>]*class=["'][^"']*\bicon_2\b)/gi,
+        '<div class="icon_2_row" $1>$2'
+      );
+      return out;
     }
 
     function buildEcommerceHtmlForProduct(item) {
@@ -1050,12 +1249,10 @@
       ecomHtml = ecomHtml.replace(/<!--[\s\S]*?-->/g, '');
       ecomHtml = ecomHtml.replace(/&lần;/g, '×').replace(/&times;/g, '×');
       ecomHtml = ecomHtml.replace(/url\((?:&#39;|&quot;|['"])*([^'"\)\s&]+)(?:&#39;|&quot;|['"])*\)/gi, "url('$1')");
-      ecomHtml = ecomHtml.replace(/<table(?![^>]*\balign=)([^>]*?)>/gi, '<table align="center"$1>');
-      ecomHtml = ecomHtml.replace(/(?<![-\w])width\s*:\s*(\d+)px/g, (m, px) => {
-        const val = parseInt(px, 10);
-        return val >= 120 ? `width:100%;max-width:${val}px` : m;
-      });
-      ecomHtml = ecomHtml.replace(/\n\s*\n+/g, '\n').trim();
+      ecomHtml = normalizeTablesForCms(ecomHtml);
+      ecomHtml = normalizeSensorWrappers(ecomHtml);
+      ecomHtml = makeInlineContainersResponsive(ecomHtml);
+      ecomHtml = ecomHtml.replace(/\r\n/g, '\n').replace(/\n\s*\n+/g, '\n').trim();
       // Đổi toàn bộ link ảnh và video sang kho lưu trữ của dự án (tuyệt đối không gọi server ngoài oss.zmrobo.com)
       ecomHtml = ecomHtml.replace(/https?:\/\/oss\.zmrobo\.com\/[^\s"'\)\(&<>]+/gi, (fullUrl) => {
         const cleanUrl = fullUrl.split('?')[0];
@@ -1522,9 +1719,11 @@
         let fixedContent = (d.content || '').replace(/url\((?:&#39;|&quot;|['"])*([^'"\)\s&]+)(?:&#39;|&quot;|['"])*\)/gi, "url('$1')");
         // Căn giữa toàn bộ các ảnh và video dạng poster cuộn (Product 60, 69, 79, v.v.)
         fixedContent = fixedContent.replace(/<p\s+style=["']text-align:\s*left;?["']>/gi, '<p style="text-align: center;">');
-        // Căn giữa toàn bộ bảng biểu (table) và sửa lỗi ký tự nhân &times; bị dịch thành &lần;
+        // Căn giữa toàn bộ bảng biểu (table) với tỷ lệ cột chuẩn và sửa lỗi ký tự nhân &times; bị dịch thành &lần;
         fixedContent = fixedContent.replace(/&lần;/g, '×').replace(/&times;/g, '×');
-        fixedContent = fixedContent.replace(/<table(?![^>]*\balign=)([^>]*?)>/gi, '<table align="center"$1>');
+        fixedContent = normalizeTablesForCms(fixedContent);
+        fixedContent = normalizeSensorWrappers(fixedContent);
+        fixedContent = makeInlineContainersResponsive(fixedContent);
 
         // Fix tràn chữ & đè lên robot trên Product 302 (Early Soccer Robotics Kit)
         fixedContent = fixedContent.replace(/position:absolute;top:680px;top:186px;right:-220px;font-size:15px;text-align:center;/g, 'position:absolute;top:180px;left:760px;width:280px;font-size:15px;text-align:left;');

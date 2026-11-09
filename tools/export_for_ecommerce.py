@@ -83,18 +83,39 @@ CMS_SAFE_SLICE_CSS = """
 .container{width:100%;max-width:1560px;margin:0 auto;box-sizing:border-box;}
 .slice_box{width:100%;max-width:1560px;margin-left:auto;margin-right:auto;box-sizing:border-box;overflow-x:hidden;}
 .slice_inbox{margin:0 auto;text-align:center;max-width:100%;box-sizing:border-box;}
-.slice_box img{max-width:100%;height:auto;vertical-align:middle;}
+.slice_inbox div{max-width:100%;box-sizing:border-box;}
+.slice_box img{display:inline-block;max-width:100%;height:auto;vertical-align:middle;}
 .zm-product-video{width:80%;max-width:100%;margin:24px auto;text-align:center;box-sizing:border-box;}
 .zm-product-video video{width:100%;max-width:100%;height:auto;display:block;margin:0 auto;background-color:#000000;border-radius:10px;}
-.icon_2,.icon_2 .icon_2_font1,.icon_2 .gray_font,.icon_8,.quality_item,.tookit_item,.task_robo_item{text-align:center;}
-.icon_2 .icon_2_font1,.icon_2 .gray_font{margin-left:0;}
-.icon_2 img,.icon_8 img,.func_icon_list img,.color_icon_list img,.quality_item img,.tookit_item img,.task_robo_item img{display:block;margin-left:auto;margin-right:auto;}
-.color_icon_list{display:inline-block;width:90px;margin-top:24px;vertical-align:top;text-align:center;box-sizing:border-box;}
-.gray_rect{display:inline-block;vertical-align:top;max-width:100%;overflow:hidden;}
-.gray_rect img{width:100%;height:100%;object-fit:cover;display:block;}
-.field_4{max-width:100%;box-sizing:border-box;}
+.icon_2{vertical-align:top;max-width:100%;box-sizing:border-box;}
+.icon_2 img{display:inline-block;margin-bottom:6px;}
+.icon_2_row,.slice_inbox .icon_2_row{display:flex;flex-wrap:wrap;justify-content:center;align-items:flex-start;gap:18px 12px;width:100%;max-width:1280px;margin-left:auto;margin-right:auto;padding-left:16px;padding-right:16px;box-sizing:border-box;}
+.icon_2_row .icon_2{flex:1 1 145px;max-width:220px;min-width:145px;margin:0;vertical-align:top;box-sizing:border-box;}
+.icon_8,.quality_item,.tookit_item,.task_robo_item{text-align:center;vertical-align:top;}
+.icon_8 img,.func_icon_list img,.color_icon_list img,.quality_item img,.tookit_item img,.task_robo_item img{display:block;margin-left:auto;margin-right:auto;}
+.color_icon_list{display:inline-block;width:90px;margin-top:24px;margin-left:45px;vertical-align:top;text-align:center;box-sizing:border-box;}
+.func_icon_list{display:inline-block;vertical-align:top;text-align:center;box-sizing:border-box;}
+.gray_rect{display:inline-block;vertical-align:top;max-width:100%;overflow:hidden;box-sizing:border-box;}
+.gray_rect img{width:100%;height:auto;display:block;}
+.field_4{display:inline-flex;flex-wrap:wrap;justify-content:center;align-items:flex-start;text-align:left;max-width:100%;vertical-align:top;box-sizing:border-box;}
+.sensor_left_box,.slice_inbox .sensor_left_box{flex:0 0 auto;max-width:48%;vertical-align:top;box-sizing:border-box;}
+.sensor_right_box{flex:0 1 auto;min-width:0;text-align:left;vertical-align:top;box-sizing:border-box;}
+.both_sensor_div,.slice_inbox .both_sensor_div{width:100%;max-width:1260px;margin-left:auto;margin-right:auto;padding-left:20px;padding-right:20px;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-start;gap:0 24px;text-align:left;box-sizing:border-box;}
+.both_sensor_inner{width:100%;max-width:100%;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-start;gap:0 24px;text-align:left;box-sizing:border-box;}
+.both_sensor_div .field_4{flex:1 1 440px;min-width:0;max-width:600px;flex-wrap:nowrap;justify-content:flex-start;margin-left:0;box-sizing:border-box;}
+.both_sensor_div .field_4:nth-child(even){margin-left:0;}
+.both_sensor_div .sensor_left_box{flex:0 0 auto;max-width:48%;}
+.both_sensor_div .sensor_right_box{flex:1 1 auto;min-width:0;margin-left:20px;}
+.func_icon_div{display:flex;align-items:flex-start;text-align:left;}
+.func_icon_div img{flex-shrink:0;}
+.func_icon_div div{flex:1;min-width:0;display:block;margin-left:10px;margin-top:3px;text-align:left;white-space:normal;}
 .sensor_item{display:inline-block;vertical-align:top;}
 """.strip()
+
+INLINE_KEEP_WIDTH_CLASSES = {
+    'icon_2', 'gray_rect', 'func_icon_list', 'color_icon_list',
+    'task_robo_item', 'tookit_item', 'sensor_item', 'quality_item', 'two_row'
+}
 
 def clean_single_css_block(css_text):
     """Loại bỏ CSS comments và các rule modal/button thừa dễ gây lỗi trình phân tích HTML/CMS."""
@@ -143,9 +164,127 @@ def normalize_styles_for_cms(html_str):
     style_tag = f"<style>\n{merged_css}\n</style>"
     m_cont = re.match(r'^(\s*<div\b[^>]*class=["\'][^"\']*\bcontainer\b[^"\']*["\'][^>]*>)', body, flags=re.I)
     if m_cont:
-        pos = m_cont.end()
-        return body[:pos] + '\n' + style_tag + '\n' + body[pos:].lstrip('\r\n')
+        open_tag = m_cont.group(1)
+        rest = body[m_cont.end():].lstrip('\r\n')
+        if not re.search(r'\bstyle\s*=', open_tag, flags=re.I):
+            open_tag = open_tag[:-1] + ' style="width:100%;max-width:1560px;margin:0 auto;box-sizing:border-box;">'
+        return open_tag + '\n' + style_tag + '\n' + rest
     return style_tag + '\n' + body
+
+def normalize_tables_for_cms(html_str):
+    """Chuẩn hóa bảng biểu: quy đổi px trên <th> thành % giữ nguyên tỷ lệ cột và bọc khung cuộn ngang an toàn."""
+    def repl_table(m):
+        attrs = m.group(1)
+        inner = m.group(2)
+
+        if not re.search(r'\balign\s*=', attrs, flags=re.I):
+            attrs = ' align="center"' + attrs
+
+        orig_w_match = re.search(r'(?<![-\w])width\s*:\s*(\d+)px', attrs, flags=re.I)
+        orig_w = int(orig_w_match.group(1)) if orig_w_match else 1200
+
+        th_matches = list(re.finditer(r'<th\b([^>]*)>', inner, flags=re.I))
+        th_px_list = []
+        for th_m in th_matches:
+            w_m = re.search(r'(?<![-\w])width\s*:\s*(\d+)px', th_m.group(1), flags=re.I)
+            th_px_list.append(int(w_m.group(1)) if w_m else None)
+
+        num_cols = len(th_matches)
+        valid_widths = [w for w in th_px_list if w is not None]
+        if num_cols > 0 and len(valid_widths) == num_cols:
+            total_px = sum(valid_widths)
+            if total_px > 0:
+                pcts = []
+                for idx_w, w in enumerate(valid_widths):
+                    if idx_w < num_cols - 1:
+                        pct = round(w * 100.0 / total_px, 2)
+                        pcts.append(pct)
+                    else:
+                        pct = round(max(0.5, 100.0 - sum(pcts)), 2)
+                        pcts.append(pct)
+                rebuilt = []
+                last_pos = 0
+                for idx_th, th_m in enumerate(th_matches):
+                    rebuilt.append(inner[last_pos:th_m.start()])
+                    new_th_attrs = re.sub(
+                        r'(?<![-\w])width\s*:\s*\d+px',
+                        f'width:{pcts[idx_th]}%',
+                        th_m.group(1),
+                        count=1,
+                        flags=re.I
+                    )
+                    rebuilt.append(f'<th{new_th_attrs}>')
+                    last_pos = th_m.end()
+                rebuilt.append(inner[last_pos:])
+                inner = ''.join(rebuilt)
+
+        min_w = 960 if num_cols >= 8 else (720 if num_cols >= 5 else 480)
+        min_w = min(min_w, orig_w)
+        if orig_w_match:
+            attrs = re.sub(
+                r'(?<![-\w])width\s*:\s*\d+px',
+                f'width:100%;max-width:{orig_w}px;min-width:{min_w}px',
+                attrs,
+                count=1,
+                flags=re.I
+            )
+
+        table_html = f'<table{attrs}>{inner}</table>'
+        return f'<div style="width:100%;max-width:{orig_w}px;margin:0 auto;overflow-x:auto;box-sizing:border-box;">{table_html}</div>'
+
+    return re.sub(r'<table\b([^>]*)>(.*?)</table>', repl_table, html_str, flags=re.I | re.S)
+
+def make_inline_containers_responsive(html_str):
+    """Chỉ chuyển đổi width cố định >= 750px trên thẻ bọc div/p bên ngoài <style>, giữ nguyên <table>/<th>/<td>/<img> và card nhỏ."""
+    parts = re.split(r'(<style\b[^>]*>.*?</style>)', html_str, flags=re.I | re.S)
+    for idx in range(len(parts)):
+        chunk = parts[idx]
+        if not chunk or chunk.lstrip().lower().startswith('<style'):
+            continue
+
+        def repl_tag(m):
+            tag = m.group(1)
+            attrs = m.group(2)
+            t_low = tag.lower()
+            if t_low in ('style', 'table', 'th', 'td', 'col', 'colgroup', 'img', 'video'):
+                return m.group(0)
+            if 'width' not in attrs.lower():
+                return m.group(0)
+            cls_tokens = set()
+            cls_m = re.search(r'\bclass=(["\'])([^"\']*)\1', attrs, flags=re.I)
+            if cls_m:
+                cls_tokens = set(cls_m.group(2).split())
+                if cls_tokens & INLINE_KEEP_WIDTH_CLASSES:
+                    return m.group(0)
+
+            def repl_w(wm):
+                px = int(wm.group(1))
+                if px >= 750:
+                    max_w = 1020 if ('field_4' in cls_tokens and 820 <= px < 1020) else px
+                    return f'width:100%;max-width:{max_w}px'
+                return wm.group(0)
+
+            new_attrs = re.sub(r'(?<![-\w])width\s*:\s*(\d+)px', repl_w, attrs)
+            return f'<{tag}{new_attrs}>'
+
+        parts[idx] = re.sub(r'<([a-zA-Z0-9]+)\b([^>]*)>', repl_tag, chunk)
+    return ''.join(parts)
+
+def normalize_sensor_wrappers(html_str):
+    """Đảm bảo các wrapper trung gian bên trong .both_sensor_div (như 2322E/2323E) tham gia chia 2 cột Flex."""
+    out = re.sub(
+        r'''(<div\b[^>]*class=["'][^"']*\bboth_sensor_div\b[^"']*["'][^>]*>\s*)<div\s+style=["']text-align:\s*left;?["']\s*>''',
+        r'\1<div class="both_sensor_inner" style="text-align:left;">',
+        html_str,
+        flags=re.I
+    )
+    out = re.sub(
+        r'''<div\s+(style=[^>]*?)>(\s*<div\b[^>]*class=["'][^"']*\bicon_2\b)''',
+        r'<div class="icon_2_row" \1>\2',
+        out,
+        flags=re.I
+    )
+    return out
 
 def build_standardized_product_html(item, image_cdn=DEFAULT_IMAGE_CDN):
     """
@@ -256,23 +395,17 @@ def build_standardized_product_html(item, image_cdn=DEFAULT_IMAGE_CDN):
         parts.append('</div>')
         out = '\n'.join(parts)
 
-    # Xóa HTML comments & chuẩn hóa ký tự / entity / responsive width
+    # Xóa HTML comments & chuẩn hóa ký tự / entity / bảng biểu / responsive width
     out = re.sub(r'<!--.*?-->', '', out, flags=re.S)
     out = out.replace('&lần;', '×').replace('&times;', '×')
     out = re.sub(r"url\((?:&#39;|&quot;|['\"])*([^'\"\)\s&]+)(?:&#39;|&quot;|['\"])*\)", r"url('\1')", out, flags=re.I)
 
-    # Căn giữa bảng thông số nếu chưa có align=
-    out = re.sub(r'<table(?![^>]*\balign=)([^>]*?)>', r'<table align="center"\1>', out, flags=re.I)
-
-    def repl_width(m):
-        px = int(m.group(1))
-        if px >= 120:
-            return f'width:100%;max-width:{px}px'
-        return m.group(0)
-    out = re.sub(r'(?<![-\w])width\s*:\s*(\d+)px', repl_width, out)
+    out = normalize_tables_for_cms(out)
+    out = normalize_sensor_wrappers(out)
+    out = make_inline_containers_responsive(out)
 
     # Làm gọn khoảng trắng thừa giữa các dòng
-    out = re.sub(r'\n\s*\n+', '\n', out).strip()
+    out = re.sub(r'\n\s*\n+', '\n', out.replace('\r\n', '\n')).strip()
 
     # Thay thế toàn bộ link ảnh & video (/media/... hoặc oss.zmrobo.com/...) sang kho lưu trữ của dự án (tuyệt đối không gọi server ngoài)
     if image_cdn:
@@ -386,7 +519,7 @@ for item in products:
         local_src = os.path.join(MEDIA_DIR, rel.replace('/', os.sep))
         if os.path.exists(local_src):
             os.makedirs(img_content_dir, exist_ok=True)
-            copy_with_white_bg(local_src, os.path.join(img_content_dir, fname))
+            shutil.copy2(local_src, os.path.join(img_content_dir, fname))
             if fname.lower().endswith('.mp4'):
                 os.makedirs(video_dir, exist_ok=True)
                 shutil.copy2(local_src, os.path.join(video_dir, base_fname))
