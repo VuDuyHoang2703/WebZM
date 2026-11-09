@@ -33,14 +33,6 @@ DEFAULT_VIDEO_CDN = 'https://media.githubusercontent.com/media/VuDuyHoang2703/We
 with open(f'{BASE_DIR}/data/products_full.json', 'r', encoding='utf-8') as f:
     products = json.load(f)
 
-# Trích xuất bộ CSS chuẩn giao diện từ index.html (.zm-content-wrapper & .zm-content-inner) để nhúng đồng bộ 100% vào mọi file HTML xuất ra
-with open(f'{BASE_DIR}/index.html', 'r', encoding='utf-8') as f:
-    _index_html_raw = f.read()
-_css_match = re.search(r'(\.zm-content-wrapper\s*\{.*?</style>)', _index_html_raw, flags=re.S)
-UI_SYNC_CSS = _css_match.group(1).replace('</style>', '').strip() if _css_match else ''
-UI_SYNC_CSS = re.sub(r'/\*.*?\*/', '', UI_SYNC_CSS, flags=re.S)
-UI_SYNC_CSS = re.sub(r'\n\s*\n+', '\n', UI_SYNC_CSS).strip()
-
 USER_RAW_TOKENS = """
 1799 1707 2322e 2104e 2109 2321e 2321ae 2325e 2108+e 2106+e 2101+e 2101ae 2323e 2421 2508e
 2681 2681b 5161 1005 5148 9259 51489259 1245 1149a 1149 1536 2222 2257 1157 1153 2701 1141a 1146 1146a
@@ -79,12 +71,88 @@ def oss_url_to_local_rel(url):
     rel = re.sub(r'^/?media/', '', rel)
     return unquote(rel.lstrip('/'))
 
+DEAD_CSS_TOKENS = (
+    '#all_l', '#bg_l', '.tab_text_l', '.active_tab_l', '#cancel_btn',
+    '.tab_content_l', '.active_content_l', '.play_btn1', '.consult_btn',
+    '.get_more_btn', '.play_rule_video_btn'
+)
+
+# Bộ CSS thuần tương thích 100% với mọi trình soạn thảo CMS Web bán hàng:
+# Không chứa @keyframes, không :has(), không [style*=], không *, không comment CSS
+CMS_SAFE_SLICE_CSS = """
+.container{width:100%;max-width:1560px;margin:0 auto;box-sizing:border-box;}
+.slice_box{width:100%;max-width:1560px;margin-left:auto;margin-right:auto;box-sizing:border-box;overflow-x:hidden;}
+.slice_inbox{margin:0 auto;text-align:center;max-width:100%;box-sizing:border-box;}
+.slice_box img{max-width:100%;height:auto;vertical-align:middle;}
+.zm-product-video{width:80%;max-width:100%;margin:24px auto;text-align:center;box-sizing:border-box;}
+.zm-product-video video{width:100%;max-width:100%;height:auto;display:block;margin:0 auto;background-color:#000000;border-radius:10px;}
+.icon_2,.icon_2 .icon_2_font1,.icon_2 .gray_font,.icon_8,.quality_item,.tookit_item,.task_robo_item{text-align:center;}
+.icon_2 .icon_2_font1,.icon_2 .gray_font{margin-left:0;}
+.icon_2 img,.icon_8 img,.func_icon_list img,.color_icon_list img,.quality_item img,.tookit_item img,.task_robo_item img{display:block;margin-left:auto;margin-right:auto;}
+.color_icon_list{display:inline-block;width:90px;margin-top:24px;vertical-align:top;text-align:center;box-sizing:border-box;}
+.gray_rect{display:inline-block;vertical-align:top;max-width:100%;overflow:hidden;}
+.gray_rect img{width:100%;height:100%;object-fit:cover;display:block;}
+.field_4{max-width:100%;box-sizing:border-box;}
+.sensor_item{display:inline-block;vertical-align:top;}
+""".strip()
+
+def clean_single_css_block(css_text):
+    """Loại bỏ CSS comments và các rule modal/button thừa dễ gây lỗi trình phân tích HTML/CMS."""
+    css = re.sub(r'/\*.*?\*/', '', css_text, flags=re.S)
+    kept_rules = []
+    i, n = 0, len(css)
+    while i < n:
+        brace_open = css.find('{', i)
+        if brace_open == -1:
+            break
+        selector = css[i:brace_open].strip()
+        depth = 1
+        j = brace_open + 1
+        while j < n and depth > 0:
+            if css[j] == '{':
+                depth += 1
+            elif css[j] == '}':
+                depth -= 1
+            j += 1
+        body = css[brace_open + 1:j - 1].strip() if depth == 0 else ''
+        i = j
+        if not selector or not body:
+            continue
+        sel_lower = selector.lower()
+        # Bỏ qua mọi selector rác, modal #bg_L/#all_L hoặc ký tự @ / :has / [*] không an toàn cho CMS
+        if any(tok in sel_lower for tok in DEAD_CSS_TOKENS):
+            continue
+        if '@' in sel_lower or ':has(' in sel_lower or '[' in sel_lower or '*' in sel_lower:
+            continue
+        # Loại bỏ thuộc tính text-shadow cũ
+        body = re.sub(r'text-shadow\s*:[^;]+;?', '', body, flags=re.I).strip()
+        if body:
+            body_clean = re.sub(r'\s+', ' ', body)
+            kept_rules.append(f"{selector}{{{body_clean}}}")
+    return '\n'.join(kept_rules)
+
+def normalize_styles_for_cms(html_str):
+    """Gom toàn bộ thẻ <style> thành tối đa 1 thẻ <style> sạch sẽ ngay đầu <div class='container'>, loại bỏ chú thích & onclick JS."""
+    styles = re.findall(r'<style\b[^>]*>(.*?)</style>', html_str, flags=re.I | re.S)
+    if not styles:
+        return html_str
+    body = re.sub(r'<style\b[^>]*>.*?</style>', '', html_str, flags=re.I | re.S)
+    cleaned_parts = [clean_single_css_block(s) for s in styles]
+    merged_css = '\n'.join([p for p in cleaned_parts if p])
+    merged_css = (merged_css + '\n' + CMS_SAFE_SLICE_CSS).strip()
+    style_tag = f"<style>\n{merged_css}\n</style>"
+    m_cont = re.match(r'^(\s*<div\b[^>]*class=["\'][^"\']*\bcontainer\b[^"\']*["\'][^>]*>)', body, flags=re.I)
+    if m_cont:
+        pos = m_cont.end()
+        return body[:pos] + '\n' + style_tag + '\n' + body[pos:].lstrip('\r\n')
+    return style_tag + '\n' + body
+
 def build_standardized_product_html(item, image_cdn=DEFAULT_IMAGE_CDN):
     """
-    Xây dựng HTML chuẩn hóa (<div class="container">...</div>) cho TẤT CẢ 76 sản phẩm:
-    - Với các Bộ Kit có sẵn landing page (slice_box) hoặc poster dài: chuẩn hóa responsive, đặt trình phát <video controls> ngay đầu mục mô tả (nếu có video) & thay link sang kho của dự án.
-    - Với các Linh kiện điện tử / Cảm biến / Động cơ / RCU / Cơ khí nhựa (vốn để ảnh thông số đã dịch ở coverList hoặc chỉ có text ngắn):
-      tự động tổng hợp Mô tả + Thông số kỹ thuật + Toàn bộ hình ảnh thông số đã dịch thành khối <div class="container"> hoàn chỉnh.
+    Xây dựng HTML chuẩn hóa (<div class="container">...</div>) thuần CMS-safe cho TẤT CẢ 76 sản phẩm:
+    - KHÔNG bọc zm-content-wrapper hay nhúng UI_SYNC_CSS (@keyframes / :has / attribute selectors) để tránh lỗi "Invalid token" khi dán vào Web bán hàng.
+    - Trình tự chuẩn với mọi bộ kit có video: Hình ảnh bộ sản phẩm -> Video giới thiệu (khung 80%, căn giữa, tự co giãn) -> Mô tả & Thông số.
+    - Tối đa 1 video mỗi bộ sản phẩm.
     """
     s = item.get('summary', {})
     d = item.get('detail', {}) if isinstance(item.get('detail'), dict) else {}
@@ -105,13 +173,24 @@ def build_standardized_product_html(item, image_cdn=DEFAULT_IMAGE_CDN):
         if rel and os.path.exists(os.path.join(MEDIA_DIR, rel.replace('/', os.sep))):
             valid_cover_urls.append(f"/media/{rel}")
 
-    # Kiểm tra xem raw_html đã có sẵn ảnh hoặc video nội dung chưa
     has_content_imgs = bool(re.search(r'<(?:img|video)\b', raw_html, re.I))
 
     if has_content_imgs:
         out = raw_html
-        # Đảm bảo ảnh poster có max-width:100%;height:auto để không vỡ khung trên điện thoại
+        # Chuẩn hóa ảnh & bảng cho các bộ poster cuộn (không có slice_box) bằng inline style, không cần <style>
         if 'slice_box' not in out:
+            out = re.sub(
+                r'<p\s+style=["\']text-align:\s*left;?["\']>',
+                '<p style="text-align:center;">',
+                out,
+                flags=re.I
+            )
+            out = re.sub(
+                r'<p>',
+                '<p style="text-align:center;margin:0;">',
+                out,
+                flags=re.I
+            )
             out = re.sub(
                 r'<img\b(?![^>]*style=)([^>]*?)>',
                 r'<img style="width:100%;max-width:750px;height:auto;display:block;margin:0 auto;"\1>',
@@ -120,8 +199,27 @@ def build_standardized_product_html(item, image_cdn=DEFAULT_IMAGE_CDN):
             )
             if not out.strip().startswith('<div class="container"'):
                 out = f'<div class="container" style="width:100%;max-width:1200px;margin:0 auto;box-sizing:border-box;">{out}</div>'
+        else:
+            # Mở rộng khung khóa học bị ẩn bằng onclick trên 2106+E / 2108+E để không phụ thuộc JS onclick
+            if 'table_out_div' in out:
+                out = re.sub(
+                    r'<div[^>]*\bonclick=[^>]*>.*?Các khóa học khác.*?</div>\s*</div>',
+                    '',
+                    out,
+                    flags=re.I | re.S
+                )
+                out = re.sub(
+                    r'(id=["\']table_out_div["\'][^>]*style=["\'][^"\']*?)height\s*:\s*1045px\s*;?',
+                    r'\1min-height:787px;height:auto;padding-bottom:32px;',
+                    out,
+                    flags=re.I
+                )
+            # Xóa bỏ triệt để onclick / margin âm lệch cột trên icon_2
+            out = re.sub(r'\s*\bonclick=["\'][^"\']*["\']', '', out, flags=re.I)
+            out = re.sub(r'style=["\']margin-left:\s*-\d+px;?["\']', '', out, flags=re.I)
+            out = normalize_styles_for_cms(out)
     else:
-        # Xây dựng khối HTML chuẩn cho Linh kiện điện tử & Linh kiện cơ khí nhựa
+        # Xây dựng khối HTML thuần inline style cho Linh kiện điện tử & Linh kiện cơ khí nhựa
         parts = [
             '<div class="container" style="width:100%;max-width:1000px;margin:0 auto;padding:24px 16px;font-family:sans-serif;color:#1D1D1F;line-height:1.7;box-sizing:border-box;">'
         ]
@@ -158,9 +256,13 @@ def build_standardized_product_html(item, image_cdn=DEFAULT_IMAGE_CDN):
         parts.append('</div>')
         out = '\n'.join(parts)
 
-    # Chuẩn hóa ký tự & responsive width
+    # Xóa HTML comments & chuẩn hóa ký tự / entity / responsive width
+    out = re.sub(r'<!--.*?-->', '', out, flags=re.S)
     out = out.replace('&lần;', '×').replace('&times;', '×')
     out = re.sub(r"url\((?:&#39;|&quot;|['\"])*([^'\"\)\s&]+)(?:&#39;|&quot;|['\"])*\)", r"url('\1')", out, flags=re.I)
+
+    # Căn giữa bảng thông số nếu chưa có align=
+    out = re.sub(r'<table(?![^>]*\balign=)([^>]*?)>', r'<table align="center"\1>', out, flags=re.I)
 
     def repl_width(m):
         px = int(m.group(1))
@@ -168,6 +270,9 @@ def build_standardized_product_html(item, image_cdn=DEFAULT_IMAGE_CDN):
             return f'width:100%;max-width:{px}px'
         return m.group(0)
     out = re.sub(r'(?<![-\w])width\s*:\s*(\d+)px', repl_width, out)
+
+    # Làm gọn khoảng trắng thừa giữa các dòng
+    out = re.sub(r'\n\s*\n+', '\n', out).strip()
 
     # Thay thế toàn bộ link ảnh & video (/media/... hoặc oss.zmrobo.com/...) sang kho lưu trữ của dự án (tuyệt đối không gọi server ngoài)
     if image_cdn:
@@ -186,22 +291,6 @@ def build_standardized_product_html(item, image_cdn=DEFAULT_IMAGE_CDN):
 
         out = re.sub(r'https?://oss\.zmrobo\.com/[^\s"\'\)\(&<>]+', repl_media_url, out)
         out = re.sub(r'/media/[^\s"\'\)\(&<>]+', repl_media_url, out)
-
-    # Nhúng đồng bộ 100% khung giao diện & bộ CSS chuẩn từ index.html (.zm-content-wrapper / .zm-content-inner)
-    clean_check = re.sub(r'#bg_L\s*\{[^}]*\}', '', out, flags=re.I)
-    is_dark = bool(
-        re.search(r'\.slice_box\s*\{[^}]*background(?:-color)?:\s*#(?:000000|000|101010|0d0d0d|141414)', clean_check, re.I) or
-        re.search(r'class=["\'][^"\']*slice_box[^"\']*["\'][^>]*background(?:-color)?:\s*#(?:000000|000|101010)', clean_check, re.I) or
-        re.search(r'<div[^>]*style=["\'][^"\']*background(?:-color)?:\s*#(?:000000|000|101010|0d0d0d|141414)', clean_check, re.I)
-    )
-    dark_cls = ' zm-dark-wrapper' if is_dark else ''
-    if UI_SYNC_CSS and 'zm-content-wrapper' not in out:
-        out = (
-            f'<div class="zm-content-wrapper{dark_cls}">\n'
-            f'<style>\n{UI_SYNC_CSS}\n</style>\n'
-            f'<div class="zm-content-inner">\n{out}\n</div>\n'
-            f'</div>'
-        )
 
     return out
 
@@ -239,7 +328,7 @@ for item in products:
     base_label = sanitize_onedrive_name(f"{short_code} - {code} - {title}")
     html_filename = f"{base_label}.html"
 
-    # Tạo HTML chuẩn hóa (100% sản phẩm đều có HTML đầy đủ kèm ảnh đã dịch & giao diện đồng bộ)
+    # Tạo HTML chuẩn hóa CMS-safe (không zm-content-wrapper / UI_SYNC_CSS)
     ecom_html = build_standardized_product_html(item, DEFAULT_IMAGE_CDN)
 
     # 1. Lưu vào 1_File_HTML_Copy_Dan_Web/
@@ -407,17 +496,18 @@ Thư mục này đã được chuẩn hóa 100% để lưu trữ trên **Microso
    - Có thể mở trực tiếp trên Excel hoặc OneDrive (đã mã hóa chuẩn UTF-8 BOM không lỗi font tiếng Việt).
 
 2. **`1_File_HTML_Copy_Dan_Web/`**:
-   - Chứa **76 file `.html` riêng biệt** ứng với 76 mã sản phẩm (ví dụ: `1707 - JMC-SV-1707 - RoboMaker.html`, `2681 - JMC-NY-2681 - 2026 Super AI - Star Cruise.html`).
-   - Toàn bộ nội dung chữ và hình ảnh bên trong đã được chuyển sang **tiếng Việt** và gắn sẵn link CDN tốc độ cao (`https://raw.githubusercontent.com/VuDuyHoang2703/WebZM/main/media/...`).
+   - Chứa **76 file `.html` riêng biệt** ứng với 76 mã sản phẩm (ví dụ: `1707 - JMC-SV-1707 - RoboMaker.html`, `2421 - JMC-NY-2421 - Beta Set.html`).
+   - Toàn bộ code HTML đã được làm sạch chuẩn `<div class="container">...</div>` tương thích trực tiếp với trình soạn thảo Web công ty (đã gỡ bỏ CSS nặng/modal thừa/thẻ lỗi gây `Invalid token`).
+   - Bố cục chuẩn với các bộ sản phẩm có video (tối đa **1 video / bộ**): **Hình ảnh của bộ trước -> Video (khung 80%, căn giữa, tự co giãn) -> Mô tả chi tiết & Thông số**.
 
 3. **`2_Bo_San_Pham_Kem_Hinh_Anh/`**:
    - Chứa **76 thư mục riêng** của từng sản phẩm. Bên trong mỗi thư mục gồm:
      - `1_anh_dai_dien/`: Ảnh bìa / slide đại diện (đã chuẩn hóa nền trắng tinh `#FFFFFF` RGB) để tải lên mục **Ảnh đại diện sản phẩm** trên web bán hàng.
      - `2_anh_noi_dung_mo_ta/`: Toàn bộ ảnh & video nằm trong bài viết mô tả (đã bao gồm ảnh dịch tiếng Việt).
      - `3_anh_da_dich_tieng_viet/`: Lọc riêng các tấm ảnh đã dịch sang tiếng Việt của mã sản phẩm đó.
-     - `4_video_gioi_thieu/`: File video `.mp4` giới thiệu sản phẩm (đối với 13 bộ sản phẩm có video).
-     - `<Mã SP>.html`: File code HTML chuẩn (đã nhúng đồng bộ 100% giao diện & CSS hiện tại, video rộng 100% ngang bằng khung nội dung ở ngay đầu mục mô tả) để copy dán vào trình soạn thảo web bán hàng.
-     - `xem_thu_offline.html`: Nhấp đúp để xem trước giao diện bài viết (kèm video phát trực tiếp) ngay trên máy tính.
+     - `4_video_gioi_thieu/`: Tối đa **1 video `.mp4`** giới thiệu đúng bộ sản phẩm đó (đối với 13 bộ sản phẩm có video).
+     - `<Mã SP>.html`: File code HTML chuẩn để copy dán vào trình soạn thảo web bán hàng.
+     - `xem_thu_offline.html`: Nhấp đúp để xem trước giao diện bài viết (kèm video khung 80% bên dưới hình ảnh bộ kit) ngay trên máy tính.
      - `thong_tin_san_pham.txt`: Tóm tắt nhanh thông tin sản phẩm.
 
 4. **`3_Giao_Dien_Web_Hien_Tai/`**:
@@ -431,11 +521,11 @@ Thư mục này đã được chuẩn hóa 100% để lưu trữ trên **Microso
 - Mở file `0_DANH_SACH_76_SAN_PHAM_BAN_HANG.csv` (hoặc `thong_tin_san_pham.txt` trong thư mục sản phẩm) để lấy **Tên sản phẩm**, **Mã sản phẩm**, **Danh mục**, **Giới thiệu ngắn**.
 - Tải ảnh đại diện sản phẩm từ thư mục `1_anh_dai_dien/` của mã đó lên mục **Ảnh sản phẩm / Album ảnh** trên web bán hàng.
 
-### Bước 2: Dán nội dung HTML mô tả chi tiết (Tự động lên cả video đầu trang, chữ và ảnh tiếng Việt)
+### Bước 2: Dán nội dung HTML mô tả chi tiết
 - Mở file `<Mã SP>.html` trong thư mục `1_File_HTML_Copy_Dan_Web/` bằng Notepad (hoặc bấm nút **"Copy HTML Bán Hàng"** trên giao diện quản lý `index.html`).
 - Nhấn `Ctrl + A` -> `Ctrl + C` để copy toàn bộ đoạn code.
 - Trên trang quản trị Web bán hàng, tại ô **Mô tả chi tiết sản phẩm**, bấm vào nút chuyển sang chế độ **Mã nguồn / HTML (`<>` hoặc `Source`)**.
-- Nhấn `Ctrl + V` để dán code vào -> Lưu sản phẩm. Toàn bộ bố cục, video phát trực tiếp đầu bài (rộng 100% ngang bằng khung nội dung, tự co giãn theo cửa sổ), chữ tiếng Việt và hình ảnh tiếng Việt đã dịch sẽ tự động hiển thị chuẩn xác.
+- **Lưu ý quan trọng tránh lỗi `Invalid token`**: Trước khi dán và nhấn Lưu, nếu bạn mở trang quản trị đã lâu hãy nhấn **F5 tải lại trang** (hoặc đăng nhập lại phiên quản trị) để làm mới CSRF/Session token của trình duyệt rồi mới dán code mới -> Lưu sản phẩm.
 """)
 
-print(f"Standardized export complete: {exported_products} products (0 empty HTML), {total_cover_imgs} cover images, {total_content_imgs} content images, {total_videos_exported} videos.")
+print(f"Standardized export complete: {exported_products} products (CMS-safe HTML), {total_cover_imgs} cover images, {total_content_imgs} content images, {total_videos_exported} videos.")

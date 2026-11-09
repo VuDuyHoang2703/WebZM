@@ -86,6 +86,13 @@
       contain-intrinsic-size: 800px;
     }
 
+    .zm-content-inner .slice_box.zm-video-slice {
+      content-visibility: visible;
+      width: 100% !important;
+      padding: 24px 0 !important;
+      text-align: center !important;
+    }
+
     /* Hiệu ứng Shimmer Skeleton tải ảnh mượt mà, tránh giật khung hình */
     @keyframes zmShimmer {
       0% { background-position: -200% 0; }
@@ -107,8 +114,11 @@
     .zm-content-inner .slice_inbox {
       margin: 0 auto !important;
       text-align: center !important;
-      position: relative !important;
       overflow: visible !important;
+    }
+
+    .zm-content-inner .slice_inbox:not([style*="position:absolute"]):not([style*="position: absolute"]) {
+      position: relative !important;
     }
 
     /* KHẮC PHỤC TRIỆT ĐỂ LỖI TAILWIND PREFLIGHT: Tailwind đặt mọi thẻ <img>, <video> */
@@ -122,15 +132,17 @@
       vertical-align: middle;
     }
 
-    /* Khung video giới thiệu ở đầu mục mô tả: Rộng 100% ngang bằng khung nội dung & tự co giãn theo cửa sổ */
+    /* Khung video giới thiệu bên dưới hình ảnh bộ sản phẩm: Rộng 80%, căn giữa & tự co giãn theo cửa sổ */
+    .zm-content-inner .zm-product-video,
     .zm-content-inner .zm-top-video-section {
-      width: 100% !important;
+      width: 80% !important;
       max-width: 100% !important;
-      margin: 0 auto 16px auto !important;
+      margin: 24px auto !important;
       padding: 0 !important;
       box-sizing: border-box !important;
     }
 
+    .zm-content-inner .zm-product-video video,
     .zm-content-inner .zm-top-video-section video {
       display: block !important;
       width: 100% !important;
@@ -138,6 +150,7 @@
       height: auto !important;
       margin: 0 auto !important;
       background-color: #000000 !important;
+      border-radius: 10px !important;
     }
 
     /* ========================================================================== */
@@ -347,10 +360,8 @@
     }
 
     /* Khối banner đầu trang của các dòng Super AI (Product 352, 351, 353, v.v.): Luôn có nền tối vũ trụ */
-    .zm-content-inner .slice_box:has(.gradient_tittle_top),
-    .zm-content-inner .slice_box:has(img[src*="/1.png"]) {
+    .zm-content-inner .slice_box:has(.gradient_tittle_top) {
       background-color: #060919 !important;
-      min-height: 520px !important;
     }
 
     /* Thẻ card có ảnh nền chụp thực tế (như mục Giáo dục STEM, Cuộc thi Robotics dòng Super AI) */
@@ -554,16 +565,23 @@
       height: auto !important;
     }
 
-    /* Khung video giới thiệu ở đầu mục mô tả: Luôn rộng 100% ngang bằng khung nội dung & tự co giãn theo cửa sổ */
+    /* Khung video đứng ngoài bọc: co giãn 80% căn giữa; video bên trong .zm-product-video giữ 100% của khung 80% */
     .zm-content-inner p > video,
-    .zm-content-inner video,
-    .zm-content-inner .zm-top-video-section video {
+    .zm-content-inner > video {
       display: block !important;
-      width: 100% !important;
+      width: 80% !important;
       max-width: 100% !important;
       height: auto !important;
       margin-left: auto !important;
       margin-right: auto !important;
+    }
+
+    .zm-content-inner .zm-product-video video {
+      display: block !important;
+      width: 100% !important;
+      max-width: 100% !important;
+      height: auto !important;
+      margin: 0 auto !important;
     }
 
     /* ========================================================================== */
@@ -904,6 +922,75 @@
     const GITHUB_MEDIA_CDN = 'https://raw.githubusercontent.com/VuDuyHoang2703/WebZM/main/media';
     const GITHUB_VIDEO_CDN = 'https://media.githubusercontent.com/media/VuDuyHoang2703/WebZM/main/media';
 
+    const DEAD_CSS_TOKENS = [
+      '#all_l', '#bg_l', '.tab_text_l', '.active_tab_l', '#cancel_btn',
+      '.tab_content_l', '.active_content_l', '.play_btn1', '.consult_btn',
+      '.get_more_btn', '.play_rule_video_btn'
+    ];
+    const CMS_SAFE_SLICE_CSS = [
+      '.container{width:100%;max-width:1560px;margin:0 auto;box-sizing:border-box;}',
+      '.slice_box{width:100%;max-width:1560px;margin-left:auto;margin-right:auto;box-sizing:border-box;overflow-x:hidden;}',
+      '.slice_inbox{margin:0 auto;text-align:center;max-width:100%;box-sizing:border-box;}',
+      '.slice_box img{max-width:100%;height:auto;vertical-align:middle;}',
+      '.zm-product-video{width:80%;max-width:100%;margin:24px auto;text-align:center;box-sizing:border-box;}',
+      '.zm-product-video video{width:100%;max-width:100%;height:auto;display:block;margin:0 auto;background-color:#000000;border-radius:10px;}',
+      '.icon_2,.icon_2 .icon_2_font1,.icon_2 .gray_font,.icon_8,.quality_item,.tookit_item,.task_robo_item{text-align:center;}',
+      '.icon_2 .icon_2_font1,.icon_2 .gray_font{margin-left:0;}',
+      '.icon_2 img,.icon_8 img,.func_icon_list img,.color_icon_list img,.quality_item img,.tookit_item img,.task_robo_item img{display:block;margin-left:auto;margin-right:auto;}',
+      '.color_icon_list{display:inline-block;width:90px;margin-top:24px;vertical-align:top;text-align:center;box-sizing:border-box;}',
+      '.gray_rect{display:inline-block;vertical-align:top;max-width:100%;overflow:hidden;}',
+      '.gray_rect img{width:100%;height:100%;object-fit:cover;display:block;}',
+      '.field_4{max-width:100%;box-sizing:border-box;}',
+      '.sensor_item{display:inline-block;vertical-align:top;}'
+    ].join('\n');
+
+    function cleanSingleCssBlock(cssText) {
+      const css = String(cssText || '').replace(/\/\*[\s\S]*?\*\//g, '');
+      const kept = [];
+      let i = 0;
+      const n = css.length;
+      while (i < n) {
+        const braceOpen = css.indexOf('{', i);
+        if (braceOpen === -1) break;
+        const selector = css.slice(i, braceOpen).trim();
+        let depth = 1;
+        let j = braceOpen + 1;
+        while (j < n && depth > 0) {
+          if (css[j] === '{') depth++;
+          else if (css[j] === '}') depth--;
+          j++;
+        }
+        let body = depth === 0 ? css.slice(braceOpen + 1, j - 1).trim() : '';
+        i = j;
+        if (!selector || !body) continue;
+        const selLower = selector.toLowerCase();
+        if (DEAD_CSS_TOKENS.some(tok => selLower.includes(tok))) continue;
+        if (selLower.includes('@') || selLower.includes(':has(') || selLower.includes('[') || selLower.includes('*')) continue;
+        body = body.replace(/text-shadow\s*:[^;]+;?/gi, '').trim();
+        if (body) kept.push(`${selector}{${body.replace(/\s+/g, ' ')}}`);
+      }
+      return kept.join('\n');
+    }
+
+    function normalizeStylesForCms(htmlStr) {
+      const styleRe = /<style\b[^>]*>([\s\S]*?)<\/style>/gi;
+      const styles = [];
+      let m;
+      while ((m = styleRe.exec(htmlStr)) !== null) {
+        styles.push(m[1]);
+      }
+      if (styles.length === 0) return htmlStr;
+      const body = htmlStr.replace(/<style\b[^>]*>[\s\S]*?<\/style>/gi, '');
+      const cleanedParts = styles.map(cleanSingleCssBlock).filter(Boolean);
+      const mergedCss = [cleanedParts.join('\n'), CMS_SAFE_SLICE_CSS].filter(Boolean).join('\n').trim();
+      const styleTag = `<style>\n${mergedCss}\n</style>`;
+      const contMatch = body.match(/^(\s*<div\b[^>]*class=["'][^"']*\bcontainer\b[^"']*["'][^>]*>)/i);
+      if (contMatch) {
+        return contMatch[1] + '\n' + styleTag + '\n' + body.slice(contMatch[1].length).replace(/^[\r\n]+/, '');
+      }
+      return styleTag + '\n' + body;
+    }
+
     function buildEcommerceHtmlForProduct(item) {
       if (!item) return '';
       const s = item.summary || {};
@@ -920,10 +1007,20 @@
       if (/<img\b/i.test(rawHtml) || /<video\b/i.test(rawHtml)) {
         ecomHtml = rawHtml;
         if (!ecomHtml.includes('slice_box')) {
+          ecomHtml = ecomHtml.replace(/<p\s+style=["']text-align:\s*left;?["']>/gi, '<p style="text-align:center;">');
+          ecomHtml = ecomHtml.replace(/<p>/gi, '<p style="text-align:center;margin:0;">');
           ecomHtml = ecomHtml.replace(/<img\b(?![^>]*style=)([^>]*?)>/gi, '<img style="width:100%;max-width:750px;height:auto;display:block;margin:0 auto;"$1>');
           if (!ecomHtml.trim().startsWith('<div class="container"')) {
             ecomHtml = `<div class="container" style="width:100%;max-width:1200px;margin:0 auto;box-sizing:border-box;">${ecomHtml}</div>`;
           }
+        } else {
+          if (ecomHtml.includes('table_out_div')) {
+            ecomHtml = ecomHtml.replace(/<div[^>]*\bonclick=[^>]*>[\s\S]*?Các khóa học khác[\s\S]*?<\/div>\s*<\/div>/gi, '');
+            ecomHtml = ecomHtml.replace(/(id=["']table_out_div["'][^>]*style=["'][^"']*?)height\s*:\s*1045px\s*;?/gi, '$1min-height:787px;height:auto;padding-bottom:32px;');
+          }
+          ecomHtml = ecomHtml.replace(/\s*\bonclick=["'][^"']*["']/gi, '');
+          ecomHtml = ecomHtml.replace(/style=["']margin-left:\s*-\d+px;?["']/gi, '');
+          ecomHtml = normalizeStylesForCms(ecomHtml);
         }
       } else {
         const parts = [
@@ -950,11 +1047,15 @@
         ecomHtml = parts.join('\n');
       }
 
+      ecomHtml = ecomHtml.replace(/<!--[\s\S]*?-->/g, '');
       ecomHtml = ecomHtml.replace(/&lần;/g, '×').replace(/&times;/g, '×');
+      ecomHtml = ecomHtml.replace(/url\((?:&#39;|&quot;|['"])*([^'"\)\s&]+)(?:&#39;|&quot;|['"])*\)/gi, "url('$1')");
+      ecomHtml = ecomHtml.replace(/<table(?![^>]*\balign=)([^>]*?)>/gi, '<table align="center"$1>');
       ecomHtml = ecomHtml.replace(/(?<![-\w])width\s*:\s*(\d+)px/g, (m, px) => {
         const val = parseInt(px, 10);
         return val >= 120 ? `width:100%;max-width:${val}px` : m;
       });
+      ecomHtml = ecomHtml.replace(/\n\s*\n+/g, '\n').trim();
       // Đổi toàn bộ link ảnh và video sang kho lưu trữ của dự án (tuyệt đối không gọi server ngoài oss.zmrobo.com)
       ecomHtml = ecomHtml.replace(/https?:\/\/oss\.zmrobo\.com\/[^\s"'\)\(&<>]+/gi, (fullUrl) => {
         const cleanUrl = fullUrl.split('?')[0];
@@ -1315,8 +1416,8 @@
           <i class="fa-solid fa-download"></i> <span class="hidden sm:inline">Tải File .HTML</span>
         </button>
         ${productVideo ? `
-          <button onclick="scrollToInlineVideo()" class="px-3.5 py-1.5 rounded-xl bg-purple-50 text-purple-700 hover:bg-purple-600 hover:text-white font-semibold text-xs transition flex items-center gap-1.5 cursor-pointer shadow-sm" title="Cuộn xuống xem video trực tiếp ngay đầu mục Mô tả sản phẩm">
-            <i class="fa-solid fa-circle-play text-purple-600"></i> <span class="hidden sm:inline">Xem Video Mô Tả</span>
+          <button onclick="scrollToInlineVideo()" class="px-3.5 py-1.5 rounded-xl bg-purple-50 text-purple-700 hover:bg-purple-600 hover:text-white font-semibold text-xs transition flex items-center gap-1.5 cursor-pointer shadow-sm" title="Cuộn xuống xem video trực tiếp (khung 80%) ngay dưới ảnh bộ sản phẩm">
+            <i class="fa-solid fa-circle-play text-purple-600"></i> <span class="hidden sm:inline">Xem Video (Khung 80%)</span>
           </button>
         ` : ''}
       `;
@@ -1406,7 +1507,7 @@
                 </button>
                 ${productVideo ? `
                   <button onclick="scrollToInlineVideo()" class="px-5 py-2.5 rounded-xl bg-purple-600 hover:bg-purple-700 text-white font-semibold text-sm transition shadow-md shadow-purple-600/20 flex items-center gap-2 cursor-pointer">
-                    <i class="fa-solid fa-circle-play"></i> Xem Video ngay tại mục Mô tả
+                    <i class="fa-solid fa-circle-play"></i> Xem Video Sản Phẩm (Khung 80%)
                   </button>
                 ` : ''}
               </div>
@@ -1423,7 +1524,7 @@
         fixedContent = fixedContent.replace(/<p\s+style=["']text-align:\s*left;?["']>/gi, '<p style="text-align: center;">');
         // Căn giữa toàn bộ bảng biểu (table) và sửa lỗi ký tự nhân &times; bị dịch thành &lần;
         fixedContent = fixedContent.replace(/&lần;/g, '×').replace(/&times;/g, '×');
-        fixedContent = fixedContent.replace(/<table(?![^>]*align=)/gi, '<table align="center" style="margin: 20px auto;"');
+        fixedContent = fixedContent.replace(/<table(?![^>]*\balign=)([^>]*?)>/gi, '<table align="center"$1>');
 
         // Fix tràn chữ & đè lên robot trên Product 302 (Early Soccer Robotics Kit)
         fixedContent = fixedContent.replace(/position:absolute;top:680px;top:186px;right:-220px;font-size:15px;text-align:center;/g, 'position:absolute;top:180px;left:760px;width:280px;font-size:15px;text-align:left;');
@@ -1448,10 +1549,10 @@
                             /class=["'][^"']*slice_box[^"']*["'][^>]*background(?:-color)?:\s*#(?:000000|000|101010)/i.test(cleanContent) ||
                             /^\s*<div[^>]*style=["'][^"']*background(?:-color)?:\s*#(?:000000|000|101010|0d0d0d|141414)/i.test(cleanContent);
         html += `
-          <!-- Mục Mô Tả Sản Phẩm: Video nằm trên đầu (nếu có), nội dung ngay bên dưới -->
+          <!-- Mục Mô Tả Sản Phẩm: Ảnh bộ kit trước -> Video khung 80% -> Mô tả & Thông số bên dưới -->
           <div id="zm-description-section" class="w-full border-t border-slate-200 my-6">
             <div class="w-full bg-slate-900 py-3 px-4 text-center text-xs sm:text-sm text-white font-bold tracking-wide">
-              <i class="fa-solid fa-file-lines mr-1.5 text-blue-400"></i> MÔ TẢ SẢN PHẨM CHI TIẾT ${productVideo ? '<span class="ml-2 px-2 py-0.5 rounded-full bg-purple-600 text-[11px] font-semibold">Có Video trực tiếp ở đầu mục mô tả</span>' : ''}
+              <i class="fa-solid fa-file-lines mr-1.5 text-blue-400"></i> MÔ TẢ SẢN PHẨM CHI TIẾT ${productVideo ? '<span class="ml-2 px-2 py-0.5 rounded-full bg-purple-600 text-[11px] font-semibold">Ảnh bộ kit → Video (80%) → Mô tả &amp; Thông số</span>' : ''}
             </div>
             <div class="zm-content-wrapper ${isDarkTheme ? 'zm-dark-wrapper' : ''}">
               <div class="zm-content-inner ${hasRichContent ? '' : 'px-4 py-8'}">
