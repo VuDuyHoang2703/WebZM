@@ -34,7 +34,7 @@ with open(f'{BASE_DIR}/data/products_full.json', 'r', encoding='utf-8') as f:
     products = json.load(f)
 
 USER_RAW_TOKENS = """
-1799 1707 2322e 2104e 2109 2321e 2321ae 2325e 2108+e 2106+e 2101+e 2101ae 2323e 2421 2508e
+1799 1707 2322e 2104e 2109 2321e 2321ae 2325e 2108+e 2106+e 2101+e 2101ae 2323e 2421 2495e 2508e
 2681 2681b 5161 1005 5148 9259 51489259 1245 1149a 1149 1536 2222 2257 1157 1153 2701 1141a 1146 1146a
 6313 9528a 1743 9420a 9520a 9523a 9261 3570a 3571a 3568a 6311 3568b 3579a 3581a 3582a
 9522 0242 0217 1279 0237 0120 0189 0124 0123 0117 0179 0190 0148 0146 0144 1276 7229
@@ -110,6 +110,23 @@ CMS_SAFE_SLICE_CSS = """
 .func_icon_div img{flex-shrink:0;}
 .func_icon_div div{flex:1;min-width:0;display:block;margin-left:10px;margin-top:3px;text-align:left;white-space:normal;}
 .sensor_item{display:inline-block;vertical-align:top;}
+.zm_wb_hero{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:24px 48px;width:100%;max-width:1260px;margin:0 auto;box-sizing:border-box;}
+.zm_wb_hero_left,.slice_inbox .zm_wb_hero_left{flex:0 1 400px;max-width:100%;text-align:center;box-sizing:border-box;}
+.zm_wb_hero_right,.slice_inbox .zm_wb_hero_right{flex:1 1 540px;max-width:740px;width:100%;text-align:center;box-sizing:border-box;}
+.zm_wb_mascot_row,.slice_inbox .zm_wb_mascot_row{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:24px 32px;width:100%;max-width:1240px;margin-top:36px;box-sizing:border-box;}
+.zm_wb_pills_col,.slice_inbox .zm_wb_pills_col{flex:1 1 540px;max-width:820px;display:flex;flex-wrap:wrap;align-items:center;gap:18px 20px;box-sizing:border-box;}
+.zm_wb_mascot_col,.slice_inbox .zm_wb_mascot_col{flex:0 1 360px;max-width:360px;margin:0 auto;text-align:center;box-sizing:border-box;}
+.zm_wb_pills_bar,.slice_inbox .zm_wb_pills_bar{display:flex;flex-wrap:wrap;align-items:center;justify-content:flex-start;gap:16px 20px;width:100%;max-width:1200px;margin-top:30px;box-sizing:border-box;}
+.zm_wb_pill{display:inline-flex;align-items:center;justify-content:flex-start;min-height:44px;height:auto;padding:8px 20px 8px 0;max-width:100%;box-sizing:border-box;}
+.zm_wb_pill img{flex-shrink:0;}
+.zm_wb_pill span{flex:1;min-width:0;line-height:1.35;text-align:left;}
+.zm_wb_cards4,.slice_inbox .zm_wb_cards4{display:flex;flex-wrap:wrap;justify-content:center;align-items:flex-start;gap:32px 24px;width:100%;max-width:1220px;margin-left:auto;margin-right:auto;box-sizing:border-box;}
+.zm_wb_card4,.slice_inbox .zm_wb_card4{flex:1 1 230px;max-width:270px;min-width:200px;margin:0;text-align:center;box-sizing:border-box;}
+.zm_wb_cards6,.slice_inbox .zm_wb_cards6{display:flex;flex-wrap:wrap;justify-content:center;align-items:flex-start;gap:24px 16px;width:100%;max-width:1200px;margin-left:auto;margin-right:auto;box-sizing:border-box;}
+.zm_wb_card6,.slice_inbox .zm_wb_card6{flex:1 1 140px;max-width:180px;min-width:130px;margin:0;text-align:center;box-sizing:border-box;}
+.zm_wb_hcard,.slice_inbox .zm_wb_hcard{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:24px 32px;width:100%;max-width:1200px;background-color:#ffffff;border-radius:40px;padding:16px 24px;box-sizing:border-box;}
+.zm_wb_hcard_img,.slice_inbox .zm_wb_hcard_img{flex:1 1 460px;max-width:660px;width:100%;height:auto;border-radius:28px;}
+.zm_wb_hcard_txt,.slice_inbox .zm_wb_hcard_txt{flex:1 1 320px;max-width:440px;width:100%;margin:0;text-align:left;box-sizing:border-box;}
 """.strip()
 
 INLINE_KEEP_WIDTH_CLASSES = {
@@ -286,9 +303,57 @@ def normalize_sensor_wrappers(html_str):
     )
     return out
 
+def normalize_wisebot_layout(html_str):
+    """Chuẩn hóa bố cục responsive thuần Flex cho JMC-NY-2495E (WiseBot) để không tràn/rớt hàng trên 1200px & 390px."""
+    if 'JMC-NY-2495E' not in html_str:
+        return html_str
+    out = html_str.replace('<div class="slice_inbox" style="', '<div class="slice_inbox" style="padding-left:16px;padding-right:16px;')
+    out = re.sub(
+        r'<div style="margin:0 auto;text-align:center;">\s*<div style="display:\s*inline-block;width:420px;padding-top:40px;vertical-align:top;">',
+        '<div class="zm_wb_hero">\n <div class="zm_wb_hero_left">',
+        out
+    )
+    out = out.replace(
+        '<div style="display:inline-block;width:760px;vertical-align:bottom;margin-left:80px;">',
+        '<div class="zm_wb_hero_right">'
+    )
+    out = out.replace(
+        '<div style="width:832px;height:200px;margin-top:50px;position:relative;">',
+        '<div class="zm_wb_mascot_row"><div class="zm_wb_pills_col">'
+    )
+    out = re.sub(
+        r'<img src="([^"]*2-5\.png)" style="width:393px;position:absolute;top:-120px;right:-436px;">',
+        r'</div><div class="zm_wb_mascot_col"><img src="\1" style="width:360px;max-width:100%;height:auto;"></div>',
+        out
+    )
+    out = re.sub(
+        r'<div style="width:1200px;height:(?:145|68|127)px;margin-top:\d+px;position:relative;">',
+        '<div class="zm_wb_pills_bar">',
+        out
+    )
+    def repl_pill(m):
+        st = m.group(1)
+        st = re.sub(r'(?:^|;)\s*(?:width|height|position|top|left|right|bottom|display|align-items|justify-content)\s*:[^;"]*', '', st, flags=re.I)
+        st = st.lstrip('; ').strip()
+        if st and not st.endswith(';'):
+            st += ';'
+        return f'<div class="zm_wb_pill" style="{st}">'
+    out = re.sub(r'<div style="([^"]*border-radius:100px;[^"]*)">', repl_pill, out, flags=re.I)
+    out = out.replace('<div style="width:1220px;margin-top:120px;">', '<div class="zm_wb_cards4" style="margin-top:72px;">')
+    out = out.replace('<div style="width:1220px;margin-top:80px;">', '<div class="zm_wb_cards4" style="margin-top:64px;">')
+    out = out.replace('<div style="width:1200px;margin-top:60px;">', '<div class="zm_wb_cards6" style="margin-top:50px;">')
+    out = re.sub(r'<div style="display:\s*inline-block;text-align:center;margin-right:30px;vertical-align:top;">', '<div class="zm_wb_card6">', out)
+    out = re.sub(r'<div style="display:\s*inline-block;text-align:center;(?:margin-right:\d+px;)?vertical-align:top;(?:margin-left:\d+px;)?">', '<div class="zm_wb_card4">', out)
+    out = out.replace('background-color:#fff;margin-top:80px;padding-top:50px;border-radius:40px;', 'background-color:#fff;margin-top:64px;padding:40px 24px 32px;border-radius:40px;')
+    out = out.replace('<div style="width:1200px;min-height:360px;height:auto;padding-bottom:32px;background-color:#fff;border-radius:40px;">', '<div class="zm_wb_hcard">')
+    out = re.sub(r'<img src="([^"]*4-[123]\.png)" style="[^"]*">', r'<img class="zm_wb_hcard_img" src="\1">', out)
+    out = re.sub(r'<div style="width:(?:400|460)px;display:\s*inline-block;vertical-align:top;margin-top:30px;margin-left:(?:40|20)px;">', '<div class="zm_wb_hcard_txt">', out)
+    out = re.sub(r'style="width:(378|450)px;', r'style="width:100%;max-width:\1px;', out)
+    return out
+
 def build_standardized_product_html(item, image_cdn=DEFAULT_IMAGE_CDN):
     """
-    Xây dựng HTML chuẩn hóa (<div class="container">...</div>) thuần CMS-safe cho TẤT CẢ 76 sản phẩm:
+    Xây dựng HTML chuẩn hóa (<div class="container">...</div>) thuần CMS-safe cho TẤT CẢ sản phẩm:
     - KHÔNG bọc zm-content-wrapper hay nhúng UI_SYNC_CSS (@keyframes / :has / attribute selectors) để tránh lỗi "Invalid token" khi dán vào Web bán hàng.
     - Trình tự chuẩn với mọi bộ kit có video: Hình ảnh bộ sản phẩm -> Video giới thiệu (khung 80%, căn giữa, tự co giãn) -> Mô tả & Thông số.
     - Tối đa 1 video mỗi bộ sản phẩm.
@@ -396,16 +461,18 @@ def build_standardized_product_html(item, image_cdn=DEFAULT_IMAGE_CDN):
         out = '\n'.join(parts)
 
     # Xóa HTML comments & chuẩn hóa ký tự / entity / bảng biểu / responsive width
+    out = out.replace('\r\n', '\n')
     out = re.sub(r'<!--.*?-->', '', out, flags=re.S)
     out = out.replace('&lần;', '×').replace('&times;', '×')
     out = re.sub(r"url\((?:&#39;|&quot;|['\"])*([^'\"\)\s&]+)(?:&#39;|&quot;|['\"])*\)", r"url('\1')", out, flags=re.I)
 
     out = normalize_tables_for_cms(out)
     out = normalize_sensor_wrappers(out)
+    out = normalize_wisebot_layout(out)
     out = make_inline_containers_responsive(out)
 
     # Làm gọn khoảng trắng thừa giữa các dòng
-    out = re.sub(r'\n\s*\n+', '\n', out.replace('\r\n', '\n')).strip()
+    out = re.sub(r'\n\s*\n+', '\n', out).strip()
 
     # Thay thế toàn bộ link ảnh & video (/media/... hoặc oss.zmrobo.com/...) sang kho lưu trữ của dự án (tuyệt đối không gọi server ngoài)
     if image_cdn:
@@ -602,7 +669,8 @@ if os.path.exists(os.path.join(BASE_DIR, 'tools', 'server.py')):
     shutil.copy2(os.path.join(BASE_DIR, 'tools', 'server.py'), os.path.join(sync_tools_dir, 'server.py'))
 
 # 3. Xuất bảng tổng hợp Excel/CSV chuẩn UTF-8-SIG (mở trực tiếp trên Excel / OneDrive không lỗi font)
-csv_path = os.path.join(EXPORT_DIR, '0_DANH_SACH_76_SAN_PHAM_BAN_HANG.csv')
+csv_filename = f'0_DANH_SACH_{exported_products}_SAN_PHAM_BAN_HANG.csv'
+csv_path = os.path.join(EXPORT_DIR, csv_filename)
 with open(csv_path, 'w', encoding='utf-8-sig', newline='') as f:
     writer = csv.writer(f)
     writer.writerow([
@@ -614,9 +682,10 @@ with open(csv_path, 'w', encoding='utf-8-sig', newline='') as f:
     writer.writerows(csv_rows)
 
 # 4. Xuất file hướng dẫn chi tiết cho nhân sự công ty trên OneDrive
+num_video_kits = sum(1 for r in csv_rows if r[12])
 guide_path = os.path.join(EXPORT_DIR, '0_HUONG_DAN_NAP_WEB_BAN_HANG.md')
 with open(guide_path, 'w', encoding='utf-8') as f:
-    f.write("""# HƯỚNG DẪN NẠP DỮ LIỆU & HÌNH ẢNH 76 SẢN PHẨM LÊN WEB BÁN HÀNG CÔNG TY
+    f.write(f"""# HƯỚNG DẪN NẠP DỮ LIỆU & HÌNH ẢNH {exported_products} SẢN PHẨM LÊN WEB BÁN HÀNG CÔNG TY
 
 Thư mục này đã được chuẩn hóa 100% để lưu trữ trên **Microsoft OneDrive công ty** và nạp trực tiếp vào **Web bán hàng**.
 
@@ -624,21 +693,21 @@ Thư mục này đã được chuẩn hóa 100% để lưu trữ trên **Microso
 
 ## 1. Cấu trúc thư mục
 
-1. **`0_DANH_SACH_76_SAN_PHAM_BAN_HANG.csv`**:
-   - File bảng tính Excel tổng hợp đầy đủ 76 sản phẩm (Mã SP, Tên tiếng Việt, Danh mục, Giới thiệu ngắn, Link ảnh đại diện, Link PDF hướng dẫn, và cột cuối cùng chứa sẵn **Code HTML mô tả sản phẩm**).
+1. **`{csv_filename}`**:
+   - File bảng tính Excel tổng hợp đầy đủ {exported_products} sản phẩm (Mã SP, Tên tiếng Việt, Danh mục, Giới thiệu ngắn, Link ảnh đại diện, Link PDF hướng dẫn, và cột cuối cùng chứa sẵn **Code HTML mô tả sản phẩm**).
    - Có thể mở trực tiếp trên Excel hoặc OneDrive (đã mã hóa chuẩn UTF-8 BOM không lỗi font tiếng Việt).
 
 2. **`1_File_HTML_Copy_Dan_Web/`**:
-   - Chứa **76 file `.html` riêng biệt** ứng với 76 mã sản phẩm (ví dụ: `1707 - JMC-SV-1707 - RoboMaker.html`, `2421 - JMC-NY-2421 - Beta Set.html`).
+   - Chứa **{exported_products} file `.html` riêng biệt** ứng với {exported_products} mã sản phẩm (ví dụ: `1707 - JMC-SV-1707 - RoboMaker.html`, `2421 - JMC-NY-2421 - Beta Set.html`, `2495E - JMC-NY-2495E - WiseBot.html`).
    - Toàn bộ code HTML đã được làm sạch chuẩn `<div class="container">...</div>` tương thích trực tiếp với trình soạn thảo Web công ty (đã gỡ bỏ CSS nặng/modal thừa/thẻ lỗi gây `Invalid token`).
    - Bố cục chuẩn với các bộ sản phẩm có video (tối đa **1 video / bộ**): **Hình ảnh của bộ trước -> Video (khung 80%, căn giữa, tự co giãn) -> Mô tả chi tiết & Thông số**.
 
 3. **`2_Bo_San_Pham_Kem_Hinh_Anh/`**:
-   - Chứa **76 thư mục riêng** của từng sản phẩm. Bên trong mỗi thư mục gồm:
+   - Chứa **{exported_products} thư mục riêng** của từng sản phẩm. Bên trong mỗi thư mục gồm:
      - `1_anh_dai_dien/`: Ảnh bìa / slide đại diện (đã chuẩn hóa nền trắng tinh `#FFFFFF` RGB) để tải lên mục **Ảnh đại diện sản phẩm** trên web bán hàng.
      - `2_anh_noi_dung_mo_ta/`: Toàn bộ ảnh & video nằm trong bài viết mô tả (đã bao gồm ảnh dịch tiếng Việt).
      - `3_anh_da_dich_tieng_viet/`: Lọc riêng các tấm ảnh đã dịch sang tiếng Việt của mã sản phẩm đó.
-     - `4_video_gioi_thieu/`: Tối đa **1 video `.mp4`** giới thiệu đúng bộ sản phẩm đó (đối với 13 bộ sản phẩm có video).
+     - `4_video_gioi_thieu/`: Tối đa **1 video `.mp4`** giới thiệu đúng bộ sản phẩm đó (đối với {num_video_kits} bộ sản phẩm có video).
      - `<Mã SP>.html`: File code HTML chuẩn để copy dán vào trình soạn thảo web bán hàng.
      - `xem_thu_offline.html`: Nhấp đúp để xem trước giao diện bài viết (kèm video khung 80% bên dưới hình ảnh bộ kit) ngay trên máy tính.
      - `thong_tin_san_pham.txt`: Tóm tắt nhanh thông tin sản phẩm.
@@ -651,7 +720,7 @@ Thư mục này đã được chuẩn hóa 100% để lưu trữ trên **Microso
 ## 2. Các bước nạp sản phẩm lên Web bán hàng công ty
 
 ### Bước 1: Điền thông tin cơ bản & tải Ảnh đại diện
-- Mở file `0_DANH_SACH_76_SAN_PHAM_BAN_HANG.csv` (hoặc `thong_tin_san_pham.txt` trong thư mục sản phẩm) để lấy **Tên sản phẩm**, **Mã sản phẩm**, **Danh mục**, **Giới thiệu ngắn**.
+- Mở file `{csv_filename}` (hoặc `thong_tin_san_pham.txt` trong thư mục sản phẩm) để lấy **Tên sản phẩm**, **Mã sản phẩm**, **Danh mục**, **Giới thiệu ngắn**.
 - Tải ảnh đại diện sản phẩm từ thư mục `1_anh_dai_dien/` của mã đó lên mục **Ảnh sản phẩm / Album ảnh** trên web bán hàng.
 
 ### Bước 2: Dán nội dung HTML mô tả chi tiết
